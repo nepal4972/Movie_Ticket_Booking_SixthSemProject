@@ -1,0 +1,39 @@
+# BEGIN htaccess
+RewriteEngine On
+
+# Removes Extensions
+RewriteCond %{REQUEST_FILENAME} !-d 
+RewriteCond %{REQUEST_FILENAME}\.php -f 
+RewriteRule ^(.*)$ $1.php
+
+# Redirects From Extensions To Non-Extensions
+RewriteCond %{THE_REQUEST} \s/+(.+)\.php[\s?] [NC]
+RewriteRule ^ /%1 [R=301,NE,L]
+
+
+RewriteRule ^home/([0-9]+)/([0-9a-zA-Z_-]+) home.php?user_id=$1&test=$2
+
+#RewriteRule ^signup/([0-9a-zA-Z_-]+) signup.php?signup=$1
+
+
+# To Turn Off Directory Listing
+Options -Indexes
+
+
+# Change Server Signature
+# ServerSignature Email
+# SetEnv SERVER_ADMIN nepal4972@gmail.com
+
+# To Turn Off Server Signature
+#ServerSignature Off
+
+#Error Pages
+ErrorDocument 400 /phpcode/test-projects/Movie_Ticket_Booking_SixthSemProject/errors/400.php
+ErrorDocument 401 /phpcode/test-projects/Movie_Ticket_Booking_SixthSemProject/errors/401.php
+ErrorDocument 403 /phpcode/test-projects/Movie_Ticket_Booking_SixthSemProject/errors/403.php
+ErrorDocument 404 /phpcode/test-projects/Movie_Ticket_Booking_SixthSemProject/errors/404.php
+ErrorDocument 500 /phpcode/test-projects/Movie_Ticket_Booking_SixthSemProject/errors/500.php
+ErrorDocument 502 /phpcode/test-projects/Movie_Ticket_Booking_SixthSemProject/errors/502.php
+ErrorDocument 503 /phpcode/test-projects/Movie_Ticket_Booking_SixthSemProject/errors/503.php
+
+# END htaccess
