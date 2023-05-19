@@ -1,5 +1,5 @@
 <?php
-include '../includes/scripts.php';
+include '../includes/links.php';
 ?>
 
 <!DOCTYPE html>
