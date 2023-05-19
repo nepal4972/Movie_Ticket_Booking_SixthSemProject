@@ -9,11 +9,11 @@ session_start();
 <script>
 iziToast.<?php echo $_SESSION['status']; ?>({
     title: '',
-    message: '<?php echo $_SESSION['status_code']; ?>', 
-    position: 'topRight',
+    message: '<?php echo $_SESSION['status_code']; ?>',
+    position: 'topCenter',
 });
     </script>
     <?php
         unset($_SESSION['status']);
     }
-?>      
+?>

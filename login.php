@@ -22,8 +22,8 @@ include './includes/links.php';
                <div class="login_box">
                   <i class="ri-user-3-line login_icon"></i>
                   <div class="login_box-input">
-                     <input type="text" required name="username" class="login_input" placeholder=" ">
-                     <label for="" class="login_label">Email or Username</label>
+                     <input type="text" required name="fullname" class="login_input" placeholder=" ">
+                     <label for="" class="login_label">Email or Number</label>
                   </div>
                </div>
 
@@ -38,7 +38,7 @@ include './includes/links.php';
             </div>
 
             <div class="login_check">
-               <div class="login_check-group">  
+               <div class="login_check-group">
                   <input type="checkbox" class="login_check-input">
                   <label for="" class="login_check-label">Remember me</label>
 

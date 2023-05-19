@@ -4,17 +4,17 @@ require '../db/connect.php';
 <link rel="stylesheet" href="../alerts/iziToast-master/dist/css/iziToast.min.css">
 <?php
 if(isset($_POST['login_submit'])) {
-    $username = $_POST['username'];
+    $fullname = $_POST['fullname'];
     $password = $_POST['password'];
 
-    if(empty($username) || empty($password)) {
+    if(empty($fullname) || empty($password)) {
         $_SESSION['status']="warning";
         $_SESSION['status_code']="Please Fill All The Fields";
         header("Location: ../login.php");
         exit();
     }   
     else {
-        $sql = "SELECT * FROM users WHERE username = ? OR email = ?";
+        $sql = "SELECT * FROM users WHERE email = ? OR phone_number = ?";
         $stmt = mysqli_stmt_init($conn);
 
         if(!mysqli_stmt_prepare($stmt, $sql)) {
@@ -24,7 +24,7 @@ if(isset($_POST['login_submit'])) {
             exit();
         }
         else {
-            mysqli_stmt_bind_param($stmt, "ss", $username, $username);
+            mysqli_stmt_bind_param($stmt, "ss", $fullname, $fullname);
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
 
@@ -33,7 +33,7 @@ if(isset($_POST['login_submit'])) {
 
                 if ($password == $row['password']) {
                     $_SESSION['userID'] = $row['userID'];
-                    $_SESSION['username'] = $row['username'];
+                    $_SESSION['fullname'] = $row['fullname'];
                     $_SESSION['email'] = $row['email'];
 
                     $_SESSION['status']="success";

@@ -22,19 +22,27 @@ include './includes/links.php';
                <div class="login_box">
                   <i class="ri-user-3-line login_icon"></i>
                   <div class="login_box-input">
-                     <input type="text" required name="username" class="login_input" placeholder=" ">
-                     <label for="" class="login_label">Username</label>
+                     <input type="text" required name="fullname" class="login_input" placeholder=" ">
+                     <label for="" class="login_label">Full Name</label>
                   </div>
                </div>
-
+               
                <div class="login_box">
-               <i class="ri-mail-line login_icon"></i>
+                  <i class="ri-mail-line login_icon"></i>
                   <div class="login_box-input">
                      <input type="email" required name="email" class="login_input" placeholder=" ">
                      <label for="" class="login_label">Email</label>
                   </div>
                </div>
 
+               <div class="login_box">
+                  <i class="ri-phone-line login_icon"></i>
+                  <div class="login_box-input">
+                     <input type="number" required name="phone_number" class="login_input" placeholder=" ">
+                     <label for="" class="login_label">Phone Number</label>
+                  </div>
+               </div>
+            
                <div class="login_box">
                   <i class="ri-lock-2-line login_icon"></i>
                   <div class="login_box-input">

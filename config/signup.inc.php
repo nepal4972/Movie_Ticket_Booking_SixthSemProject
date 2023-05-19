@@ -6,20 +6,21 @@ require '../db/connect.php';
 
 if(isset($_POST['submit'])) {
 
-    $username = htmlspecialchars($_POST['username'], ENT_QUOTES);
+    $fullname = htmlspecialchars($_POST['fullname'], ENT_QUOTES);
     $email = htmlspecialchars($_POST['email'], ENT_QUOTES);
+    $phone_number = htmlspecialchars($_POST['phone_number'], ENT_QUOTES);
     $password = htmlspecialchars($_POST['password'], ENT_QUOTES);
     $cpassword = htmlspecialchars($_POST['cpassword'], ENT_QUOTES);
 
 
     $checkEmail = mysqli_query($conn, "SELECT * FROM users WHERE email = '$email'") or die ("Query Failed");
-    $checkUsername = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username'") or die ("Query Failed");
+    $checkphone_number = mysqli_query($conn, "SELECT * FROM users WHERE phone_number = '$phone_number'") or die ("Query Failed");
 
     date_default_timezone_set('Asia/Kathmandu');
     $registerdate = date('d-m-y h:i:s');
 
     
-    if(empty($username) || empty($email) || empty($password) || empty($cpassword)) {
+    if(empty($fullname) || empty($email) || empty($phone_number) || empty($password) || empty($cpassword)) {
         $_SESSION['status']="warning";
         $_SESSION['status_code']="Please Fill All The Fields";
         header("Location: ../signup?username=".$username."&email=".$email);
@@ -34,9 +35,9 @@ if(isset($_POST['submit'])) {
                 exit();
             }
             else {
-                if(mysqli_num_rows($checkUsername) > 0) {
+                if(mysqli_num_rows($checkphone_number) > 0) {
                     $_SESSION['status']="warning";
-                    $_SESSION['status_code']="This Username is Already Used";
+                    $_SESSION['status_code']="This Phone Number is Already Used";
                     header("Location: ../signup?email=".$email);
                     exit();
                 }
@@ -49,18 +50,18 @@ if(isset($_POST['submit'])) {
                             exit();
                         }
                         else {
-                            $sql = "INSERT INTO users (username, email, password, usertype, registerdate) VALUES (?, ?, ?, ?, ?)";
+                            $sql = "INSERT INTO users (fullname, email, phone_number, password, usertype, registerdate) VALUES (?, ?, ?, ?, ?, ?)";
                             $stmt = mysqli_stmt_init($conn);
                             if(!mysqli_stmt_prepare($stmt, $sql)) {
                                 $query = mysqli_query($conn, $sql);
                                 $_SESSION['status']="error";
-                                $_SESSION['status_code']="SQL Error";
+                                $_SESSION['status_code']="SQL Error";   
                                 header("Location: ../signup");
                                 exit();
                             }
                             else {
                                 $usertype = 0;
-                                mysqli_stmt_bind_param($stmt, "sssis", $username, $email, $password, $usertype , $registerdate);
+                                mysqli_stmt_bind_param($stmt, "ssssis", $fullname, $email, $phone_number, $password, $usertype , $registerdate);
                                 mysqli_stmt_execute($stmt);
                                 $_SESSION['status']="success";
                                 $_SESSION['status_code']="SignedUp Successful. You can Login Now";
