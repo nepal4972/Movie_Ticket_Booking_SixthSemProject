@@ -12,9 +12,7 @@ include './includes/links.php';
     <link rel="stylesheet" href="./alerts/iziToast-master/dist/css/iziToast.min.css">
     <link rel="stylesheet" href="<?php echo $csspath ?>">
 </head>
-<body>
-    
-    
+<body style="color:black">
     
 </body>
 </html>

@@ -23,7 +23,7 @@ if(isset($_POST['submit'])) {
     if(empty($fullname) || empty($email) || empty($phone_number) || empty($password) || empty($cpassword)) {
         $_SESSION['status']="warning";
         $_SESSION['status_code']="Please Fill All The Fields";
-        header("Location: ../signup?username=".$username."&email=".$email);
+        header("Location: ../signup?fullname=".$fullname."&email=".$email);
         exit();
     }
     else {
@@ -31,7 +31,7 @@ if(isset($_POST['submit'])) {
             if(mysqli_num_rows($checkEmail) > 0) {
                 $_SESSION['status']="error";
                 $_SESSION['status_code']="This Email is Already Used";
-                header("Location: ../signup?username=".$username);
+                header("Location: ../signup?fullname=".$usernamefullname);
                 exit();
             }
             else {
@@ -46,7 +46,7 @@ if(isset($_POST['submit'])) {
                         if($password !== $cpassword) {
                             $_SESSION['status']="warning";
                             $_SESSION['status_code']="Password Doesn't Matched";
-                            header("Location: ../signup?username=".$username."&email=".$email);
+                            header("Location: ../signup?fullname=".$fullname."&email=".$email);
                             exit();
                         }
                         else {
@@ -55,7 +55,7 @@ if(isset($_POST['submit'])) {
                             if(!mysqli_stmt_prepare($stmt, $sql)) {
                                 $query = mysqli_query($conn, $sql);
                                 $_SESSION['status']="error";
-                                $_SESSION['status_code']="SQL Error";   
+                                $_SESSION['status_code']="SQL Error";
                                 header("Location: ../signup");
                                 exit();
                             }
@@ -73,7 +73,7 @@ if(isset($_POST['submit'])) {
                     else {
                         $_SESSION['status']="warning";
                         $_SESSION['status_code']="Password Should be 8 Character Long";
-                        header("Location: ../signup?username=".$username."&email=".$email);
+                        header("Location: ../signup?fullname=".$fullname."&email=".$email);
                         exit();
                     }
                 }
@@ -82,7 +82,7 @@ if(isset($_POST['submit'])) {
         else {
             $_SESSION['status']="error";
             $_SESSION['status_code']="Invalid Email";
-            header("Location: ../signup?username=".$username);
+            header("Location: ../signup?fullname=".$fullname);
             exit();
         }
     }
