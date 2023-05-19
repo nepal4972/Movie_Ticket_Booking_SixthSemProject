@@ -38,7 +38,7 @@ include './includes/links.php';
                <div class="login_box">
                   <i class="ri-phone-line login_icon"></i>
                   <div class="login_box-input">
-                     <input type="number" required name="phone_number" class="login_input" placeholder=" ">
+                     <input type="tel" required name="phone_number" class="login_input" placeholder=" ">
                      <label for="" class="login_label">Phone Number</label>
                   </div>
                </div>
