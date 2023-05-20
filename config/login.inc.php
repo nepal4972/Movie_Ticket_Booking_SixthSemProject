@@ -37,7 +37,7 @@ if(isset($_POST['login_submit'])) {
                     $_SESSION['email'] = $row['email'];
 
                     $_SESSION['status']="success";
-                    $_SESSION['status_code']="You are Logged in";
+                    $_SESSION['status_code']='You are Logged in as: ' . $_SESSION['fullname'];
                     header("Location: ../index.php");
                     exit(); 
                 }

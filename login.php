@@ -3,6 +3,9 @@ include './db/connect.php';
 include './includes/links.php';
 ?>
 
+<?php
+if(isset($_SESSION['fullname'])==null) {
+?>
 <!DOCTYPE html>
    <html lang="en">
    <head>
@@ -58,7 +61,13 @@ include './includes/links.php';
       ?>
    </body>
 </html>
-<script src="./alerts/iziToast-master/dist/js/iziToast.min.js"></script>
+<?php
+}
+else {
+   header("Location: ./errors/100.php");
+}
+?>
+
 <?php
 include './includes/alert.php';
 ?>

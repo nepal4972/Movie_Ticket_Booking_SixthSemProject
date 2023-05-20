@@ -2,12 +2,11 @@
 include '../includes/links.php';
 ?>
 
-
 <!DOCTYPE html>
 <html>
 <head>
  <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
- <title>500 Error <?php echo $title ?></title>
+ <title>400 Error <?php echo $title ?></title>
 </head>
 <body>
 
@@ -86,10 +85,11 @@ include '../includes/links.php';
 
 <div class="main_body">
  <div class="center_body">
-  <h1>500</h1>
-  <h2>INTERNAL SERVER ERROR</h2>
-  <p>The Server Encounter an Internal Error or Misconfiguration and Unable to Complete Your request...!!!!</p>
-  <a href="<?php echo $errorsindex ?>"> go to homepage</a>
+  <h1>100</h1>
+  <h2>COMPLETED REQUEST</h2>
+  <p>Already Logged in. Logout First.....!!!!</p>
+  <a href="../logout.php"> logout</a> <br>
+  <a href="../index.php"> Go To Homepage</a>
  </div>
 </div>
 

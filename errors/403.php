@@ -88,7 +88,7 @@ include '../includes/links.php';
   <h1>403</h1>
   <h2>FORBIDDEN REQUEST</h2>
   <p>You Don't Have Permission To Access This Resources in The Server.....!!!!</p>
-  <a href="http://localhost/phpcode/project%20II/index.php"> go to homepage</a>
+  <a href="<?php echo $errorsindex ?>"> go to homepage</a>
  </div>
 </div>
 
@@ -100,7 +100,7 @@ include '../includes/links.php';
         setFavicon.setAttribute('href',favImg);
         headTitle.appendChild(setFavicon);
     }
-    setFavicons('http://localhost/phpcode/project%20II/img/logos/error.ico');
+    setFavicons('<?php echo $errorsicon ?>');
 </script>
 
 </body>

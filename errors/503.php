@@ -88,7 +88,7 @@ include '../includes/links.php';
   <h1>503</h1>
   <h2>SERVICE UNAVAILABLE</h2>
   <p>This Site is Under Maintainance. Please Try Again Later.....!!!!</p>
-  <a href="http://localhost/phpcode/project%20II/index.php"> go to homepage</a>
+  <a href="<?php echo $errorsindex ?>"> go to homepage</a>
  </div>
 </div>
 
@@ -100,7 +100,7 @@ include '../includes/links.php';
         setFavicon.setAttribute('href',favImg);
         headTitle.appendChild(setFavicon);
     }
-    setFavicons('http://localhost/phpcode/project%20II/img/logos/error.ico');
+    setFavicons('<?php echo $errorsicon ?>');
 </script>
 
 </body>
