@@ -8,6 +8,7 @@ if(isset($_POST['login_submit'])) {
     $password = $_POST['password'];
 
     if(empty($fullname) || empty($password)) {
+        $_SESSION['icons']="./img/alerticons/warning.png";  
         $_SESSION['status']="warning";
         $_SESSION['status_code']="Please Fill All The Fields";
         header("Location: ../login.php");
@@ -18,6 +19,7 @@ if(isset($_POST['login_submit'])) {
         $stmt = mysqli_stmt_init($conn);
 
         if(!mysqli_stmt_prepare($stmt, $sql)) {
+            $_SESSION['icons']="./img/alerticons/error.png";  
             $_SESSION['status']="error";
             $_SESSION['status_code']="SQL Error";
             header("Location: ../login.php");
@@ -36,12 +38,14 @@ if(isset($_POST['login_submit'])) {
                     $_SESSION['fullname'] = $row['fullname'];
                     $_SESSION['email'] = $row['email'];
 
+                    $_SESSION['icons']="./img/alerticons/success.png";  
                     $_SESSION['status']="success";
                     $_SESSION['status_code']='You are Logged in as: ' . $_SESSION['fullname'];
                     header("Location: ../index.php");
                     exit(); 
                 }
                 else {
+                    $_SESSION['icons']="./img/alerticons/warning.png";  
                     $_SESSION['status']="warning";
                     $_SESSION['status_code']="Incorrect Password";
                     header("Location: ../login.php");
@@ -49,6 +53,7 @@ if(isset($_POST['login_submit'])) {
                 }
             }       
             else {
+                $_SESSION['icons']="./img/alerticons/error.png";
                 $_SESSION['status']="error";
                 $_SESSION['status_code']="Unknown Email or Password";
                 header("Location: ../login.php");
@@ -58,6 +63,7 @@ if(isset($_POST['login_submit'])) {
     }
 }
 else {
+    $_SESSION['icons']="./img/alerticons/error.png";  
     $_SESSION['status']="error";
     $_SESSION['status_code']="Data Submission Error";
     header("Location: ../login.php");

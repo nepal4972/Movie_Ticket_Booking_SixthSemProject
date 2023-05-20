@@ -12,7 +12,7 @@ if(isset($_SESSION['fullname'])==null) {
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-      <link rel="stylesheet" href="./alerts/iziToast-master/dist/css/iziToast.min.css">
+      <link rel="stylesheet" href="./alerts/dist/css/iziToast.min.css">
       <link rel="shortcut icon" href="<?php echo $favicon ?>" type="image/x-icon">
       <link rel="stylesheet" href="<?php echo $csspath ?>">
       <title>Login <?php echo $title ?></title>
