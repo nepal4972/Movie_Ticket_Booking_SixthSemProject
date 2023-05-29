@@ -41,14 +41,9 @@ if(isset($_SESSION['fullname'])==null) {
             </div>
 
             <div class="login_check">
-               <div class="login_check-group">
-                  <input type="checkbox" class="login_check-input">
-                  <label for="" class="login_check-label">Remember me</label>
-
                   <a href="<?php echo $base."resetpassword.php"?>" name="forgot" class="login_forgot">Forgot Password?</a>
-               </div>
-            </div>
-
+            <br>
+            <br>
             <button class="login_button" name="login_submit">Login</button>
 
             <p class="login_register">

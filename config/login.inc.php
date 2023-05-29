@@ -1,7 +1,7 @@
 <?php
 require '../db/connect.php';
 ?>
-<link rel="stylesheet" href="../alerts/iziToast-master/dist/css/iziToast.min.css">
+<link rel="stylesheet" href="../alerts/dist/css/iziToast.min.css">
 <?php
 if(isset($_POST['login_submit'])) {
     $fullname = $_POST['fullname'];
@@ -71,4 +71,4 @@ else {
 }
 
 ?>
-<script src="../alerts/iziToast-master/dist/js/iziToast.min.js"></script>
+<script src="../alerts/dist/js/iziToast.min.js"></script>

@@ -127,17 +127,6 @@ img {
   padding-right: 1.8rem;
 }
 
-.login_check,
-.login_check-group {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.login_check {
-  margin-bottom: 1.5rem;
-}
-
 .login_check-label,
 .login_forgot,
 .login_register {
