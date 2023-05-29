@@ -1,3 +1,8 @@
+<?php
+include '../db/connect.php';
+include '../includes/links.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,12 +10,14 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="css/jquery.seat-charts.css">
 	<link rel="stylesheet" href="seat/style.css">
-	<title>Test</title>
+	<title>Seats
+		<?php echo $title ?>Test
+	</title>
 </head>
 
 <body>
+
 	<style>
 		* {
 			-webkit-box-sizing: border-box;
@@ -69,7 +76,7 @@
 
 		body {
 			font-family: "Poppins", sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-			background: #192027;
+			background: #25274D;
 			color: var(--font-color);
 			position: relative;
 		}
@@ -80,7 +87,7 @@
 		}
 
 		.booking-details {
-			background: var(--bg-color);
+			background: #25274D;
 			padding: 15px 30px 10px 15px;
 		}
 
@@ -323,8 +330,61 @@
 			position: relative;
 			width: inherit;
 		}
-	</style>
 
+		.content-right {
+			display: flex;
+			justify-content: space-between;
+			padding: 10px;
+			bottom: 0;
+			background: var(--bg-color);
+			border-top: 1px solid var(--border-color);
+			align-items: center;
+		}
+
+		.sfGrandTotal {
+			margin-right: 10px;
+			text-align: center;
+		}
+
+		.sfGrandTotal h2 {
+			margin: 0 5px 0 0;
+			font-size: 18px;
+			float: left;
+			font-weight: 600;
+		}
+
+		h2,
+		.h2 {
+			font-size: 24px;
+		}
+
+		.sfProceedButtonWrap {
+			display: flex;
+			align-items: center;
+			margin: 0 -5px;
+		}
+
+		.sfProceedButton .btnProceed {
+			display: block;
+			font-size: 14px;
+			padding: 6px 20px;
+			color: #fff;
+			text-align: center;
+			text-transform: uppercase;
+			cursor: pointer;
+			font-family: 'Montserrat', sans-serif;
+			border-radius: 12px;
+			font-weight: 600;
+		}
+
+		.btnReserveTicket {
+			background: #009688 !important;
+			border-color: #009688;
+			border-radius: 64px !important;
+			transition: all 0.3s ease-in-out;
+		}
+	</style>
+	<option hidden id="movie" value="10"></option>
 	<div class="main">
 
 		<div class="booking-details">
@@ -341,22 +401,17 @@
 				<li><span class="sfSelectedSeat"></span>Selected</li>
 				<li><span class="sfBookedSeat"></span>Booked</li>
 				<li><span class="sfSoldSeat"></span>Sold</li>
-				<li class="mobile-notice" style="display:none">** Please use right side space if scroll do not work
-					normally
-				</li>
 			</ul>
 		</div>
-		
-
 
 		<div class="all">
 			<select hidden id="movie">
-			</select>	
+			</select>
 			<div class="container">
 				<div class="screen">SCREEN</div>
-				
+
 				<div class="row">
-					<div class="seat" data-value="F1">F1</div>
+					<div class="seat box" data-value="F1">F1</div>
 					<div class="seat box" data-value="F2">F2</div>
 					<div class="seat box" data-value="F3">F3</div>
 					<div class="seat box" data-value="F4">F4</div>
@@ -396,12 +451,12 @@
 					<div class="seat box sold" data-value="C8">C8</div>
 				</div>
 				<div class="row">
-					<div class="seat box" data-value="B1" >B1</div>
+					<div class="seat box" data-value="B1">B1</div>
 					<div class="seat box" data-value="B2">B2</div>
 					<div class="seat box" data-value="B3">B3</div>
 					<div class="seat box sold" data-value="B4">B4</div>
 					<div class="seat box sold" data-value="B5">B5</div>
-					<div class="seat box <?php echo $sold ?>" data-value="B6">B6</div>
+					<div class="seat box sold" data-value="B6">B6</div>
 					<div class="seat box" data-value="B7">B7</div>
 					<div class="seat box" data-value="B8">B8</div>
 				</div>
@@ -417,23 +472,29 @@
 				</div>
 
 			</div>
-			<script src="seat/app.js"></script>
-			
-			<p class="text">
-				<?php
+		</div>
+		<div class="content-right">
+			<div class="sfGrandTotal">
+				<h2>Total Rs. <span hidden id="count"></span><span id="total">0</span></h2>
+			</div>
+			<h5><div style="font-size:12px" id="selected-values"></div></h5>
+			<div class="sfProceedButtonWrap">
+				<div class="sfProceedButton">
+					<span id="btnReserveTicket"
+						class="btnReserveTicket btnProceed sfBigButton sfBlueButton sfFloatLeft">Proceed</span>
+				</div>
+			</div>
+		</div>
+
+	</div>
+		<?php
 				if (isset($_POST['values'])) {
 					$selectedValues = $_POST['values'];
 					
 					echo $selectedValues;
-				  }
-				  
+				}
 				?>
-				<div id="selected-values"></div>
-				You have selected <span id="count">0</span> seat for a price of RS.<span id="total">0</span>
-			</p>
-		</div>
-		<script src="seat/script.js"></script>
-		
-	</body>
-	
-	</html>
+	<script src="./seat/script.js"></script>
+</body>
+
+</html>

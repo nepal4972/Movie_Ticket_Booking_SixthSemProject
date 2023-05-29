@@ -46,9 +46,8 @@ img {
   height: auto;
 }
 
-/*=============== LOGIN ===============*/
 .login {
-  background-color: #25274D;
+  background-image: url(../../../img/banners/bg.jpg);
   position: relative;
   height: 100vh;
   display: grid;
@@ -59,8 +58,7 @@ img {
 
 .login_form {
   position: relative;
-  background-color: hsla(0, 0%, 10%, .1);
-  border: 2px solid var(--white-color);
+  border: 2px solid hsl(0, 0%, 100%);
   margin-inline: 1.5rem;
   padding: 2.5rem 1.5rem;
   border-radius: 1rem;

@@ -2,7 +2,7 @@
 
 
 .all {
-  background-color: #192e41;
+  background-color: #25274D;
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -20,6 +20,7 @@
 }
 
 .seat {
+  user-select: none;  
   background-color: #495760;
   height: 30px;
   width: 30px;

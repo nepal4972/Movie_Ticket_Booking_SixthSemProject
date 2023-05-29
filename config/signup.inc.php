@@ -30,15 +30,15 @@ if(isset($_POST['submit'])) {
     else {
         if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
             if(mysqli_num_rows($checkEmail) > 0) {
-                $_SESSION['icons']="./img/alerticons/error.png";  
+                $_SESSION['icons']="./img/alerticons/error.png";
                 $_SESSION['status']="error";
                 $_SESSION['status_code']="This Email is Already Used";
                 header("Location: ../signup?fullname=".$usernamefullname);
-                exit();
+                exit();                                         
             }
             else {
                 if(mysqli_num_rows($checkphone_number) > 0) {
-                    $_SESSION['icons']="./img/alerticons/warning.png";  
+                    $_SESSION['icons']="./img/alerticons/warning.png";
                     $_SESSION['status']="warning";
                     $_SESSION['status_code']="This Phone Number is Already Used";
                     header("Location: ../signup?email=".$email);
@@ -87,7 +87,7 @@ if(isset($_POST['submit'])) {
             }
         }
         else {
-            $_SESSION['icons']="./img/alerticons/error.png";  
+            $_SESSION['icons']="./img/alerticons/error.png";
             $_SESSION['status']="error";
             $_SESSION['status_code']="Invalid Email";
             header("Location: ../signup?fullname=".$fullname);
