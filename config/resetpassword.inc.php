@@ -71,12 +71,12 @@ try {
     $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
     $mail->Username   = 'nepal4972@gmail.com';                   //SMTP username
-    $mail->Password   = 'bpmdlcwlkcsqvqve';                        //SMTP password
+    $mail->Password   = 'bpmdlcwlkcsqvqve';                   //SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
     $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
     //Recipients
-    $mail->setFrom('nepal4972@gmail.com', 'UEH. Saugat Nepal(Admin)');
+    $mail->setFrom('nepal4972@gmail.com', 'Movie Ticket Booking Admin');
     $mail->addAddress($reset_email);     //Add a recipient
 
 
@@ -86,7 +86,7 @@ try {
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
     $mail->Subject = 'Password Reset';
-    $mail->Body    = 'To Reset your Password click: <a href="http://localhost/phpcode/project%20II/includes/changepassword.inc.php?code='.$code.'">here </a>. </br>Reset YourPassword in a day.';
+    $mail->Body    = 'To Reset your Password click: <a href="http://localhost/phpcode/test-projects/Movie_Ticket_Booking_SixthSemProject/changepassword.php?resetcode='.$code.'">here </a>. </br>Reset Your Password in One Hour.';
 
     $verifyquery = "SELECT * FROM users WHERE email = '$reset_email'";
     $result = $conn->query($verifyquery);
@@ -95,10 +95,10 @@ try {
     $resettime = date('d-m-y h:i:s');
    
     if($result !== false && $result->num_rows > 0) {
-        $codequery = "UPDATE users SET code = '$code', resettime = '$resettime' WHERE email = '$reset_email'";
+        $codequery = "UPDATE users SET reset_code = '$code', reset_time = '$resettime' WHERE email = '$reset_email'";
         $sql = mysqli_query($conn, $codequery);
         $mail->send();
-        $_SESSION['icons']="./img/alerticons/error.png";
+        $_SESSION['icons']="./img/alerticons/success.png";
         $_SESSION['status']="success";
         $_SESSION['status_code']="Sent Successfully. Please Check Your Email";
         header("Location: ../login");

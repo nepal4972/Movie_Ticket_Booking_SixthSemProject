@@ -54,7 +54,7 @@ if(isset($_POST['submit'])) {
                             exit();
                         }
                         else {
-                            $sql = "INSERT INTO users (fullname, email, phone_number, password, usertype, registerdate) VALUES (?, ?, ?, ?, ?, ?)";
+                            $sql = "INSERT INTO users (fullname, email, phone_number, password, user_type, register_date) VALUES (?, ?, ?, ?, ?, ?)";
                             $stmt = mysqli_stmt_init($conn);
                             if(!mysqli_stmt_prepare($stmt, $sql)) {
                                 $query = mysqli_query($conn, $sql);
