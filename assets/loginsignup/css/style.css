@@ -46,7 +46,7 @@ img {
   height: auto;
 }
 
-.login {
+.container {
   background-image: url(../../../img/banners/bg.jpg);
   position: relative;
   height: 100vh;
@@ -56,7 +56,7 @@ img {
 
 
 
-.login_form {
+.form {
   position: relative;
   border: 2px solid hsl(0, 0%, 100%);
   margin-inline: 1.5rem;
@@ -65,36 +65,36 @@ img {
   backdrop-filter: blur(8px);
 }
 
-.login_title {
+.title {
   text-align: center;
   font-size: var(--h1-font-size);
   font-weight: var(--font-medium);
   margin-bottom: 2rem;
 }
 
-.login_content,
-.login_box {
+.content,
+.input_box {
   display: grid;
 }
 
-.login_content {
+.content {
   row-gap: 1.75rem;
   margin-bottom: 1.5rem;
 }
 
-.login_box {
+.input_box {
   grid-template-columns: max-content 1fr;
   align-items: center;
   column-gap: .75rem;
   border-bottom: 2px solid var(--white-color);
 }
 
-.login_icon,
-.login_eye {
+.icon,
+.pw_hide {
   font-size: 1.25rem;
 }
 
-.login_input {
+.input {
   width: 100%;
   padding-block: .8rem;
   background: none;
@@ -103,11 +103,11 @@ img {
   z-index: 1;
 }
 
-.login_box-input {
+.input_type {
   position: relative;
 }
 
-.login_label {
+.label {
   position: absolute;
   left: 0;
   top: 13px;
@@ -115,7 +115,7 @@ img {
   transition: top .3s, font-size .3s;
 }
 
-.login_eye {
+.pw_hide {
   position: absolute;
   right: 0;
   top: 18px;
@@ -123,34 +123,34 @@ img {
   cursor: pointer;
 }
 
-.login_box:nth-child(2) input {
+.input_box:nth-child(2) input {
   padding-right: 1.8rem;
 }
 
-.login_check-label,
-.login_forgot,
-.login_register {
+.reset_pw-label,
+.btn_forgot,
+.switch {
   font-size: var(--small-font-size);
 }
 
-.login_check-group {
+.reset_pw-group {
   column-gap: .5rem;
 }
 
-.login_check-input {
+.reset_pw-input {
   width: 16px;
   height: 16px;
 }
 
-.login_forgot {
+.btn_forgot {
   color: var(--white-color);
 }
 
-.login_forgot:hover {
+.btn_forgot:hover {
   text-decoration: underline;
 }
 
-.login_button {
+.button {
   width: 100%;
   padding: .5rem;
   border-radius: .5rem;
@@ -160,27 +160,27 @@ img {
   margin-bottom: 2rem;
 }
 
-.login_register {
+.switch {
   text-align: center;
 }
 
-.login_register a {
+.switch a {
   color: var(--white-color);
   font-weight: var(--font-medium);
 }
 
-.login_register a:hover {
+.switch a:hover {
   text-decoration: underline;
 }
 
 /* Input focus move up label */
-.login_input:focus+.login_label {
+.input:focus+.label {
   top: -12px;
   font-size: var(--small-font-size);
 }
 
 /* Input focus sticky top label */
-.login_input:not(:placeholder-shown).login_input:not(:focus)+.login_label {
+.input:not(:placeholder-shown).input:not(:focus)+.label {
   top: -12px;
   font-size: var(--small-font-size);
 }
@@ -188,24 +188,24 @@ img {
 /*=============== BREAKPOINTS ===============*/
 /* For medium devices */
 @media screen and (min-width: 576px) {
-  .login {
+  .container {
     justify-content: center;
   }
 
-  .login_form {
+  .form {
     width: 432px;
     padding: 2rem 2rem 3rem;
     border-radius: 1.5rem;
   }
 
-  .login_title {
+  .title {
     font-size: 1.8rem;
   }
 }
 
 @media screen and (max-width: 343px){
-  .login_check-label,
-  .login_forgot{
+  .reset_pw-label,
+  .btn_forgot{
     font-size: .783rem;
   }
 }

@@ -30,38 +30,36 @@ if(isset($_SESSION['fullname'])==null) {
         exit();         
     }
     else {?>
-              <div class="login">
-         <form action="<?php echo $base ?>config/changepassword.inc" method="POST" class="login_form">
-            <h1 class="login_title">Change Password</h1>
+      <div class="container">
+         <form action="<?php echo $base ?>config/changepassword.inc" method="post" class="form">
+            <h1 class="title">Change Password</h1>
             <input hidden type="text" required name="resetcode" value="<?php echo $resetcode ?>">
-            <div class="login_content">
-               <div class="login_box">
-                  <i class="ri-user-3-line login_icon"></i>
-                  <div class="login_box-input">
-                     <input type="text" required name="email" class="login_input" placeholder=" ">
-                     <label for="" class="login_label">Email</label>
+            <div class="content">
+               <div class="input_box">
+                  <i class="ri-user-3-line icon"></i>
+                  <div class="input_type">
+                     <input type="text" required name="email" class="input" placeholder=" ">
+                     <label for="" class="label">Email Address</label>
                   </div>
                </div>
 
-               <div class="login_box">
+               <div class="input_box">
                   <i class="ri-lock-2-line login_icon"></i>
-                  <div class="login_box-input">
-                     <input type="password" required name="password" class="login_input" id="login-pass" placeholder=" ">
-                     <label for="" class="login_label">New Password</label>
-                     <i class="ri-eye-off-line login_eye" id="login-eye"></i>
+                  <div class="input_type">
+                     <input type="password" required name="password" class="input" id="input_password" placeholder=" ">
+                     <label for="" class="label">New Password</label>
                   </div>
                </div>
 
-               <div class="login_box">
+               <div class="input_box">
                   <i class="ri-lock-2-line login_icon"></i>
-                  <div class="login_box-input">
-                     <input type="password" required name="cpassword" class="login_input" id="login-pass" placeholder=" ">
-                     <label for="" class="login_label">New Confirm Password</label>
-                     <i class="ri-eye-off-line login_eye" id="login-eye"></i>
+                  <div class="input_type">
+                     <input type="password" required name="cpassword" class="input" id="input_password" placeholder=" ">
+                     <label for="" class="label">Confirm New Password</label>
                   </div>
                </div>
             </div>
-            <button class="login_button" name="change">Change</button>
+            <button class="button" name="submit">Change</button>
          </form>
       </div>
       <script src="<?php echo $jspath ?>"></script>

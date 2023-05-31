@@ -91,21 +91,21 @@ try {
     $verifyquery = "SELECT * FROM users WHERE email = '$reset_email'";
     $result = $conn->query($verifyquery);
 
-    date_default_timezone_set('Asia/Kathmandu');
-    $resettime = date('d-m-y h:i:s');
+    $currenttime = time();
+    $expirytime = $currenttime + (60 * 60);
    
     if($result !== false && $result->num_rows > 0) {
-        $codequery = "UPDATE users SET reset_code = '$code', reset_time = '$resettime' WHERE email = '$reset_email'";
+        $codequery = "UPDATE users SET reset_code = '$code', expiry_time = '$expirytime' WHERE email = '$reset_email'";
         $sql = mysqli_query($conn, $codequery);
         $mail->send();
         $_SESSION['icons']="./img/alerticons/success.png";
         $_SESSION['status']="success";
-        $_SESSION['status_code']="Sent Successfully. Please Check Your Email";
+        $_SESSION['status_code']="Reset Mail Sent Successfully. Please Check Your Email";
         header("Location: ../login");
     }
 
 } catch (Exception $e) {
-    $_SESSION['icons']="./img/alerticons/error.png";  
+    $_SESSION['icons']="./img/alerticons/error.png";
     $_SESSION['status']="error";
     $_SESSION['status_code']="Message Couldn't be Sent in This Email";
     header("Location: ../resetpassword");

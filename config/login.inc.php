@@ -3,7 +3,7 @@ require '../db/connect.php';
 ?>
 <link rel="stylesheet" href="../alerts/dist/css/iziToast.min.css">
 <?php
-if(isset($_POST['login_submit'])) {
+if(isset($_POST['submit'])) {
     $fullname = $_POST['fullname'];
     $password = $_POST['password'];
 
@@ -19,7 +19,7 @@ if(isset($_POST['login_submit'])) {
         $stmt = mysqli_stmt_init($conn);
 
         if(!mysqli_stmt_prepare($stmt, $sql)) {
-            $_SESSION['icons']="./img/alerticons/error.png";  
+            $_SESSION['icons']="./img/alerticons/error.png";
             $_SESSION['status']="error";
             $_SESSION['status_code']="SQL Error";
             header("Location: ../login.php");

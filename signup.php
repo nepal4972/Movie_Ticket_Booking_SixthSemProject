@@ -18,55 +18,55 @@ if(isset($_SESSION['fullname'])==null) {
       <title>Signup <?php echo $title ?></title>
    </head>
    <body>
-      <div class="login">
-         <form action="<?php echo $base ?>config/signup.inc" method="post" class="login_form">
-            <h1 class="login_title">Signup</h1>
-            <div class="login_content">
-               <div class="login_box">
-                  <i class="ri-user-3-line login_icon"></i>
-                  <div class="login_box-input">
-                     <input type="text" required name="fullname" class="login_input" placeholder=" ">
-                     <label for="" class="login_label">Full Name</label>
+      <div class="container">
+         <form action="<?php echo $base ?>config/signup.inc" method="post" class="form">
+            <h1 class="title">Signup</h1>
+            <div class="content">
+               <div class="input_box">
+                  <i class="ri-user-3-line icon"></i>
+                  <div class="input_type">
+                     <input type="text" required name="fullname" class="input" placeholder=" ">
+                     <label for="" class="label">Full Name</label>
                   </div>
                </div>
                
-               <div class="login_box">
-                  <i class="ri-mail-line login_icon"></i>
-                  <div class="login_box-input">
-                     <input type="email" required name="email" class="login_input" placeholder=" ">
-                     <label for="" class="login_label">Email</label>
+               <div class="input_box">
+                  <i class="ri-mail-line icon"></i>
+                  <div class="input_type">
+                     <input type="email" required name="email" class="input" placeholder=" ">
+                     <label for="" class="label">Email</label>
                   </div>
                </div>
 
-               <div class="login_box">
-                  <i class="ri-phone-line login_icon"></i>
-                  <div class="login_box-input">
-                     <input type="tel" required name="phone_number" class="login_input" placeholder=" ">
-                     <label for="" class="login_label">Phone Number</label>
+               <div class="input_box">
+                  <i class="ri-phone-line icon"></i>
+                  <div class="input_type">
+                     <input type="phone" required name="phone_number" class="input" placeholder=" ">
+                     <label for="" class="label">Phone Number</label>
                   </div>
                </div>
             
-               <div class="login_box">
-                  <i class="ri-lock-2-line login_icon"></i>
-                  <div class="login_box-input">
-                     <input type="password" required name="password" class="login_input" id="login-pass" placeholder=" ">
-                     <label for="" class="login_label">Password</label>
+               <div class="input_box">
+                  <i class="ri-lock-2-line icon"></i>
+                  <div class="input_type">
+                     <input type="password" required name="password" class="input" id="login-pass" placeholder=" ">
+                     <label for="" class="label">Password</label>
                   </div>
                </div>
 
-               <div class="login_box">
-                  <i class="ri-lock-2-line login_icon"></i>
-                  <div class="login_box-input">
-                     <input type="password" required name="cpassword" class="login_input" id="login-pass" placeholder=" ">
-                     <label for="" class="login_label">Confirm Password</label>
+               <div class="input_box">
+                  <i class="ri-lock-2-line icon"></i>
+                  <div class="input_type">
+                     <input type="password" required name="cpassword" class="input" id="login-pass" placeholder=" ">
+                     <label for="" class="label">Confirm Password</label>
                   </div>
                </div>
 
             </div>
 
-            <button class="login_button" name="submit">Signup</button>
+            <button class="button" name="submit">Signup</button>
 
-            <p class="login_register">
+            <p class="switch">
                Don't have an account? <a href="<?php echo $base."login.php"?>">Login</a>
             </p>
          </form>

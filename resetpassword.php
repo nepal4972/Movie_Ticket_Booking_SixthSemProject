@@ -18,22 +18,22 @@ if(isset($_SESSION['fullname'])==null) {
       <title>Reset Password <?php echo $title ?></title>
    </head>
    <body>
-      <div class="login">
-         <form action="<?php echo $base ?>config/resetpassword.inc" method="post" class="login_form">
+      <div class="container">
+         <form action="<?php echo $base ?>config/resetpassword.inc" method="post" class="form">
          <h5 style="color:red;text-align:center;"><?php include './includes/alert.php';?></h5>
-            <h1 class="login_title">Forgot Password</h1>
-            <div class="login_content">
-               <div class="login_box">
-                  <i class="ri-mail-line login_icon"></i>
-                  <div class="login_box-input">
-                     <input type="text" name="reset_email" class="login_input" placeholder=" ">
-                     <label for="" class="login_label">Enter Reset Email</label>
+            <h1 class="title">Forgot Password</h1>
+            <div class="content">
+               <div class="input_box">
+                  <i class="ri-mail-line icon"></i>
+                  <div class="input_type">
+                     <input type="text" name="reset_email" class="input" placeholder=" ">
+                     <label for="" class="label">Enter Reset Email</label>
                   </div>
                </div>
 
-            <button class="login_button" name="reset">Reset</button>
+            <button class="button" name="reset">Reset</button>
 
-            <p class="login_register">
+            <p class="switch">
                <a href="<?php echo $base."login.php"?>">Go to Login</a>
             </p>
          </form>
