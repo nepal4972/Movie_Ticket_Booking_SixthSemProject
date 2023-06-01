@@ -9,7 +9,7 @@ date_default_timezone_set('Asia/Kathmandu');
 $resettimestamp = date('d-m-y h:i:s');
 $resettime = strtotime($resettimestamp);
 
-if(isset($_POST['submit'])) {
+if(isset($_POST['change'])) {
     $resetcode = $_POST['resetcode'];
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -87,7 +87,7 @@ if(isset($_POST['submit'])) {
             else {
                 $_SESSION['icons']="./img/alerticons/error.png";
                 $_SESSION['status']="error";
-                $_SESSION['status_code']="Invalid Reset Code";
+                $_SESSION['status_code']="Invalid Reset Code. Reset Again";
                 header("Location: ../resetpassword.php");
                 exit();
             }

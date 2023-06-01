@@ -15,7 +15,7 @@ if(isset($_SESSION['fullname'])==null) {
       <link rel="stylesheet" href="./alerts/dist/css/iziToast.min.css">
       <link rel="shortcut icon" href="<?php echo $favicon ?>" type="image/x-icon">
       <link rel="stylesheet" href="<?php echo $csspath ?>">
-      <title>Login <?php echo $title ?></title>
+      <title>Change Password <?php echo $title ?></title>
    </head>
    <body>
 
@@ -30,38 +30,33 @@ if(isset($_SESSION['fullname'])==null) {
         exit();         
     }
     else {?>
-      <div class="container">
-         <form action="<?php echo $base ?>config/changepassword.inc" method="post" class="form">
-            <h1 class="title">Change Password</h1>
-            <input hidden type="text" required name="resetcode" value="<?php echo $resetcode ?>">
-            <div class="content">
-               <div class="input_box">
-                  <i class="ri-user-3-line icon"></i>
-                  <div class="input_type">
-                     <input type="text" required name="email" class="input" placeholder=" ">
-                     <label for="" class="label">Email Address</label>
-                  </div>
-               </div>
+<section class="container">
+            <div class="form">
+                <div class="form-content">
+                    <header>Change Password</header>
+                    <form method="POST" action="./config/changepassword.inc">
+                            <input type="text" hidden name="resetcode" value="<?php echo $resetcode ?>">
+                        <div class="field">
+                            <input type="email" name="email" placeholder="Enter Email">
+                        </div>
+                        <div class="field">
+                            <input type="password" name="password" placeholder="Create New Password">
+                        </div>
+                        <div class="field">
+                            <input type="password" name="cpassword" placeholder="Confirm Password">
+                        </div>
 
-               <div class="input_box">
-                  <i class="ri-lock-2-line login_icon"></i>
-                  <div class="input_type">
-                     <input type="password" required name="password" class="input" id="input_password" placeholder=" ">
-                     <label for="" class="label">New Password</label>
-                  </div>
-               </div>
+                        <div class="field">
+                            <button class="change" name="change">Reset</button>
+                        </div>
+                    </form>
 
-               <div class="input_box">
-                  <i class="ri-lock-2-line login_icon"></i>
-                  <div class="input_type">
-                     <input type="password" required name="cpassword" class="input" id="input_password" placeholder=" ">
-                     <label for="" class="label">Confirm New Password</label>
-                  </div>
-               </div>
+                    <div class="form-link">
+                        <a href="./login.php" class="link signup-link">Go To Login</a>
+                    </div>
+                </div>
             </div>
-            <button class="button" name="submit">Change</button>
-         </form>
-      </div>
+        </section>
       <script src="<?php echo $jspath ?>"></script>
       <?php
       ?>

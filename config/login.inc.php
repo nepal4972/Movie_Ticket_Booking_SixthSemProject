@@ -11,7 +11,7 @@ if(isset($_POST['submit'])) {
         $_SESSION['icons']="./img/alerticons/warning.png";  
         $_SESSION['status']="warning";
         $_SESSION['status_code']="Please Fill All The Fields";
-        header("Location: ../login.php");
+        header("Location: ../login.php?email=".$fullname);
         exit();
     }   
     else {
@@ -48,7 +48,7 @@ if(isset($_POST['submit'])) {
                     $_SESSION['icons']="./img/alerticons/warning.png";  
                     $_SESSION['status']="warning";
                     $_SESSION['status_code']="Incorrect Password";
-                    header("Location: ../login.php");
+                    header("Location: ../login.php?email=".$fullname);
                     exit();
                 }
             }       

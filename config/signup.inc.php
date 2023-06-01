@@ -24,7 +24,7 @@ if(isset($_POST['submit'])) {
         $_SESSION['icons']="./img/alerticons/warning.png";  
         $_SESSION['status']="warning";
         $_SESSION['status_code']="Please Fill All The Fields";
-        header("Location: ../signup?fullname=".$fullname."&email=".$email);
+        header("Location: ../signup?fullname=".$fullname."&email=".$email."&phone_number=".$phone_number);
         exit();
     }
     else {
@@ -33,54 +33,63 @@ if(isset($_POST['submit'])) {
                 $_SESSION['icons']="./img/alerticons/error.png";
                 $_SESSION['status']="error";
                 $_SESSION['status_code']="This Email is Already Used";
-                header("Location: ../signup?fullname=".$usernamefullname);
+                header("Location: ../signup?fullname=".$fullname."&phone_number=".$phone_number);
                 exit();                                         
             }
             else {
                 if(mysqli_num_rows($checkphone_number) > 0) {
                     $_SESSION['icons']="./img/alerticons/warning.png";
                     $_SESSION['status']="warning";
-                    $_SESSION['status_code']="This Phone Number is Already Used";
-                    header("Location: ../signup?email=".$email);
+                    $_SESSION['status_code']="This Phone Number is Already Used or is Invalid";
+                    header("Location: ../signup?fullname=".$fullname."&email=".$email);
                     exit();
                 }
                 else {
                     if(strlen($password) >= 8 ) {
-                        if($password !== $cpassword) {
-                            $_SESSION['icons']="./img/alerticons/warning.png";  
-                            $_SESSION['status']="warning";
-                            $_SESSION['status_code']="Password Doesn't Matched";
-                            header("Location: ../signup?fullname=".$fullname."&email=".$email);
-                            exit();
-                        }
-                        else {
-                            $sql = "INSERT INTO users (fullname, email, phone_number, password, user_type, register_date) VALUES (?, ?, ?, ?, ?, ?)";
-                            $stmt = mysqli_stmt_init($conn);
-                            if(!mysqli_stmt_prepare($stmt, $sql)) {
-                                $query = mysqli_query($conn, $sql);
-                                $_SESSION['icons']="./img/alerticons/error.png";  
-                                $_SESSION['status']="error";
-                                $_SESSION['status_code']="SQL Error";
-                                header("Location: ../signup");
-                                exit();
+                        if ((!filter_var($phone_number, FILTER_VALIDATE_INT) === false ) && strlen($phone_number) == 10) {
+                            if($password === $cpassword) {
+                                $sql = "INSERT INTO users (fullname, email, phone_number, password, user_type, register_date) VALUES (?, ?, ?, ?, ?, ?)";
+                                $stmt = mysqli_stmt_init($conn);
+                                if(!mysqli_stmt_prepare($stmt, $sql)) {
+                                    $query = mysqli_query($conn, $sql);
+                                    $_SESSION['icons']="./img/alerticons/error.png";  
+                                    $_SESSION['status']="error";
+                                    $_SESSION['status_code']="SQL Error";
+                                    header("Location: ../signup");
+                                    exit();
+                                }
+                                else {
+                                    $usertype = 0;
+                                    mysqli_stmt_bind_param($stmt, "ssssis", $fullname, $email, $phone_number, $password, $usertype , $registerdate);
+                                    mysqli_stmt_execute($stmt);
+                                    $_SESSION['icons']="./img/alerticons/success.png";  
+                                    $_SESSION['status']="success";
+                                    $_SESSION['status_code']="SignedUp Successful. You can Login Now";
+                                    header("Location: ../login");
+                                    exit();
+                                }
                             }
                             else {
-                                $usertype = 0;
-                                mysqli_stmt_bind_param($stmt, "ssssis", $fullname, $email, $phone_number, $password, $usertype , $registerdate);
-                                mysqli_stmt_execute($stmt);
-                                $_SESSION['icons']="./img/alerticons/success.png";  
-                                $_SESSION['status']="success";
-                                $_SESSION['status_code']="SignedUp Successful. You can Login Now";
-                                header("Location: ../login");
-                                exit();
-                            }
+                                $_SESSION['icons']="./img/alerticons/error.png";
+                                $_SESSION['status']="error";
+                                $_SESSION['status_code']="Both Passwords Should Be Same";
+                                header("Location: ../signup?fullname=".$fullname."&email=".$email."&phone_number=".$phone_number);
+                                exit();                              
+                            }                            
+                        }
+                        else {
+                            $_SESSION['icons']="./img/alerticons/error.png";
+                            $_SESSION['status']="error";
+                            $_SESSION['status_code']="Invalid Phone Number Format";
+                            header("Location: ../signup?fullname=".$fullname."&email=".$email);
+                            exit();        
                         }
                     }
                     else {
                         $_SESSION['icons']="./img/alerticons/warning.png";  
                         $_SESSION['status']="warning";
                         $_SESSION['status_code']="Password Should be 8 Character Long";
-                        header("Location: ../signup?fullname=".$fullname."&email=".$email);
+                        header("Location: ../signup?fullname=".$fullname."&email=".$email."&phone_number=".$phone_number);
                         exit();
                     }
                 }
@@ -90,12 +99,15 @@ if(isset($_POST['submit'])) {
             $_SESSION['icons']="./img/alerticons/error.png";
             $_SESSION['status']="error";
             $_SESSION['status_code']="Invalid Email";
-            header("Location: ../signup?fullname=".$fullname);
+            header("Location: ../signup??fullname=".$fullname."&phone_number=".$phone_number);
             exit();
         }
     }
 }
 else {
+    $_SESSION['icons']="./img/alerticons/error.png";  
+    $_SESSION['status']="error";
+    $_SESSION['status_code']="Data Submission Error";
     header("Location: ../signup.php");
     exit();
 }

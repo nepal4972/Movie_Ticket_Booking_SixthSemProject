@@ -10,7 +10,7 @@ include './links.php';
 iziToast.<?php echo $_SESSION['status']; ?>({
     iconUrl: '<?php echo $_SESSION['icons']; ?>',
     message: '<?php echo $_SESSION['status_code']; ?>',
-    position: 'topCenter',
+    position: 'topRight',
 });
     </script>
     <?php

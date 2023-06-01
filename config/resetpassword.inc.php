@@ -13,7 +13,7 @@ if(isset($_POST['reset'])) {
         exit();
     }
     else {
-        $sql = "SELECT * FROM users WHERE email = ? ";
+        $sql = "SELECT * FROM users WHERE email = ?";
         $stmt = mysqli_stmt_init($conn);
 
         if(!mysqli_stmt_prepare($stmt, $sql)) {

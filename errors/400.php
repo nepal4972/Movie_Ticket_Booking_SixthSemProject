@@ -16,7 +16,7 @@ include '../includes/links.php';
    
    .main_body{
     width: 100%; height: 100vh; 
-    background-color: #25274D;
+    background-color: #001233;
     background-repeat: no-repeat;
     background-size: 100% 100%; 
     display: flex; 
@@ -66,7 +66,7 @@ include '../includes/links.php';
     text-transform: uppercase;
     display: inline-block;
     color: blue;
-    background: white;
+    background: #CAC0B3;
     padding: 15px 30px;
     box-shadow: 5px 4px 15px -5px #0046d5;
     border-radius: 40px;

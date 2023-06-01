@@ -1,25 +1,18 @@
-/*=============== SHOW HIDDEN - PASSWORD ===============*/
-const showHiddenPass = (loginPass, loginEye) => {
-    const input = document.getElementById(loginPass),
-        iconEye = document.getElementById(loginEye)
+pwShowHide = document.querySelectorAll(".eye-icon"),
 
-    iconEye.addEventListener('click', ()=>{
-        //Change password to text
-        if(input.type === 'password'){
-            //Switch to text
-            input.type = 'text'
-
-            //Icon change
-            iconEye.classList.add('ri-eye-line')
-            iconEye.classList.remove('ri-eye-off-line')
-        } else {
-            //Change to password
-            input.type = 'password'
-            //Icon change
-            iconEye.classList.remove('ri-eye-line')
-            iconEye.classList.add('ri-eye-off-line')
-        }
-    })
-    }
-
-showHiddenPass('input_password','pw_hide')
+pwShowHide.forEach(eyeIcon => {
+eyeIcon.addEventListener("click", () => {
+  let pwFields = eyeIcon.parentElement.parentElement.querySelectorAll(".password");
+  
+  pwFields.forEach(password => {
+      if(password.type === "password"){
+          password.type = "text";
+          eyeIcon.classList.replace("bx-hide", "bx-show");
+          return;
+      }
+      password.type = "password";
+      eyeIcon.classList.replace("bx-show", "bx-hide");
+  })
+  
+})
+})      
