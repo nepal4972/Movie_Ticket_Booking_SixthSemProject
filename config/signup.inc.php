@@ -99,7 +99,7 @@ if(isset($_POST['submit'])) {
             $_SESSION['icons']="./img/alerticons/error.png";
             $_SESSION['status']="error";
             $_SESSION['status_code']="Invalid Email";
-            header("Location: ../signup??fullname=".$fullname."&phone_number=".$phone_number);
+            header("Location: ../signup?fullname=".$fullname."&phone_number=".$phone_number);
             exit();
         }
     }

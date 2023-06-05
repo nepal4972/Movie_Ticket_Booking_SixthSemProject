@@ -19,3 +19,4 @@ iziToast.<?php echo $_SESSION['status']; ?>({
         unset($_SESSION['icons']);
     }
 ?>
+<script src="./alerts/dist/js/iziToast.min.js"></script>

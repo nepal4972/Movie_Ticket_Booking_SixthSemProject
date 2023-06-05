@@ -27,7 +27,6 @@ include '../includes/links.php';
    .center_body{
     width: 65%;
     height: 70%;
-    background-image: url('images/bg.jpg');
     background-repeat: no-repeat;
     background-size: 100% 100%;
     display: flex; 
@@ -65,21 +64,22 @@ include '../includes/links.php';
     text-decoration: none;
     text-transform: uppercase;
     display: inline-block;
-    color: blue;
-    background: #CAC0B3;
+    color: #CAC0B3;
+    background: hsl(225deg 44.47% 12.64%);
     padding: 15px 30px;
     box-shadow: 5px 4px 15px -5px #0046d5;
+    border: 2px solid #FF595A;
     border-radius: 40px;
-    transition: all 0.5s linear;
+    transition: 0.5s;
    }
    
    .center_body:hover h1{
     text-shadow: 9px 6px 3px #b2bec3;
    }
    
-   .center_body:hover a{
-    color: white;
-    background: blue;
+   a:hover{
+    color: #CAC0B3;
+    background: #FF595A;
    }
 </style>
 

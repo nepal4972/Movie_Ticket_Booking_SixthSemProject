@@ -3,7 +3,7 @@ error_reporting(0);
 include './db/connect.php';
 include './includes/links.php';
 ?>
-
+<script src="./alerts/dist/js/iziToast.min.js"></script>
 <?php
 if(isset($_SESSION['fullname'])==null) {
 ?>
@@ -39,7 +39,7 @@ if(isset($_SESSION['fullname'])==null) {
                         </div>
 
                         <div class="field">
-                            <input type="email" name="email" placeholder="Enter Your Email" value="<?php echo $email?>">
+                            <input type="text" name="email" placeholder="Enter Your Email" value="<?php echo $email?>">
                         </div>
 
                         <div class="field">

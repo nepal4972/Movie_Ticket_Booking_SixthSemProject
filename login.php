@@ -3,7 +3,7 @@ error_reporting(0);
 include './db/connect.php';
 include './includes/links.php';
 ?>
-
+<script src="./alerts/dist/js/iziToast.min.js"></script>
 <?php
 if(isset($_SESSION['fullname'])==null) {
 ?>
@@ -19,7 +19,6 @@ if(isset($_SESSION['fullname'])==null) {
         <link rel="shortcut icon" href="<?php echo $favicon ?>" type="image/x-icon">
         <link rel="stylesheet" href="<?php echo $csspath ?>">
         <title>Login <?php echo $title ?></title>
-                        
     </head>
 
     <?php
@@ -33,7 +32,7 @@ if(isset($_SESSION['fullname'])==null) {
                     <header>Login</header>
                     <form action="<?php echo $base ?>config/login.inc" method="POST">
                         <div class="field">
-                            <input type="text" name="fullname" placeholder="Email" class="input" value="<?php echo $email ?>">
+                            <input type="text" name="fullname" placeholder="Email or Phone" class="input" value="<?php echo $email ?>">
                         </div>
 
                         <div class="field">
