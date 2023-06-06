@@ -13,7 +13,7 @@ include './includes/links.php';
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./alerts/dist/css/iziToast.min.css">
     <link rel="stylesheet" href="<?php echo $homecss ?>">
-    <title>Home <?php echo $title ?></title>
+    <title>Movies <?php echo $title ?></title>
 </head> 
 <br>
   <?php
@@ -21,6 +21,10 @@ include './includes/header.php';
 ?>
 <br><br><br>
   <span class="line"></span>
+  <div class="page-title">
+      <h1>MOVIES</h1>
+    </div>
+    <span class="line"></span>
   <section class="top-rated">
     <div class="container">
       <div class="title-wrapper">

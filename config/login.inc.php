@@ -41,7 +41,7 @@ if(isset($_POST['submit'])) {
                     $_SESSION['icons']="./img/alerticons/success.png";  
                     $_SESSION['status']="success";
                     $_SESSION['status_code']='You are Logged in as: ' . $_SESSION['fullname'];
-                    header("Location: ../index.php");
+                    header("Location: ../");
                     exit(); 
                 }
                 else {

@@ -7,7 +7,7 @@ include './includes/links.php';
 <?php
 $namepart = explode(' ', $_SESSION['fullname']);
 $firstname = $namepart[0];
-$testimg = "s";
+$testimg = "ss";
 ?>
 
 <script src="./alerts/dist/js/iziToast.min.js"></script>
@@ -39,6 +39,7 @@ $testimg = "s";
             <?php } ?>
           <div class="dropdown-content">
             <a href="./profile.php">My Profile</a>
+            <a href="./ticket.php">My Tickets</a>
             <a href="./logout.php">Logout</a>
           </div>
         </div>
@@ -89,6 +90,9 @@ $testimg = "s";
           <a href="./profile.php" class="navbar-link hide">My Profile</a>
         </li>
         <?php } ?>
+        <li>
+          <a href="./ticket.php" class="navbar-link hide">My Tickets</a>
+        </li>
         <li>
           <a href="./" class="navbar-link">Home</a>
         </li>
