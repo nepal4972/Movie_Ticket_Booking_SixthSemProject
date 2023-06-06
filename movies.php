@@ -14,7 +14,7 @@ include './includes/links.php';
     <link rel="stylesheet" href="./alerts/dist/css/iziToast.min.css">
     <link rel="stylesheet" href="<?php echo $homecss ?>">
     <title>Home <?php echo $title ?></title>
-</head>
+</head> 
 <br>
   <?php
 include './includes/header.php';

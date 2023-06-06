@@ -7,7 +7,7 @@ include './includes/links.php';
 <?php
 $namepart = explode(' ', $_SESSION['fullname']);
 $firstname = $namepart[0];
-$testimg = $base."img/banners/profile.jpg";
+$testimg = "s";
 ?>
 
 <script src="./alerts/dist/js/iziToast.min.js"></script>
@@ -29,8 +29,14 @@ $testimg = $base."img/banners/profile.jpg";
       <div class="profile-icon">
         <p class="profile-name">Hello, <span style='letter-spacing:2.5px'><?php echo $firstname?>&nbsp&nbsp</span></p>
         <div class="dropdown">
-          <ion-icon class="profile-icon dropdownbtn" name="person-circle-outline"></ion-icon>
-          <ion-icon class="profile-icon-down dropdownbtn" name="chevron-down-outline"></ion-icon>
+          <?php
+          if(!empty($testimg)) { ?>
+            <img class="profile-img" src="./img/banners/profile.jpg" alt="">
+            <?php }
+          else { ?>
+            <ion-icon class="profile-icon dropdownbtn" name="person-circle-outline"></ion-icon>
+            <ion-icon class="profile-icon-down dropdownbtn" name="chevron-down-outline"></ion-icon>
+            <?php } ?>
           <div class="dropdown-content">
             <a href="./profile.php">My Profile</a>
             <a href="./logout.php">Logout</a>
@@ -44,19 +50,26 @@ $testimg = $base."img/banners/profile.jpg";
     <button class="menu-open-btn" data-menu-open-btn>
       <ion-icon name="reorder-two"></ion-icon>
     </button>
-
+    
     <nav class="navbar" data-navbar>
       <div class="navbar-top">
-      <div class="profile-icon">
-        <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
+        <div class="profile-icon">
+          <?php
+        if(!empty($testimg)) { ?>
+          <img class="profile-img" src="./img/banners/profile.jpg" alt="">
+        <?php }
+        else { ?>
+          <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
+        <?php } ?>
         <p class="profile-name">Hello,
         <?php
-        if(isset($_SESSION['fullname'])==null) {
+        if(!isset($_SESSION['fullname'])==null) {
         ?>  
         <span style='letter-spacing:2.5px'><?php echo $firstname?>&nbsp&nbsp</span></p>
         <?php
-        } else { echo "<span style='letter-spacing:2.5px'>User&nbsp&nbsp</span></p>";}
-        ?>
+        } else { 
+          echo "<span style='letter-spacing:2.5px'>User&nbsp&nbsp</span></p>";
+        } ?>
       </div>
         <button class="menu-close-btn" data-menu-close-btn>
           <ion-icon name="close-outline"></ion-icon>
