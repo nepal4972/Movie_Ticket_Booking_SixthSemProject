@@ -71,6 +71,10 @@ ion-icon {
   height: 50px;
 }
 
+.profile-name {
+  font-size: 19px;
+}
+
 input {
   font: inherit;
   width: 100%;
@@ -447,12 +451,58 @@ body.active {
   color: #cac0b3;
   display: flex;
   font-size: 50px;
-  --ionicon-stroke-width: 80px;
+  align-items: flex-start;
+}
+
+.profile-icon-down {
+  font-size: 20px;
+  margin-left: 40px;
+  margin-top: -20px;
 }
 
 .profile-icon p {
-  margin-top: 12px;
-  font-size: 18px;
+  color: #cac0b3;
+  margin-top: 5px;
+  font-size: 15px;
+}
+
+.dropdown {
+  position: relative;
+  cursor: pointer;
+  color: #cac0b3;
+}
+
+.dropdown:hover {
+  color:#016dcb;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  min-width: 160px;
+  left: -90px;
+  bottom: -75px;
+  transition: var(--transition-1);
+}
+
+.dropdown-content a{
+  font-style: "Poppins", sans-serif;
+  color: white;
+  background-color:#016dcb;
+  padding: 5px 5px;
+  text-decoration: none;
+  font-size: 20px;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  transition: background-color 0.3s ease;
+  background-color:#ff595a;
+  color: white;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
 }
 
 .menu-close-btn {
@@ -789,6 +839,10 @@ body.active {
 
   .header.active {
     padding-block: 5px;
+  }
+
+  .logout {
+    display: none;
   }
 
   .menu-open-btn,

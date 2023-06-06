@@ -7,7 +7,7 @@
   
   <ul class="footer-nav">
     <li class="nav-item">
-      <h2 class="nav-title">Useful Links</h2>
+      <h2 class="nav-title">Quick Links</h2>
 
       <ul class="nav-ul">
         <li>

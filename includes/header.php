@@ -1,45 +1,105 @@
+<?php
+error_reporting(0);
+include './db/connect.php';
+include './includes/links.php';
+?>
+
+<?php
+$namepart = explode(' ', $_SESSION['fullname']);
+$firstname = $namepart[0];
+$testimg = $base."img/banners/profile.jpg";
+?>
+
+<script src="./alerts/dist/js/iziToast.min.js"></script>
 <header class="header">
-    <div class="container">
-      <a href="./index.php" class="logo">
-        <img class="logo-img" src="<?php echo $imglogopath ?>whitecinepal.jpg" alt="">
-      </a>
-      <div class="header-actions">
-        <div class="lang-wrapper">
-        </div>
-        <a href="./login.php" class="btn btn-primary">Sign in</a>
+  <div class="container">
+    <a href="./" class="logo">
+      <img class="logo-img" src="<?php echo $imglogopath ?>whitecinepal.jpg" alt="">
+    </a>
+    <div class="header-actions">
+      <div class="lang-wrapper">
       </div>
-      <button class="menu-open-btn" data-menu-open-btn>
-        <ion-icon name="reorder-two"></ion-icon>
-      </button>
-
-      <nav class="navbar" data-navbar>
-        <div class="navbar-top">
-          <div class="profile-icon">
-          <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
-          <p class="profile-name">Saugat Nepal</p>
+      <?php
+        if(isset($_SESSION['fullname'])==null) {
+        ?>
+      <a href="./login.php" class="btn btn-primary">Sign in</a>
+      <?php
+        }
+        else { ?>
+      <div class="profile-icon">
+        <p class="profile-name">Hello, <span style='letter-spacing:2.5px'><?php echo $firstname?>&nbsp&nbsp</span></p>
+        <div class="dropdown">
+          <ion-icon class="profile-icon dropdownbtn" name="person-circle-outline"></ion-icon>
+          <ion-icon class="profile-icon-down dropdownbtn" name="chevron-down-outline"></ion-icon>
+          <div class="dropdown-content">
+            <a href="./profile.php">My Profile</a>
+            <a href="./logout.php">Logout</a>
           </div>
-          
-          <button class="menu-close-btn" data-menu-close-btn>
-            <ion-icon name="close-outline"></ion-icon>
-          </button>
         </div>
-
-        <span class="line hide"></span>
-        <ul class="navbar-list">
-          <li>
-            <a href="./login.php" class="navbar-link hide">Sign In</a>
-          </li>
-          <li>
-            <a href="./index.html" class="navbar-link">Home</a>
-          </li>
-          <li>
-            <a href="#" class="navbar-link">Movies</a>
-          </li>
-          <li>
-            <a href="#" class="navbar-link">Contact</a>
-          </li>
-        </ul>
-      </nav>
+      </div>
+      <?php
+        }
+        ?>
     </div>
-    <span class="line"></span>
-  </header>
+    <button class="menu-open-btn" data-menu-open-btn>
+      <ion-icon name="reorder-two"></ion-icon>
+    </button>
+
+    <nav class="navbar" data-navbar>
+      <div class="navbar-top">
+      <div class="profile-icon">
+        <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
+        <p class="profile-name">Hello,
+        <?php
+        if(isset($_SESSION['fullname'])==null) {
+        ?>  
+        <span style='letter-spacing:2.5px'><?php echo $firstname?>&nbsp&nbsp</span></p>
+        <?php
+        } else { echo "<span style='letter-spacing:2.5px'>User&nbsp&nbsp</span></p>";}
+        ?>
+      </div>
+        <button class="menu-close-btn" data-menu-close-btn>
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+      </div>
+
+      <span class="line hide"></span>
+      <ul class="navbar-list">
+        <?php
+          if(isset($_SESSION['fullname'])==null) {
+          ?>
+        <li>
+          <a href="./login.php" class="navbar-link hide">Sign In</a>
+        </li>
+        <?php } else { ?>
+        <li>
+          <a href="./profile.php" class="navbar-link hide">My Profile</a>
+        </li>
+        <?php } ?>
+        <li>
+          <a href="./" class="navbar-link">Home</a>
+        </li>
+        <li>
+          <a href="./movies.php" class="navbar-link">Movies</a>
+        </li>
+        <li>
+          <a href="#" class="navbar-link">Contact</a>
+        </li>
+        <?php
+          if(!isset($_SESSION['fullname'])==null) {
+          ?>
+        <li>
+          <a href="./logout.php" class="navbar-link logout">Logout</a>
+        </li>
+        <?php
+          } else {} ?>
+  </div>
+  </ul>
+  </nav>
+  </div>
+  <span class="line"></span>
+</header>
+
+<?php
+include './includes/alert.php';
+?>

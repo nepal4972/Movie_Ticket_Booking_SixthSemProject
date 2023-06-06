@@ -20,16 +20,12 @@ include './includes/links.php';
 include './includes/header.php';
 ?>
 <br><br><br>
-<?php
-include './includes/carousel.php';
-?>
   <span class="line"></span>
   <section class="top-rated">
     <div class="container">
       <div class="title-wrapper">
         <h2 class="h2 section-title">
-          Now Showing &nbsp
-          <span>(Movies Details Are Available in Buy Tickets Option)</span>
+          Now Showing
         </h2>
       </div>
       <ul class="movies-list">
