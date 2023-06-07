@@ -1,0 +1,196 @@
+Title : Contributions to the Security and Privacy of
+Electronic Ticketing Systems
+Author : Arnau Vives-Guasch
+Place : Tarragona Spain, UNIVERSITAT ROVIRA I VIRGILI
+Date : May 15, 2013
+
+The use of Information and Communication Technologies (ICT) is increasing every
+day in our common operations, since ICT are replacing classic paper systems by
+digital ones, i.e. the case of electronic tickets.
+An electronic ticket is a contract in digital format between two parties, the
+user and the service provider, which reflects the agreement between them so that
+the user receives the desired service from the provider. This ticket is used in
+different types of transportation systems, entertainment and special events, etc.
+In any of these cases, this electronic ticket contains information about the terms
+and conditions of the associated service, and their use limitations, such as an
+established number of uses or a validity time.
+In order to complete the transition from paper to digital format, the same
+security requirements provided by the paper tickets have to be guaranteed in the
+new digital scenario. Digital information is known to be easily copied or modified,
+which enables the attempts of forgery or the duplication of information, allowing
+fraudsters to exploit them, for example, in order to use the service more times
+than the preset in the ticket.
+Actually, some cryptographic techniques such as the electronic signature are
+used in order to ensure that the issuer of a ticket is the authorised one (authenticity), that the ticket has not been modified since its issue (integrity), and that any
+entity that has generated a ticket cannot deny it (non-repudiation).
+However, security is not the only requirement of those systems, because users
+also require privacy for their transactions. Nevertheless, the design of secure and
+efficient protocols that provide privacy to users is a difficult challenge that also
+depends on the devices that the users handle.
+
+In the proposed paper he introduce the participants who are involved in an electronic ticketing system
+User: receives the electronic ticket and sends it for its verification in order to
+use the service.
+• Issuer: issues the electronic ticket to the user. E-tickets can be issued by both
+service providers and intermediaries [Siu 01b].
+• Service provider: receives the e-ticket from the user and verifies it. If correct,
+then it provides access to the service.
+
+He furthermore proposed that the electronic tickets must include some basic information for their
+practical use. 
+Serial number (SN): unique identification of an e-ticket.
+• Issuer (IS): entity who is responsible for issuing the e-ticket. This issuer can
+also be the service provider, or an intermediary.
+• Service provider (SP): entity who offers the service to the user.
+User (US): information about the e-ticket owner. In case this field exists in
+the e-ticket, user anonymity cannot be achieved.
+• Service (SV): description of the service contract.
+• Terms and conditions (TC): definition of the e-ticket terms and conditions,
+or alternatively an external link to enable consultation.
+
+
+
+
+
+
+
+
+
+Title : GPRS-Based Cinema Ticket
+Reservation System
+Author : Mihai Balan
+Place : Kongens Lyngby, Denmark
+Date : 2007
+
+The purpose of this MSC project is to create a location-aware service for GPRSenabled mobile devices. This service is called Cinema Ticket Reservation System
+and it can determine user’s current position, allow users to search for movies
+in a given range from their current position, or reserve/purchase tickets. Users
+can pay for tickets using credit cards saved in a secure wallet embedded into the
+application, or e-money received as refund for the canceled tickets. An authentication mechanism based on the Needham-Schroeder protocol is implemented.
+A user-centered design is considered. Workshops and interviews are conducted
+with real users to build and evaluate different low and high-fidelity prototypes.
+GPRS is used as a network carrier for all client-server requests. J2ME, J2EE,
+Bouncy Castle cryptographic libraries, and postgreSQL DB are chosen as implementation technologies. Different optimization techniques are used to increase
+the overall system performance. The marketing strategies for lunching this service are analyzed. This prof-of-concept prototype shows how a user-centered
+approach can drive the design and implementation phases of a web service, and
+how several technologies can be merged together to create a successful service.
+
+Identified Issues in the Cinema Ticket Reservation System
+
+Mobile Device Limitations: limited device hardware i.e. small memory, low CPU power, short battery life, small display, limited input capability, etc.
+• MIDlet: UI design for a CLDC 1.1/MIDP 2.0 based mobile device; build
+rich and user friendly UI; prevent UI lock-up during the network operations; make the information easy to read on a small screen; overcome the
+limited input capabilities.
+• User Centered Design of the Prototype: involve users in all steps of
+the system design; obtain feed back from users.
+• Location-aware MIDlet: determine user’s current position; retrieve a
+list of all cinemas and movies in a certain range from the user’s current
+position; hardware and software necessary for a location-aware application.
+• On-device data storing: store user preferences and cinema service configuration parameters on the mobile device; secure the on-device data.
+• Secure Wallet: secure saved users’ sensitive data e.g. credit cards, on
+the mobile device.
+
+Solutions to the Identified Issues
+
+Mobile Device Limitations:
+The solution of the Cinema Ticket Reservation System need to overcome all
+previous mentioned hardware limitations. This can be achieved by a good application and communication protocols design, use of lightweight libraries, optimizing the packaging process (e.g. including only those parts of the libraries
+the application uses, and taking advantage of the obfuscation process to replace
+class names and long variable names with shorter ones).The small display issue can be overcome by using a One screen at a Time
+approach i.e. long operations need to be split into small pieces.
+
+MIDlet:
+Rich UI can be developed by taking advantage of both low level and high level
+components in CLDC 1.1/MIDP 2.0.
+One must prevent the UI lock-up during network operations by using background threads for that. An animated gauge can be displayed to keep the user
+informed on the operation status at all time.
+
+Location-aware application:
+This is a location - aware application that can determine user’s current position
+and display a list of all cinemas and movies in a certain range from that position.A first solution involves an external GPS device that can be connected to the
+mobile device or a built in GPS chip to determine user’s current position.Based on the GPS data and application setup, all cinemas in the user’s range can be found out
+
+
+
+
+
+
+
+Title : Dynamic Pricing in Movie Tickets using
+Regression Techniques 
+Author : Vaibhav Gupta
+Place : Varanasi, India. 
+Date : 2018
+
+
+
+Dynamic pricing is one of the most widely used tools
+for revenue management. It allows companies to enhance
+their revenues by combining its supplies with demands,
+responding to changing different patterns of demand, and by
+attaining customer segmentation. Dynamic pricing is
+popularly used in various industries including airline
+industry, entertainment industry, hotel industry, and the
+retail industry.
+Most of the dynamic pricing application area’s problems
+share three main characteristics. First, the selling season
+lasts for a finite span of time/ period. The products have a
+limited and fixed selling season time and they are timesensitive. Like in case of airlines industry, reservation of
+seats is permitted before some months before the actual
+departure time, similarly movie-tickets are available online for
+pre-booking which lasts till the show time. Second, there is
+an amount of some fixed stock of products kept at the
+beginning of sale which has to be sold during a particular
+season; hence no new product inventory is added overtime.
+In airlines industry the total number of seats in particular
+flight is fixed and there will be no options for an extra new
+reservation for seats and similarly for a movie show also the
+number of seats available are fixed. Third, modifying the
+selling price is possible that means different costs for
+different products can be allotted depending on the season
+instead of single or fixed or static price of products for the
+entire season. For example, price can be changed
+dynamically for a movie when it is online. 
+
+According to the time horizon structure, there are
+following three types of models which are followed by all
+the problems:
+1. Continuous time horizon, here cost can be changed at
+any time. It is suitable for all those applications which
+allows adjusting prices at very little or no expense (e.g.,
+online shopping). In most of the articles, in order to improve
+the algorithm efficiency, a continuous time period or
+horizon is divided into multiple time intervals which are
+short enough that there is nearly at every time interval, there
+is arrival of a customer. In such type of cases, the time
+horizon is said to be discretized continuously.
+2. Discrete time horizon, time is divided into a number
+of time intervals such that prices can be changed only at the
+initial stage of time period. A discrete horizon is suitable in
+those applications where price changes may cause a
+significant cost and prices are changed regularly depending
+on some fixed schedule (e.g., most of the physical stores
+shopping).
+3. Customer based time horizon, here price is altered
+only in a condition of arrival of customer, and therefore it is
+totally dependent on the arrival of customer.
+
+
+
+
+
+
+
+QFX cinema
+
+A well-known cinema chain in Nepal, QFX Cinemas provides a contemporary movie-going experience. One of the biggest multiplex chains in the nation, it has numerous locations in important towns including Kathmandu, Lalitpur, and Pokhara.
+QFX Cinemas offers cutting-edge services and facilities to improve its patrons' movie-going experiences. They offer relaxing seating options, like as reclining seats and VIP options in some theaters. Modern audio-visual technology is installed in the theaters to deliver excellent sound and picture.
+Regional Nepali films, as well as films from other foreign industries, are shown at QFX Cinemas in addition to popular Hollywood and Bollywood blockbusters. They strive to accommodate a variety of film tastes and offer a venue for regional filmmakers to exhibit
+To provide convenience to their customers, QFX Cinemas has an online ticket booking system, allowing moviegoers to book their seats in advance. They have a user-friendly website and mobile app where users can browse movie listings, showtimes, and make bookings.
+
+City Cinema
+City cinema is one of the first and evolving multiplex in Biratnagar. It has two screening theatres, Hall A and Hall B With a capacity of more than 100 seats
+providing high quality auditorium with Barco 2k latest digital projector system, clear crystal DTS sound. They offer both a normal seats and VIP seats to the cutomers based 
+on their preference. Regional films along with bollywood and hollywood blockbusters are shown at City cinema. They have a user friendly website where users can easily
+select their seats and reserve or buy the tickets digitally.
+
