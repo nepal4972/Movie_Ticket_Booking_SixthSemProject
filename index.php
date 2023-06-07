@@ -14,9 +14,7 @@ include './includes/links.php';
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./alerts/dist/css/iziToast.min.css">
   <link rel="stylesheet" href="<?php echo $homecss ?>">
-  <title>Home
-    <?php echo $title ?>
-  </title>
+  <title>Home <?php echo $title ?></title>
 </head>
 <br>
 <?php
@@ -27,7 +25,7 @@ include './includes/header.php';
 include './includes/carousel.php';
 ?>
 <span class="line"></span>
-<section class="top-rated">
+<section class="movies">
   <div class="container">
     <div class="title-wrapper">
       <h2 class="h2 section-title">
@@ -66,7 +64,7 @@ include './includes/carousel.php';
 
 <span class="line"></span>
 
-<section class="top-rated">
+<section class="movies">
   <div class="container">
     <div class="title-wrapper">
       <h2 class="h2 section-title">Coming Soon</h2>

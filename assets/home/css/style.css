@@ -8,7 +8,6 @@
   --similar-white : #f4f4f4;
 
   --ff-poppins: "Poppins", sans-serif;
-
 }
 
 * {
@@ -63,6 +62,7 @@ button {
 }
 
 html {
+  scroll-behavior: smooth;
   font-family: var(--ff-poppins);
   scroll-behavior: smooth;
 }
@@ -409,7 +409,6 @@ body.active {
   width: 100%;
   max-width: 300px;
   height: 100%;
-  box-shadow: -1px 0 3px hsl(0, 0%, 0%, 0.2);
   transition: 0.15s ease-in;
   visibility: hidden;
   z-index: 3;
@@ -441,20 +440,8 @@ body.active {
   margin-top: -20px;
 }
 
-.dropdown .profile-img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: 2px solid var(--orange);
-  object-fit: cover;
-}
-
 .dropdown .profile-img:hover{
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
   border: 2px solid var(--skyblue);
-  object-fit: cover;
 }
 
 .profile-icon .profile-img {
@@ -539,37 +526,14 @@ body.active {
   font-size: 14.5px;
 }
 
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: hsla(204, 18%, 11%, 0.8);
-  opacity: 0;
-  pointer-events: none;
-  z-index: 1;
-  transition: 0.25s ease-in;
-}
-
-.overlay.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.filter-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
-.top-rated {
+.movies {
   background: var(--background);
   background-size: cover;
   background-position: center;
   padding-block: 40px;
 }
 
-.top-rated .section-title {
+.movies .section-title {
   margin-bottom: 50px;
 }
 
@@ -577,47 +541,6 @@ body.active {
   font-size: 20px;
   color: var(--orange);
   margin-top: 12px;
-}
-
-.top-rated .filter-list {
-  gap: 15px;
-  margin-bottom: 50px;
-}
-
-.top-rated .filter-btn {
-  position: relative;
-  background: var(--rich-black-fogra-39);
-  color: var(--light-gray);
-  font-size: 13;
-  font-weight: 700;
-  text-transform: uppercase;
-  padding: 17px 25px;
-  border-radius: 4px;
-  box-shadow: inset 0 3px 7px hsla(0, 0%, 0%, 0.8);
-}
-
-.top-rated .filter-btn:focus {
-  color: var(--citrine);
-  text-shadow: 0 3px 25px hsla(57, 97%, 45%, 0.5);
-}
-
-.top-rated .filter-btn:focus::before,
-.top-rated .filter-btn:focus::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: var(--citrine);
-  width: 2px;
-  height: 15px;
-}
-
-.top-rated .filter-btn:focus::before {
-  left: 0;
-}
-
-.top-rated .filter-btn:focus::after {
-  right: 0;
 }
 
 .divider {

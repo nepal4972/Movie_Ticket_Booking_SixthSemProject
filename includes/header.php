@@ -89,10 +89,10 @@ $testimg = "ss";
         <li>
           <a href="./profile.php" class="navbar-link hide">My Profile</a>
         </li>
-        <?php } ?>
         <li>
           <a href="./ticket.php" class="navbar-link hide">My Tickets</a>
         </li>
+        <?php } ?>
         <li>
           <a href="./" class="navbar-link">Home</a>
         </li>
