@@ -3,10 +3,6 @@ include './db/connect.php';
 include './includes/links.php';
 ?>
 
-<?php
-if(isset($_SESSION['fullname'])==null) {
-?>
-
 <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -44,13 +40,6 @@ if(isset($_SESSION['fullname'])==null) {
         <script src="<?php echo $jspath ?>"></script>
     </body>
 </html>
-
-<?php
-}
-else {
-   header("Location: ./errors/100.php");
-}
-?>
 
 <?php
 include './includes/alert.php';

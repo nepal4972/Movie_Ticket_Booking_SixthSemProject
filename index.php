@@ -40,7 +40,7 @@ include './includes/carousel.php';
             <img src="<?php echo $bannerpath ?>lakhey-thumbnail.jpeg" alt="">
 
             <div class="hover-items">
-              <a class="movie-a" href="">
+              <a class="movie-a" href="./movie-details.php">
                 <ion-icon name="ticket-outline"></ion-icon>
                 <span>Buy Tickets</span>
               </a>
@@ -52,7 +52,7 @@ include './includes/carousel.php';
             </div>
           </figure>
           <div class="title-wrapper">
-            <a href="./movie-details.html">
+            <a href="./movie-details.php">
               <h3 class="movie-title">Lakhey</h3>
             </a>
           </div>
@@ -77,7 +77,7 @@ include './includes/carousel.php';
             <img src="<?php echo $bannerpath ?>lakhey-thumbnail.jpeg" alt="">
 
             <div class="hover-items">
-              <a class="movie-a" href="">
+              <a class="movie-a" href="./movie-details.php">
                 <ion-icon name="eye-outline"></ion-icon>
                 <span>View Details</span>
               </a>
@@ -88,7 +88,7 @@ include './includes/carousel.php';
             </div>
           </figure>
           <div class="title-wrapper">
-            <a href="./movie-details.html">
+            <a href="./movie-details.php">
               <h3 class="movie-title">Lakhey</h3>
             </a>
           </div>

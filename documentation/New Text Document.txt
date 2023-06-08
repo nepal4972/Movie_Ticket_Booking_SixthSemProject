@@ -32,7 +32,7 @@ database
 
 user
 movie
-Ticket
+bookings
 seat
 show_time
 

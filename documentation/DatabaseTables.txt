@@ -1,0 +1,20 @@
+Users
+
+1. userID    2. fullname    3. email   4. phone_number   5. password   6. user_type   7. profile_img
+8. register_date   9. reset_code   10. expiry_time
+
+
+movies
+
+1. movieID   2. movie_title   3. movie_description   4. movie_thumbnail   5. movie_trailer_id
+6. movie_duration   7. movie_status
+
+
+bookings
+
+1. bookingID   2. userID   3. movieID   4. booking_date   5. booking_time   6. booking_status
+
+
+seats
+
+1. seatID   2. seat_number   3. seat_status   4. bookingID

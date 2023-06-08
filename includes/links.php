@@ -8,6 +8,7 @@ $page = basename($base, ".php");
 $paramfavicon = $base."img/favicon/favicon.svg";    // Favicon For Custom Page Like Home
 $favicon = $base."img/favicons/favicon.ico";
 $csspath = $base."assets/loginsignup/css/style.css";
+$profilecss = $base."assets/loginsignup/css/profile.css";
 $carouselcss = $base."assets/carousel/css/style.css";
 $homecss = $base."assets/home/css/style.css";
 $imglogopath = $base."img/favicons/";

@@ -34,23 +34,14 @@ $testimg = "s";
             <h3 class="profile-header">My Profile</h3>
             <div class="input-row">
             <div class="field">
-              <a class="disabled">My Profile</a>
+              <a href="./profile.php" class="">My Profile</a>
             </div>
-            <div class="field">
+            <div class="field disabled">
             <a href="./updatepassword.php">Update Password</a>
             </div>
           </div>
             <?php
           if(!empty($testimg)) { ?>
-            <div class="profile-pic-upload">
-              <label for="profile-pic" class="profile-pic-label">
-                <img class="profile-img" id="image" src="./img/banners/profile.jpg" alt="">
-                <input type="file" id="profile-pic" name="image" class="profile-pic-input">
-                <ion-icon name="camera-reverse-outline" class="camera-icon"></ion-icon>
-              </label>
-              <a class="cancel-button">cancel</a>
-              <button name="submit" class="ok-button">Update</button>
-            </div>
 
             <?php }
           else { ?>
@@ -60,33 +51,30 @@ $testimg = "s";
           </header>
           <br>
           <div class="input-row">
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
             <div class="field">
-              <span>Full Name:</span>
-              <input type="text" name="fullname" value="<?php echo $row['fullname'] ?>">
+              <input type="phone" name="phone_number" placeholder="Old Password" value="<?php echo $row['phone_number'] ?>">
             </div>
             <div class="field">
-              <span>Email Address:</span>
-              <input type="text" name="email" value="<?php echo $row['email'] ?>">
+              <input hidden type="phone" name="phone_number" placeholder="Old Password" value="<?php echo $row['phone_number'] ?>">
+            </div>
+          </div>
+          <div class="input-row">
+            <div class="field">
+              <input type="password" name="fullname" placeholder="New Password" value="<?php echo $row['fullname'] ?>">
+            </div>
+            <div class="field">
+              <input type="text" name="email" placeholder="New Confirm Password" value="<?php echo $row['email'] ?>">
             </div>
           </div>
 
-          <div class="input-row">
-            <div class="field">
-              <span>Phone Number:</span>
-              <input type="phone" name="phone_number" value="<?php echo $row['phone_number'] ?>">
-            </div>
-            <div class="field">
-              <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
-              <input hidden type="phone" name="phone_number" value="<?php echo $row['phone_number'] ?>">
-            </div>
-          </div>
           <div class="input-row">
             <div class="field">
               <button name="cancel">Cancel</button>
               <br><br>
             </div>
             <div class="field">
-              <button name="submit">Update Profile</button>
+              <button name="submit">Change Password</button>
             </div>
           </div>
         </form>

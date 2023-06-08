@@ -4,6 +4,7 @@ require '../db/connect.php';
 <link rel="stylesheet" href="../alerts/dist/css/iziToast.min.css">
 
 <?php
+$test = true;
 
 date_default_timezone_set('Asia/Kathmandu');
 $resettimestamp = date('d-m-y h:i:s');
@@ -94,6 +95,9 @@ if(isset($_POST['change'])) {
         }
     }
 
+}
+elseif($test) {   // isset for profile update
+    echo 'test';
 }
 else {
     $_SESSION['icons']="./img/alerticons/error.png";  

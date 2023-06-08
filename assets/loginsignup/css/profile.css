@@ -1,0 +1,248 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+.html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-y: hidden; /* Hide vertical scrollbar */
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+.form {
+  position: absolute;
+  max-width: 600px;
+  width: 100%;
+  padding: 20px;
+  border-radius: 6px;
+  background: #cac0b3;
+}
+
+.container {
+  height: 102vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #001242;
+  column-gap: 30px;
+}
+
+.disabled{
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.profile-header {
+  margin-bottom: 20px;
+  text-decoration: underline;
+}
+
+header {
+  font-size: 28px;
+  font-weight: 600;
+  color: #232836;
+  text-align: center;
+}
+
+form {
+  margin-top: 30px;
+}
+
+.profile-icon {
+  margin-top: 10px;
+  font-size: 120px;
+}
+
+.profile-pic-upload {
+  margin-top: -50px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-pic-label {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.profile-pic-input {
+  display: none;
+}
+
+.camera-icon {
+  position: absolute;
+  bottom: 5px;
+  right: 0px;
+  font-size: 24px;
+  border-radius: 50%;
+  border: 2px solid #ff595a;
+  background-color: #ff595a;
+}
+
+.profile-img {
+  margin-top: 20px;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 2px solid #ff595a;
+  object-fit: cover;
+}
+
+.input-row {
+  user-select: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cancel-button {
+  margin-bottom: 4.8px;
+  margin-left: -100px;
+  text-decoration: none;
+  font-size: 10px;
+  display: inline-block;
+  padding: 2px 2px;
+  background-color: #FF595A;
+  color: black;
+  text-decoration: none;
+  border: 2px solid#232836;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.ok-button {
+  margin-top: -30.3px;
+  margin-left: 90px;
+  text-decoration: none;
+  font-size: 10px;
+  display: inline-block;
+  padding: 2px 2px;
+  background-color: #FF595A;
+  color: black;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background-color: #016dcb;
+  text-decoration: none;
+}
+
+.ok-button:hover {
+  background-color: #016dcb;
+  text-decoration: none;
+}
+
+.field {
+  position: relative;
+  flex-grow: 1;
+  margin-bottom: 30px;
+  margin-right: 10px;
+  height: 50px;
+}
+
+.field:last-child {
+  margin-right: 0;
+}
+
+.field input,
+.field button {
+  height: 90%;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 400;
+  border-radius: 6px;
+  padding: 0 8px; /* Adjust the padding as needed */
+}
+
+.field input {
+  outline: none;
+  border: 1px solid #cacaca;
+}
+
+.field input:focus {
+  border-bottom-width: 2px;
+}
+
+.eye-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #8b8b8b;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.field .green {
+  background-color: green;
+}
+
+.field a {
+  margin-bottom: 10px;
+  font-size: 16px;
+  border-radius: 6px;
+  color: #fff;
+  background-color: #ff595a;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  padding: 10px 30px;
+}
+
+.field a:hover {
+  background-color: #016dcb;
+}
+
+
+.field button {
+  color: #fff;
+  background-color: #ff595a;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.field button:hover {
+  background-color: #016dcb;
+}
+
+.form-link {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.form-link span,
+.form-link a {
+  font-size: 14px;
+  font-weight: 400;
+  color: #232836;
+}
+
+.form a {
+  user-select: none;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 400px) {
+  .form {
+    padding: 20px 10px;
+  }
+}
