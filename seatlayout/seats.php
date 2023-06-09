@@ -23,7 +23,7 @@ include '../includes/links.php';
 			<span class="booking-date">May 8, 2023&nbsp&nbsp</span><span class="booking-time">12:30 PM</span>
 		</div>
 
-		<a onclick="history.back()" id="closeSeats" class="page-close-btn close-btn"></a>
+		<a onclick="history.back()" id="closeSeats" class="page-close-btn"></a>
 
 		<div class="seat-status">
 			<ul>

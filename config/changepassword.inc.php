@@ -28,7 +28,7 @@ if(isset($_POST['change'])) {
         $stmt = mysqli_stmt_init($conn);
 
         if(!mysqli_stmt_prepare($stmt, $sql)) {
-            $_SESSION['icons']="./img/alerticons/error.png";  
+            $_SESSION['icons']="./img/alerticons/error.png";
             $_SESSION['status']="error";
             $_SESSION['status_code']="SQL Error";
             header("Location: ../resetpassword.php");
@@ -95,9 +95,6 @@ if(isset($_POST['change'])) {
         }
     }
 
-}
-elseif($test) {   // isset for profile update
-    echo 'test';
 }
 else {
     $_SESSION['icons']="./img/alerticons/error.png";  

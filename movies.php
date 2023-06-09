@@ -28,10 +28,12 @@ include './includes/header.php';
   <section class="top-rated">
     <div class="container">
       <div class="title-wrapper">
+        <br><br>
         <h2 class="h2 section-title">
           Now Showing
         </h2>
       </div>
+      <br><br>
       <ul class="movies-list">
         <li>
           <div class="movie-card">
@@ -60,14 +62,16 @@ include './includes/header.php';
       </ul>
     </div>
   </section>
-
+  <br><br>
   <span class="line"></span>
 
   <section class="top-rated">
     <div class="container">
       <div class="title-wrapper">
+      <br><br>
         <h2 class="h2 section-title">Coming Soon</h2>
       </div>
+      <br><br>
       <ul class="movies-list">
         <li>
           <div class="movie-card">
@@ -96,9 +100,7 @@ include './includes/header.php';
       </ul>
     </div>
   </section>
-
-  <span class="line"></span>
-
+  <br><br>
   </article>
   </main>
 

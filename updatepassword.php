@@ -19,19 +19,26 @@ $testimg = "s";
   <link rel="stylesheet" href="./alerts/dist/css/iziToast.min.css">
   <link rel="stylesheet" href="<?php echo $profilecss ?>">
   <link rel="shortcut icon" href="<?php echo $favicon ?>" type="image/x-icon">
-  <title>Signup
-    <?php echo $title ?>
-  </title>
+  <title>Update Password <?php echo $title ?></title>
 </head>
 
 <body>
-
+<?php
+$userID = $_SESSION['userID'];
+$sql = "SELECT * FROM users WHERE userID = ?";
+$stmt = mysqli_stmt_init($conn);
+mysqli_stmt_prepare($stmt, $sql);
+mysqli_stmt_bind_param($stmt, "s", $userID);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+if($row = mysqli_fetch_assoc($result)) {
+?>
   <section class="container">
     <div class="form">
       <div class="form-content">
-        <form action="<?php echo $base ?>config/updateprofile.inc" method="POST">
+        <form action="<?php echo $base ?>config/updatepassword.inc" method="POST">
           <header>
-            <h3 class="profile-header">My Profile</h3>
+            <h3 class="profile-header">Update Password</h3>
             <div class="input-row">
             <div class="field">
               <a href="./profile.php" class="">My Profile</a>
@@ -47,24 +54,23 @@ $testimg = "s";
           else { ?>
             <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
             <?php } ?>
-            <h4 style="font-size:25px">Saugat Nepal</h4>
           </header>
           <br>
           <div class="input-row">
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
             <div class="field">
-              <input type="phone" name="phone_number" placeholder="Old Password" value="<?php echo $row['phone_number'] ?>">
+              <input type="password" name="oldpassword" placeholder="Old Password">
             </div>
             <div class="field">
-              <input hidden type="phone" name="phone_number" placeholder="Old Password" value="<?php echo $row['phone_number'] ?>">
+              <input hidden type="phone" placeholder="Old Password">
             </div>
           </div>
           <div class="input-row">
             <div class="field">
-              <input type="password" name="fullname" placeholder="New Password" value="<?php echo $row['fullname'] ?>">
+              <input type="password" name="password" placeholder="New Password" >
             </div>
             <div class="field">
-              <input type="text" name="email" placeholder="New Confirm Password" value="<?php echo $row['email'] ?>">
+              <input type="password" name="cpassword" placeholder="New Confirm Password">
             </div>
           </div>
 
@@ -83,21 +89,23 @@ $testimg = "s";
     </div>
   </section>
 
-  <script>
-    document.getElementByID("profile-pic").onchange = function () {
-      document.getElementByID("image").src = URL.createObjectURL(fileImg.files[0]);
-
-      document.getElementByID("image").src = URL.createObjectURL(fileImg.files[0]);
-    }
-  </script>
-
   <script src="<?php echo $jspath ?>"></script>
 </body>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
-</html>
+<?php
+}
+else {
+  $_SESSION['icons']="./img/alerticons/error.png";
+  $_SESSION['status']="error";
+  $_SESSION['status_code']="Invalid User. Login First";
+  header("Location: ./");
+  exit();
+}
+?>
 
+</html>
 <?php
 include './includes/alert.php';
 ?>

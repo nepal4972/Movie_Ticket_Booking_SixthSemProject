@@ -5,11 +5,17 @@ include './includes/links.php';
 ?>
 
 <?php
-$namepart = explode(' ', $_SESSION['fullname']);
+$userID = $_SESSION['userID'];
+$sql = "SELECT * FROM users WHERE userID = ?";
+$stmt = mysqli_stmt_init($conn);
+mysqli_stmt_prepare($stmt, $sql);
+mysqli_stmt_bind_param($stmt, "s", $userID);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+$row = mysqli_fetch_assoc($result);
+$namepart = explode(' ', $row['fullname']);
 $firstname = $namepart[0];
-$testimg = "ss";
 ?>
-
 <script src="./alerts/dist/js/iziToast.min.js"></script>
 <header class="header">
   <div class="container">
@@ -20,7 +26,7 @@ $testimg = "ss";
       <div class="lang-wrapper">
       </div>
       <?php
-        if(isset($_SESSION['fullname'])==null) {
+        if(isset($_SESSION['userID'])==null) {
         ?>
       <a href="./login.php" class="btn btn-primary">Sign in</a>
       <?php
@@ -30,8 +36,8 @@ $testimg = "ss";
         <p class="profile-name">Hello, <span style='letter-spacing:2.5px'><?php echo $firstname?>&nbsp&nbsp</span></p>
         <div class="dropdown">
           <?php
-          if(!empty($testimg)) { ?>
-            <img class="profile-img" src="./img/banners/profile.jpg" alt="">
+          if(!empty($row['profile_img'])) { ?>
+            <img class="profile-img" src="<?php echo $row['profile_img'] ?>" alt="">
             <?php }
           else { ?>
             <ion-icon class="profile-icon dropdownbtn" name="person-circle-outline"></ion-icon>
@@ -56,15 +62,15 @@ $testimg = "ss";
       <div class="navbar-top">
         <div class="profile-icon">
           <?php
-        if(!empty($testimg)) { ?>
-          <img class="profile-img" src="./img/banners/profile.jpg" alt="">
+        if(!empty($row['profile_img'])) { ?>
+          <img class="profile-img" src="<?php echo $row['profile_img'] ?>" alt="">
         <?php }
         else { ?>
           <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
         <?php } ?>
         <p class="profile-name">Hello,
         <?php
-        if(!isset($_SESSION['fullname'])==null) {
+        if(!isset($_SESSION['userID'])==null) {
         ?>  
         <span style='letter-spacing:2.5px'><?php echo $firstname?>&nbsp&nbsp</span></p>
         <?php
@@ -80,7 +86,7 @@ $testimg = "ss";
       <span class="line hide"></span>
       <ul class="navbar-list">
         <?php
-          if(isset($_SESSION['fullname'])==null) {
+          if(isset($_SESSION['userID'])==null) {
           ?>
         <li>
           <a href="./login.php" class="navbar-link hide">Sign In</a>
@@ -103,7 +109,7 @@ $testimg = "ss";
           <a href="#" class="navbar-link">Contact</a>
         </li>
         <?php
-          if(!isset($_SESSION['fullname'])==null) {
+          if(!isset($_SESSION['userID'])==null) {
           ?>
         <li>
           <a href="./logout.php" class="navbar-link logout">Logout</a>

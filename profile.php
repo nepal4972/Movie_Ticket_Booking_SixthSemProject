@@ -4,10 +4,6 @@ include './db/connect.php';
 include './includes/links.php';
 ?>
 <script src="./alerts/dist/js/iziToast.min.js"></script>
-<?php
-$testimg = "s";
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,17 +15,27 @@ $testimg = "s";
   <link rel="stylesheet" href="./alerts/dist/css/iziToast.min.css">
   <link rel="stylesheet" href="<?php echo $profilecss ?>">
   <link rel="shortcut icon" href="<?php echo $favicon ?>" type="image/x-icon">
-  <title>Signup
+  <title>My Profile
     <?php echo $title ?>
   </title>
 </head>
 
 <body>
 
+<?php
+$userID = $_SESSION['userID'];
+$sql = "SELECT * FROM users WHERE userID = ?";
+$stmt = mysqli_stmt_init($conn);
+mysqli_stmt_prepare($stmt, $sql);
+mysqli_stmt_bind_param($stmt, "s", $userID);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+if($row = mysqli_fetch_assoc($result)) {
+?>
   <section class="container">
     <div class="form">
       <div class="form-content">
-        <form action="<?php echo $base ?>config/updateprofile.inc" method="POST">
+        <form action="<?php echo $base ?>config/updateprofile.inc" method="POST" enctype="multipart/form-data">
           <header>
             <h3 class="profile-header">My Profile</h3>
             <div class="input-row">
@@ -40,25 +46,28 @@ $testimg = "s";
             <a href="./updatepassword.php">Update Password</a>
             </div>
           </div>
-            <?php
-          if(!empty($testimg)) { ?>
+        
             <div class="profile-pic-upload">
               <label for="profile-pic" class="profile-pic-label">
-                <img class="profile-img" id="image" src="./img/banners/profile.jpg" alt="">
-                <input type="file" id="profile-pic" name="image" class="profile-pic-input">
-                <ion-icon name="camera-reverse-outline" class="camera-icon"></ion-icon>
-              </label>
-              <a class="cancel-button">cancel</a>
-              <button name="submit" class="ok-button">Update</button>
-            </div>
-
-            <?php }
-          else { ?>
-            <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
-            <?php } ?>
-            <h4 style="font-size:25px">Saugat Nepal</h4>
+                <?php
+                if(!empty($row['profile_img'])) { ?>
+                <img class="profile-img" id="image" src="<?php echo $row['profile_img']?>" alt="">
+                <?php
+                }else { ?>
+                  <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
+                  <?php } ?>
+                  <input type="file" id="profile-pic" name="image" class="profile-pic-input">
+                  <ion-icon name="camera-reverse-outline" class="camera-icon"></ion-icon>
+                </label>
+                <button name="img-submit" class="ok-button">Upload/Update</button>
+                <h4 style="font-size:25px"><?php echo $row['fullname'] ?></h4>
+              </div>
+              
+           
           </header>
           <br>
+          </form>
+          <form action="<?php echo $base ?>config/updateprofile.inc" method="POST">
           <div class="input-row">
             <div class="field">
               <span>Full Name:</span>
@@ -77,7 +86,7 @@ $testimg = "s";
             </div>
             <div class="field">
               <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
-              <input hidden type="phone" name="phone_number" value="<?php echo $row['phone_number'] ?>">
+              <input hidden type="phone" value="<?php echo $row['phone_number'] ?>">
             </div>
           </div>
           <div class="input-row">
@@ -86,7 +95,7 @@ $testimg = "s";
               <br><br>
             </div>
             <div class="field">
-              <button name="submit">Update Profile</button>
+              <button name="update">Update Profile</button>
             </div>
           </div>
         </form>
@@ -108,8 +117,19 @@ $testimg = "s";
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
-</html>
+<?php
+}
+else {
+  $_SESSION['icons']="./img/alerticons/error.png";
+  $_SESSION['status']="error";
+  $_SESSION['status_code']="Invalid User. Login First";
+  header("Location: ./");
+  exit();
+}
+?>
 
+</html>
+<script src="./alerts/dist/js/iziToast.min.js"></script>
 <?php
 include './includes/alert.php';
 ?>

@@ -97,9 +97,6 @@ include './includes/carousel.php';
     </ul>
   </div>
 </section>
-
-<span class="line"></span>
-
 </article>
 </main>
 

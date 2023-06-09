@@ -40,7 +40,7 @@ include './includes/links.php';
         <script src="<?php echo $jspath ?>"></script>
     </body>
 </html>
-
+<script src="./alerts/dist/js/iziToast.min.js"></script>
 <?php
 include './includes/alert.php';
 ?>
