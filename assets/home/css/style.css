@@ -474,7 +474,7 @@ body.active {
   position: absolute;
   min-width: 160px;
   left: -110px;
-  bottom: -102px;
+  bottom: -103px;
   transition: 0.15s ease;
 }
 

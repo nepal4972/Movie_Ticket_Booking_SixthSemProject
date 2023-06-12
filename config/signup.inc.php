@@ -59,8 +59,8 @@ if(isset($_POST['submit'])) {
                                     exit();
                                 }
                                 else {
-                                    $usertype = 0;
-                                    mysqli_stmt_bind_param($stmt, "ssssis", $fullname, $email, $phone_number, $password, $usertype , $registerdate);
+                                    $usertype = 'user';
+                                    mysqli_stmt_bind_param($stmt, "ssssss", $fullname, $email, $phone_number, $password, $usertype , $registerdate);
                                     mysqli_stmt_execute($stmt);
                                     $_SESSION['icons']="./img/alerticons/success.png";  
                                     $_SESSION['status']="success";

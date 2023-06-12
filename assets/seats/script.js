@@ -43,13 +43,14 @@ function updateSelectedCount() {
 
 // Get data from local storage and populate UI
 function populateUI() {
-  const selectedSeats = JSON.parse(localStorage.getItem("selectedSeats"));
+  let selectedSeats = JSON.parse(localStorage.getItem("selectedSeats"));
+
+  // Clear selected seats by emptying the selectedSeats array
+  selectedSeats = [];
 
   if (selectedSeats !== null && selectedSeats.length > 0) {
-    seats.forEach((seat, index) => {
-      if (selectedSeats.indexOf(index) > -1) {
-        seat.classList.add("selected");
-      }
+    selectedSeats.forEach((seatIndex) => {
+      seats[seatIndex].classList.add("selected");
     });
   }
 
@@ -59,6 +60,7 @@ function populateUI() {
     movieSelect.selectedIndex = selectedMovieIndex;
   }
 }
+
 
 // Movie select event
 movieSelect.addEventListener("change", (e) => {

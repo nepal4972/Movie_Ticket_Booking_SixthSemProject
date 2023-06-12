@@ -6,24 +6,12 @@
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img class="d-block w-100 fixed-height" src="./img/banners/fulbari-banner.jpeg" alt="First slide">
-                <div class="carousel-caption d-none d-md-block">
-                    <h2>First slide 1</h2>
-                    <p>Some representative placeholder content for the first slide.</p>
-                </div>
             </div>
             <div class="carousel-item">
                 <img class="d-block w-100 fixed-height" src= "./img/banners/fulbari-banner.jpeg" alt="Second slide">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>First slide 2</h5>
-                    <p>Some representative placeholder content for the first slide.</p>
-                </div>
             </div>
             <div class="carousel-item">
                 <img class="d-block w-100 fixed-height" src="./img/banners/fulbari-banner.jpeg" alt="Third slide">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>First slide 3</h5>
-                    <p>Some representative placeholder content for the first slide.</p>
-                </div>
             </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
