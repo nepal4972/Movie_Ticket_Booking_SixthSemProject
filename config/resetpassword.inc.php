@@ -76,7 +76,7 @@ try {
     $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
     //Recipients
-    $mail->setFrom('nepal4972@gmail.com', 'Movie Ticket Booking Admin');
+    $mail->setFrom('nepal4972@gmail.com', 'mail@cinepal');
     $mail->addAddress($reset_email);     //Add a recipient
 
 

@@ -6,6 +6,7 @@
 
         <div class="header-menu">
             <div class="user profile-icon">
+                <p style="margin-right:10px;">Hello, <br> Admin</p>
                 <div class="dropdown">
                     <img class="profile-img" src="<?php echo $imglogopath?>../profile-img/profile.jpg" alt="">
                     <div class="dropdown-content">

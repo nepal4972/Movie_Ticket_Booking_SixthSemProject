@@ -126,7 +126,7 @@ include '../includes/links.php';
                                             <td>
                                                 <h4>Fulbari</h4>
                                             </td>
-                                            <td>
+                                            <td>    
                                             <div class="client">
                                                 <img src="<?php echo $imglogopath?>../profile-img/profile.jpg" class="client-img bg-img" alt="">
                                                 <div class="client-info">

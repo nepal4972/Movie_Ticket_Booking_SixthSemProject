@@ -83,6 +83,9 @@ if($row = mysqli_fetch_assoc($result)) {
               <button name="submit">Change Password</button>
             </div>
           </div>
+          <div class="form-link">
+            <a href="<?php echo $base."resetpassword.php"?>" class="forgot-pass">Forgot password?</a>
+          </div>
         </form>
         <br><br>
       </div>

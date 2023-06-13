@@ -3,9 +3,6 @@ include './db/connect.php';
 include './includes/links.php';
 ?>
 
-<?php
-if(isset($_SESSION['fullname'])==null) {
-?>
 <!DOCTYPE html>
    <html lang="en">
    <head>
@@ -62,7 +59,7 @@ if(isset($_SESSION['fullname'])==null) {
       ?>
    </body>
 </html>
-    <?php    
+    <?php
     }
    }
    else {
@@ -73,12 +70,6 @@ if(isset($_SESSION['fullname'])==null) {
     exit();         
    }
    ?>
-<?php
-}
-else {
-   header("Location: ./errors/100.php");
-}
-?>
 
 <?php
 include './includes/alert.php';

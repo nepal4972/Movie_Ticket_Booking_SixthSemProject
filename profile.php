@@ -22,7 +22,7 @@ include './includes/links.php';
 
 <body>
 
-<?php
+  <?php
 $userID = $_SESSION['userID'];
 $sql = "SELECT * FROM users WHERE userID = ?";
 $stmt = mysqli_stmt_init($conn);
@@ -39,14 +39,13 @@ if($row = mysqli_fetch_assoc($result)) {
           <header>
             <h3 class="profile-header">My Profile</h3>
             <div class="input-row">
-            <div class="field">
-              <a class="disabled">My Profile</a>
+              <div class="field">
+                <a class="disabled">My Profile</a>
+              </div>
+              <div class="field">
+                <a href="./updatepassword.php">Update Password</a>
+              </div>
             </div>
-            <div class="field">
-            <a href="./updatepassword.php">Update Password</a>
-            </div>
-          </div>
-        
             <div class="profile-pic-upload">
               <label for="profile-pic" class="profile-pic-label">
                 <?php
@@ -54,20 +53,20 @@ if($row = mysqli_fetch_assoc($result)) {
                 <img class="profile-img" id="image" src="<?php echo $row['profile_img']?>" alt="">
                 <?php
                 }else { ?>
-                  <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
-                  <?php } ?>
-                  <input type="file" id="profile-pic" name="image" class="profile-pic-input">
-                  <ion-icon name="camera-reverse-outline" class="camera-icon"></ion-icon>
-                </label>
-                <button name="img-submit" class="ok-button">Upload/Update</button>
-                <h4 style="font-size:25px"><?php echo $row['fullname'] ?></h4>
-              </div>
-              
-           
+                <ion-icon class="profile-icon" name="person-circle-outline"></ion-icon>
+                <?php } ?>
+                <input type="file" id="profile-pic" name="image" class="profile-pic-input">
+                <ion-icon name="camera-reverse-outline" class="camera-icon"></ion-icon>
+              </label>
+              <button name="img-submit" class="ok-button">Upload/Update</button>
+              <h4 style="font-size:25px">
+                <?php echo $row['fullname'] ?>
+              </h4>
+            </div>
           </header>
           <br>
-          </form>
-          <form action="<?php echo $base ?>config/updateprofile.inc" method="POST">
+        </form>
+        <form action="<?php echo $base ?>config/updateprofile.inc" method="POST">
           <div class="input-row">
             <div class="field">
               <span>Full Name:</span>
@@ -104,15 +103,7 @@ if($row = mysqli_fetch_assoc($result)) {
     </div>
   </section>
 
-  <script>
-    document.getElementByID("profile-pic").onchange = function () {
-      document.getElementByID("image").src = URL.createObjectURL(fileImg.files[0]);
-
-      document.getElementByID("image").src = URL.createObjectURL(fileImg.files[0]);
-    }
-  </script>
-
-  <script src="<?php echo $jspath ?>"></script>
+<script src="<?php echo $jspath ?>"></script>
 </body>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
