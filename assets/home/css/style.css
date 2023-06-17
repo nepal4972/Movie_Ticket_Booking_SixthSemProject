@@ -1092,3 +1092,82 @@ body {
   font-weight: 500;
 }
 
+.ulShowDays {
+  display: flex;
+  justify-content: end;
+}
+
+.selectShowDays {
+  margin-left: 500px;
+}
+
+.ulShowDays .tomm {
+  margin-left: 10px;
+}
+
+.ulShowDays a {
+  background-color: #2f4858;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 0px;
+  width: 80px;
+  border-radius: 6px;
+  color: white;
+}
+
+.ulShowDays a:hover {
+  background-color: #ff595a;
+}
+
+.title-txt {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.title-txt {
+  color: white;
+  margin-left: 25px;
+  font-size: 32px;
+}
+
+.nowshowing-detail {
+  display: flex;
+  align-items: center;
+  padding: 35px 0;
+}
+
+.hall-info {
+  border: 1px solid #001242;
+  display: flex;
+  align-items: center;
+  background-color: #182356;
+  width: 500px;
+  margin-left: 20px;
+  border-radius: 10px;
+}
+
+.hall-info-text {
+  color: white;
+  font-size: 24px;
+  padding: 5px 5px;
+  margin-left: 10px;
+}
+
+.show-time-info {
+  display: flex;
+  padding: 10px 10px;
+}
+
+.show-time-info a {
+  border: 2px solid white;
+  border-radius: 10px;
+  color: white;
+  padding: 8px 8px;
+  font-weight: 600;
+  text-align: center;
+  margin: 0 5px;
+  cursor: pointer;
+  user-select: none;
+}
+

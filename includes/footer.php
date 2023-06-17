@@ -7,7 +7,7 @@
   
   <ul class="footer-nav">
     <li class="nav-item">
-      <h2 class="nav-title">Quick Links</h2>
+      <h2 class="nav-title">Quick Links :</h2>
 
       <ul class="nav-ul">
         <li>
@@ -29,7 +29,7 @@
     </li>
     
     <li class="nav-item">
-      <h2 class="nav-title">Social Handles</h2>
+      <h2 class="nav-title">Social Handles :</h2>
       
       <ul class="nav-ul">
         <li>
