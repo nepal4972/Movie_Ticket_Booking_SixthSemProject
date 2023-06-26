@@ -1,8 +1,9 @@
 <?php
 include '../db/connect.php';
 include '../includes/links.php';
+include './config/verifyadmin.php';
 ?>
-<script src="./alerts/dist/js/iziToast.min.js"></script>
+<script src="../alerts/dist/js/iziToast.min.js"></script>
 
 <!DOCTYPE html>
 <html lang="en">

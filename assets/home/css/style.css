@@ -586,6 +586,7 @@ body.active {
 }
 
 .movie-detail-banner img {
+  max-width: 280px;
   width: 100%;
   height: 350px;
   object-fit: cover;
@@ -866,11 +867,7 @@ body.active {
   .service-btn {
     right: 111px;
   }
-
-  .movie-detail {
-    padding-bottom: 200px;
-  }
-
+  
   .movie-detail .container {
     position: relative;
     display: flex;
@@ -939,7 +936,7 @@ body.active {
   }
 
   .movie-detail {
-    padding-bottom: 40px;
+    padding-bottom: 0px;
   }
 
   .movie-detail-content {

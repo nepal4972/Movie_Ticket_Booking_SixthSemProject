@@ -91,7 +91,7 @@ include '../includes/links.php';
   <h1>404</h1>
   <h2>PAGE NOT FOUND</h2>
   <p>The Page You are Searching is Not Found.....!!!!</p>
-  <a href="<?php echo $errorsindex ?>"> go to homepage</a>
+  <a href="../"> go to homepage</a>
  </div>
 </div>
 

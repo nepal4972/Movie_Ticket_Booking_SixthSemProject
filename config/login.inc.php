@@ -8,7 +8,7 @@ if(isset($_POST['submit'])) {
     $password = $_POST['password'];
 
     if(empty($fullname) || empty($password)) {
-        $_SESSION['icons']="./img/alerticons/warning.png";  
+        $_SESSION['icons']="./img/alerticons/warning.png";
         $_SESSION['status']="warning";
         $_SESSION['status_code']="Please Fill All The Fields";
         header("Location: ../login.php?email=".$fullname);
@@ -35,6 +35,7 @@ if(isset($_POST['submit'])) {
 
                 if ($password == $row['password']) {
                     $_SESSION['userID'] = $row['userID'];
+                    $_SESSION['user_type'] = $row['user_type'];
                     $_SESSION['fullname'] = $row['fullname'];
                     $_SESSION['email'] = $row['email'];
 

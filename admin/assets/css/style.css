@@ -579,7 +579,8 @@ table tbody td {
   color: #444;
 }
 
-table tbody td:first-child {
+table tbody td:first-child,
+tbody td:nth-child(2) {
   padding-left: 1rem;
   color: var(--background);
   font-weight: 600;

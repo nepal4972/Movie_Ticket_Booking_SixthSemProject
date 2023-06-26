@@ -33,31 +33,54 @@ include './includes/carousel.php';
         <span>(Movies Details Are Available in Buy Tickets Option)</span>
       </h2>
     </div>
+
+<?php
+$sql1 = "SELECT * FROM movies WHERE CURRENT_DATE() BETWEEN release_date AND end_date";
+$stmt1 = mysqli_stmt_init($conn);
+mysqli_stmt_prepare($stmt1, $sql1);
+mysqli_stmt_execute($stmt1);
+$result1 = mysqli_stmt_get_result($stmt1);
+?>
+
+<?php
+$sql2 = "SELECT * FROM movies WHERE CURRENT_DATE() < release_date";
+$stmt2 = mysqli_stmt_init($conn);
+mysqli_stmt_prepare($stmt2, $sql2);
+mysqli_stmt_execute($stmt2);
+$result2 = mysqli_stmt_get_result($stmt2);
+?>
+
     <ul class="movies-list">
+    <?php
+    while($row1 = mysqli_fetch_assoc($result1)) {
+    ?>
       <li>
         <div class="movie-card">
           <figure class="card-banner">
-            <img src="<?php echo $bannerpath ?>lakhey-thumbnail.jpeg" alt="">
+            <img src="<?php echo $row1['movie_banner'] ?>" alt="">
 
             <div class="hover-items">
-              <a class="movie-a" href="./movie-details.php">
+              <a class="movie-a" href="./movie-details.php?id=<?php echo $row1['movieID'] ?>">
                 <ion-icon name="ticket-outline"></ion-icon>
                 <span>Buy Tickets</span>
               </a>
 
-              <a class="watch-trailer movie-a" href="https://youtu.be/1Glb3BkJ2JQ">
-                <ion-icon href="https://youtu.be/1Glb3BkJ2JQ" name="play-circle-outline"></ion-icon>
-                <span href="https://youtu.be/1Glb3BkJ2JQ">Play Trailer</span>
+              <a class="watch-trailer movie-a" href="https://youtu.be/<?php echo $row1['videoID'] ?>">
+                <ion-icon href="https://youtu.be/<?php echo $row1['videoID'] ?>" name="play-circle-outline"></ion-icon>
+                <span href="https://youtu.be/<?php echo $row1['videoID'] ?>">Play Trailer</span>
               </a>
             </div>
           </figure>
           <div class="title-wrapper">
             <a href="./movie-details.php">
-              <h3 class="movie-title">Lakhey</h3>
+              <h3 class="movie-title"><?php echo $row1['movie_name'] ?></h3>
             </a>
           </div>
         </div>
       </li>
+      <?php
+      }
+      ?>
     </ul>
   </div>
 </section>
@@ -70,30 +93,36 @@ include './includes/carousel.php';
       <h2 class="h2 section-title">Coming Soon</h2>
     </div>
     <ul class="movies-list">
+    <?php
+    while($row2 = mysqli_fetch_assoc($result2)) {
+    ?>  
       <li>
         <div class="movie-card">
           <figure class="card-banner">
 
-            <img src="<?php echo $bannerpath ?>lakhey-thumbnail.jpeg" alt="">
+            <img src="<?php echo $row2['movie_banner'] ?>" alt="">
 
             <div class="hover-items">
-              <a class="movie-a" href="./movie-details.php">
+              <a class="movie-a" href="./movie-details.php?id=<?php echo $row2['movieID'] ?>">
                 <ion-icon name="eye-outline"></ion-icon>
                 <span>View Details</span>
               </a>
-              <a class="watch-trailer movie-a" href="https://youtu.be/Sc1OI1i-Kgs">
-                <ion-icon href="https://youtu.be/Sc1OI1i-Kgs" name="play-circle-outline"></ion-icon>
-                <span href="https://youtu.be/Sc1OI1i-Kgs">Play Trailer</span>
+              <a class="watch-trailer movie-a" href="https://youtu.be/<?php echo $row2['videoID'] ?>">
+                <ion-icon href="https://youtu.be/<?php echo $row2['videoID'] ?>" name="play-circle-outline"></ion-icon>
+                <span href="https://youtu.be/<?php echo $row2['videoID'] ?>">Play Trailer</span>
               </a>
             </div>
           </figure>
           <div class="title-wrapper">
             <a href="./movie-details.php">
-              <h3 class="movie-title">Lakhey</h3>
+              <h3 class="movie-title"><?php echo $row2['movie_name'] ?></h3>
             </a>
           </div>
         </div>
       </li>
+      <?php
+      }
+      ?>
     </ul>
   </div>
 </section>
@@ -101,8 +130,8 @@ include './includes/carousel.php';
 </main>
 
 <?php
-  include './includes/footer.php';
-  ?>
+include './includes/footer.php';
+?>
 
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>

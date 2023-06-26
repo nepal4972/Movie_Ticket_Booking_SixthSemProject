@@ -3,6 +3,10 @@ include './db/connect.php';
 include './includes/links.php';
 ?>
 
+<?php
+$movieid = $_GET['id'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,39 +24,59 @@ include './includes/links.php';
   <?php
 include './includes/header.php';
 ?>
+<?php
+$sql1 = "SELECT * FROM movies WHERE movieID = '$movieid'";
+$stmt1 = mysqli_stmt_init($conn);
+mysqli_stmt_prepare($stmt1, $sql1);
+mysqli_stmt_execute($stmt1);
+$result1 = mysqli_stmt_get_result($stmt1);
+$row1 = mysqli_fetch_assoc($result1);
+?>
+<?php
+$sql2 = "SELECT * FROM movies WHERE movieID = ? AND CURRENT_DATE() BETWEEN release_date AND end_date";
+$stmt2 = mysqli_stmt_init($conn);
+mysqli_stmt_prepare($stmt2, $sql2);
+mysqli_stmt_bind_param($stmt2, "i", $movieid);
+mysqli_stmt_execute($stmt2);
+$result2 = mysqli_stmt_get_result($stmt2);
+?>
   <main>
     <article>
       <section class="movie-detail">
         <div class="container">
           <figure class="movie-detail-banner">
-            <img src="./img/banners/lakhey-thumbnail.jpeg" alt="">
+            <img style="width" src="<?php echo $row1['movie_banner'] ?>" alt="">
             <button class="watch-trailer play-btn">
-              <ion-icon name="play-circle-outline" href="https://youtu.be/J3EVrxJowEc"></ion-icon>
+              <ion-icon name="play-circle-outline" href="https://youtu.be/<?php echo $row1['videoID'] ?>"></ion-icon>
             </button>
           </figure>
 
           <div class="movie-detail-content">
             <h1 class="h1 detail-title">
-              Lakhey
+              <?php echo $row1['movie_name'] ?>
             </h1>
             <p class="description">
-              Sameer Maharjan, born in a family Lakhey, is a bank manager.
-              He regards Lakhey as Lord Indra and the protector of the community.
-              His professional and family life is ruined as he gets trapped in the bank fraud case.
-              Then he devises an increasingly perilous series of revenge tactics.
+              <?php echo $row1['movie_description'] ?>
             </p>
+            <?php
+            $dateString = $row1['release_date'];
+            $formattedDate = date('F d, Y', strtotime($dateString));            
+            ?>
             <div class="date-time">
-              <span>Released Date : &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<small>June 12, 2023</small></span>
+              <span>Release Date : &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<small><?php echo $formattedDate ?></small></span>
             </div>
             <br>
             <div class="date-time">
               <span>Duration :
-                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<small>120
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<small><?php echo $row1['movie_duration'] ?>
                   min</small></span>
             </div>
           </div>
         </div>
-        <br> <br>
+        <br> <br> <br>
+        <?php
+        if($row2 = mysqli_fetch_assoc($result2) > 0) {
+        ?>
         <span class="line"></span>
         <div id="showTimings" class="view-time">
           <div class="nowshowing-detail title-section">
@@ -84,6 +108,7 @@ include './includes/header.php';
       </section>
     </article>
   </main>
+  <?php } ?>
   <span class="line"></span>
 
   <?php

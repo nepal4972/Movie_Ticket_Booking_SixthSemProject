@@ -1,12 +1,29 @@
 <?php
 include '../db/connect.php';
 include '../includes/links.php';
+include './config/verifyadmin.php';
 ?>
 <script src="../alerts/dist/js/iziToast.min.js"></script>
 
+<?php
+$sql1 = "SELECT * FROM movies WHERE movie_status = 'showing'";
+$stmt1 = mysqli_stmt_init($conn);
+mysqli_stmt_prepare($stmt1, $sql1);
+mysqli_stmt_execute($stmt1);
+$result1 = mysqli_stmt_get_result($stmt1);
+?>
+
+<?php
+$sql2 = "SELECT * FROM movies WHERE movie_status = 'upcoming'";
+$stmt2 = mysqli_stmt_init($conn);
+mysqli_stmt_prepare($stmt2, $sql2);
+mysqli_stmt_execute($stmt2);
+$result2 = mysqli_stmt_get_result($stmt2);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,6 +69,7 @@ include '../includes/links.php';
                             <table width="100%">
                                 <thead>
                                     <tr>
+                                        <th>No.</th>
                                         <th>Movie ID</th>
                                         <th>Movie Name</th>
                                         <th>Movie Thumbnail</th>
@@ -62,36 +80,52 @@ include '../includes/links.php';
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php
+                                    $showingcount = 1;
+                                    while($row1 = mysqli_fetch_assoc($result1)) {
+                                    ?>
                                     <tr>
-                                        <td>1.</td>
+                                        <td>#<?php echo $showingcount ?></td>
+                                        <td><?php echo $row1['movieID'] ?></td>
                                         <td>
                                             <div class="client-info">
-                                                <h4>Fulbari</h4>
+                                                <h4><?php echo $row1['movie_name'] ?></h4>
                                             </div>
                                         </td>
                                         <td>
-                                            <img src="<?php echo $imglogopath?>../banners/lakhey-thumbnail.jpeg" class="client-img" alt="Image">
+                                            <img src="<?php echo $row1['movie_banner'] ?>" class="client-img" alt="Image">
                                         </td>
                                         <td>
-                                            Rs. 180 
+                                            <?php
+                                            if(!$row1['movie_price'] == null) { ?>
+                                            <?php echo $row1['movie_price'];    
+                                            }
+                                            else {
+                                                echo 'Hall Price';
+                                            }
+                                            ?>
                                         </td>
                                         <td>
-                                            19 April, 2022
+                                        <?php echo $row1['release_date'] ?>
                                         </td>
                                         <td>
-                                            xyyKHCbD1jo
+                                        <?php echo $row1['videoID'] ?>
                                         </td>
                                         <td>
                                             <div class="actions">
-                                                <a href="">
+                                                <a href="./config/updatemovie.php?id=<?php echo $row1['movieID']?>">
                                                     <ion-icon name="create-outline"></ion-icon>&nbsp&nbsp&nbsp
                                                 </a>
-                                                <a href="">
+                                                <a href="./config/deletemovie.php?id=<?php echo $row1['movieID']?>">
                                                     <ion-icon name="trash-outline"></ion-icon>
                                                 </a>
                                             </div>
                                         </td>
                                     </tr>
+                                    <?php
+                                    $showingcount++;
+                                    }
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
@@ -105,6 +139,7 @@ include '../includes/links.php';
                             <table width="100%">
                                 <thead>
                                     <tr>
+                                        <th>No.</th>
                                         <th>Movie ID</th>
                                         <th>Movie Name</th>
                                         <th>Movie Thumbnail</th>
@@ -115,36 +150,52 @@ include '../includes/links.php';
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php
+                                    $upcount = 1;
+                                    while($row2 = mysqli_fetch_assoc($result2)) {
+                                    ?>
                                     <tr>
-                                        <td>1.</td>
+                                        <td>#<?php echo $upcount ?></td>
+                                        <td><?php echo $row2['movieID'] ?></td>
                                         <td>
                                             <div class="client-info">
-                                                <h4>Lakhey</h4>
+                                                <h4><?php echo $row2['movie_name'] ?></h4>
                                             </div>
                                         </td>
                                         <td>
                                             <img src="./lakhey-thumbnail.jpeg" class="client-img" alt="Image">
                                         </td>
                                         <td>
-                                            Rs. 180 
+                                        <?php
+                                            if(!$row2['movie_price'] == null) { ?>
+                                            <?php echo $row2['movie_price'];    
+                                            }
+                                            else {
+                                                echo 'Hall Price';
+                                            }
+                                            ?>
                                         </td>
                                         <td>
-                                            19 April, 2022
+                                            <?php echo $row2['release_date'] ?>
                                         </td>
                                         <td>
-                                            xyyKHCbD1jo
+                                            <?php echo $row2['videoID'] ?>
                                         </td>
                                         <td>
                                             <div class="actions">
-                                                <a href="">
+                                                <a href="./config/updatemovie.php?id=<?php echo $row2['movieID']?>">
                                                     <ion-icon name="create-outline"></ion-icon>&nbsp&nbsp&nbsp
                                                 </a>
-                                                <a href="">
+                                                <a href="./config/updatemovie.php?id=<?php echo $row2['movieID']?>">
                                                     <ion-icon name="trash-outline"></ion-icon>
                                                 </a>
                                             </div>
                                         </td>
                                     </tr>
+                                    <?php
+                                    $upcount++;
+                                    }
+                                    ?>
                                 </tbody>
                             </table>
                         </div>

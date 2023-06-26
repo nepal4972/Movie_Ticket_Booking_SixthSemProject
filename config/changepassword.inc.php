@@ -63,7 +63,7 @@ if(isset($_POST['change'])) {
                             }
                         }
                         else {
-                            $_SESSION['icons']="./img/alerticons/error.png";  
+                            $_SESSION['icons']="./img/alerticons/error.png"; 
                             $_SESSION['status']="error";
                             $_SESSION['status_code']="Confirm Password Should Be Same";
                             header("Location: ../resetpassword.php");
