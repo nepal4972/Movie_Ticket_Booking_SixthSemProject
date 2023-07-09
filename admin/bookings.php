@@ -1,9 +1,9 @@
 <?php
 include '../db/connect.php';
-include './config/verifyadmin.php';
 include '../includes/links.php';
+include './config/verifyadmin.php';
 ?>
-<script src="../alerts/dist/js/iziToast.min.js"></script>
+<script src="./alerts/dist/js/iziToast.min.js"></script>
 
 <?php
 $sql1 = "SELECT * FROM users WHERE user_type = 'admin'";
@@ -21,10 +21,7 @@ mysqli_stmt_execute($stmt2);
 $result2 = mysqli_stmt_get_result($stmt2);
 ?>
 
-<?php
-$request = './config/deleteuser.php';
-include './includes/confirmation.php';
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,7 +30,7 @@ include './includes/confirmation.php';
     <link rel="shortcut icon" href="<?php echo $favicon ?>" type="image/x-icon">
     <link rel="stylesheet" href="../alerts/dist/css/iziToast.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Users <?php echo $title ?></title>
+    <title>Bookings <?php echo $title ?></title>
 </head>
 
 <body>
@@ -45,7 +42,7 @@ include './includes/confirmation.php';
         <?php include './includes/header.php'; ?>
         <main>
             <div class="page-header">
-                <h1>Users</h1>
+                <h1>Bookings</h1>
             </div>
             <div class="page-content">
                 <div class="records table-responsive">
@@ -53,19 +50,19 @@ include './includes/confirmation.php';
                         <div class="add">
                             <input type="search" placeholder="Search">
                             <button name="search">Search</button>&nbsp&nbsp&nbsp&nbsp
-                            <button onclick="toggleSections()">Admins/Customers</button>
+                            <button onclick="toggleSections()">Booked/Sold</button>
                         </div>
 
                         <div class="browse">
                             <select name="" id="">
                                 <option value="">Date Registered</option>
                             </select>
-                            <a href="./config/adduser.php">Add Users</a>
+                            <a href="./adduser.php">Add Users</a>
                         </div>
                     </div>
                     <div id="section1" class="hidden">
                         <div class="page-header-small">
-                            <h1>Admins</h1>
+                            <h1>Sold</h1>
                         </div>
                         <br>
                         <div>
@@ -82,11 +79,11 @@ include './includes/confirmation.php';
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $admincount = 1;
+                                    $soldcount = 1;
                                     while($row1 = mysqli_fetch_assoc($result1)) {
                                     ?>
                                     <tr>
-                                        <td>#<?php echo $admincount ?></td>
+                                        <td>#<?php echo $soldcount ?></td>
                                         <td><?php echo $row1['userID'] ?></td>
                                         <td>
                                             <div class="client">
@@ -100,26 +97,22 @@ include './includes/confirmation.php';
                                         <td>
                                             <?php echo $row1['phone_number'] ?>
                                         </td>
-                                        <?php
-                                        $time1 = $row1['register_date'];
-                                        $formattedtime1 = date("F d, Y", strtotime($time1));
-                                        ?>
                                         <td>
-                                            <?php echo $formattedtime1 ?>
+                                            <?php echo $row1['register_date'] ?>
                                         </td>
                                         <td>
                                             <div class="actions">
                                                 <a href="./config/updateuser.php?id=<?php echo $row1['userID']?>">
                                                     <ion-icon id="open-popup" name="create-outline"></ion-icon>&nbsp&nbsp&nbsp
                                                 </a>
-                                                <a href="./config/deleteuser.php?id=<?php echo $row1['userID']?>" onclick="return showConfirmation(event)">
+                                                <a href="./config/deleteuser.php?id=<?php echo $row1['userID']?>">
                                                     <ion-icon name="trash-outline"></ion-icon>
                                                 </a>
                                             </div>
                                         </td>
                                     </tr>
                                     <?php
-                                    $admincount++;
+                                    $soldcount++;
                                     }
                                     ?>
                                 </tbody>
@@ -128,7 +121,7 @@ include './includes/confirmation.php';
                     </div>
                     <div id="section2">
                         <div class="page-header-small">
-                            <h1>Customers</h1>
+                            <h1>Booked</h1>
                         </div>
                         <br>
                         <div>
@@ -137,7 +130,7 @@ include './includes/confirmation.php';
                                     <tr>
                                         <th>No.</th>
                                         <th>User ID</th>
-                                        <th>Customers</th>
+                                        <th>Users</th>
                                         <th>Contact Number</th>
                                         <th>Register Date</th>
                                         <th>ACTIONS</th>
@@ -145,11 +138,11 @@ include './includes/confirmation.php';
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $usercount = 1;
+                                    $bookedcount = 1;
                                     while($row2 = mysqli_fetch_assoc($result2)) {
                                     ?>
                                     <tr>
-                                        <td>#<?php echo $usercount ?></td>
+                                        <td>#<?php echo $bookedcount ?></td>
                                         <td><?php echo $row2['userID'] ?></td>
                                         <td>
                                             <div class="client">
@@ -163,26 +156,22 @@ include './includes/confirmation.php';
                                         <td>
                                             <?php echo $row2['phone_number'] ?>
                                         </td>
-                                        <?php
-                                        $time2 = $row2['register_date'];
-                                        $formattedtime2 = date("F d, Y", strtotime($time2));
-                                        ?>
                                         <td>
-                                            <?php echo $formattedtime2 ?>
+                                            <?php echo $row2['register_date'] ?>
                                         </td>
                                         <td>
                                             <div class="actions">
                                                 <a href="./config/updateuser.php?id=<?php echo $row2['userID']?>">
                                                     <ion-icon  name="create-outline"></ion-icon>&nbsp&nbsp&nbsp
                                                 </a>
-                                                <a href="./config/deleteuser.php?id=<?php echo $row2['userID']?>" onclick="return showConfirmation(event)">
+                                                <a href="./config/deleteuser.php?id=<?php echo $row2['userID']?>">
                                                     <ion-icon name="trash-outline"></ion-icon>
                                                 </a>
                                             </div>
                                         </td>
                                     </tr>
                                     <?php
-                                    $usercount++;
+                                    $bookedcount++;
                                     }
                                     ?>
                                 </tbody>
@@ -197,6 +186,3 @@ include './includes/confirmation.php';
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
-<?php
-include '../includes/alert.php';
-?>

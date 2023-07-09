@@ -18,11 +18,19 @@ function setMovieData(movieIndex, moviePrice) {
 // Update total and count
 function updateSelectedCount() {
   const selectedSeats = document.querySelectorAll(".row .seat.selected:not(.booked)");
-  const seatsIndex = [...selectedSeats].map((seat) => [...seats].indexOf(seat));
+
+  // Check if the selectedSeats count exceeds the limit (5)
+  if (selectedSeats.length > 5) {
+    // Deselect the last selected seat
+    selectedSeats[selectedSeats.length - 1].classList.remove("selected");
+  }
+
+  const validSelectedSeats = document.querySelectorAll(".row .seat.selected:not(.booked)");
+  const seatsIndex = [...validSelectedSeats].map((seat) => [...seats].indexOf(seat));
 
   localStorage.setItem("selectedSeats", JSON.stringify(seatsIndex));
 
-  const selectedSeatsCount = selectedSeats.length;
+  const selectedSeatsCount = validSelectedSeats.length;
 
   count.innerText = selectedSeatsCount;
   total.innerText = selectedSeatsCount * ticketPrice;
@@ -31,7 +39,7 @@ function updateSelectedCount() {
 
   // Update selected values
   selectedValues = [];
-  selectedSeats.forEach((seat) => {
+  validSelectedSeats.forEach((seat) => {
     const value = seat.getAttribute("data-value");
     selectedValues.push(value);
   });
@@ -61,7 +69,6 @@ function populateUI() {
   }
 }
 
-
 // Movie select event
 movieSelect.addEventListener("change", (e) => {
   ticketPrice = +e.target.value;
@@ -76,10 +83,20 @@ container.addEventListener("click", (e) => {
     !e.target.classList.contains("sold") &&
     !e.target.classList.contains("booked")
   ) {
+    const selectedSeats = document.querySelectorAll(".row .seat.selected:not(.booked)");
+
+    // Check if the selectedSeats count exceeds the limit (5)
+    if (selectedSeats.length >= 5 && !e.target.classList.contains("selected")) {
+      // Show an alert
+      iziToast.warning({
+        iconUrl: '../img/alerticons/warning.png',
+        message: 'You can only book up to 5 seats.',
+        position: 'topRight',
+      });
+      return; // Exit the function to prevent further actions
+    }
+    
     e.target.classList.toggle("selected");
     updateSelectedCount();
   }
 });
-
-// Initial count and total set
-updateSelectedCount();

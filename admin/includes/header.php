@@ -1,3 +1,4 @@
+
 <header>
     <div class="header-content">
         <label for="menu-toggle">
@@ -10,8 +11,8 @@
                 <div class="dropdown">
                     <img class="profile-img" src="<?php echo $imglogopath?>../profile-img/profile.jpg" alt="">
                     <div class="dropdown-content">
-                        <a href="./profile.php">My Profile</a>  
-                        <a href="./logout.php">Logout</a>
+                        <a href="../">Home Page</a>
+                        <a onclick="return showConfirmation(event)" href="../logout.php">Logout</a>
                     </div>
                 </div>
             </div>

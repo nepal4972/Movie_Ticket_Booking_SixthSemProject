@@ -17,7 +17,7 @@ if(isset($_POST['submit'])) {
     $checkphone_number = mysqli_query($conn, "SELECT * FROM users WHERE phone_number = '$phone_number'") or die ("Query Failed");
 
     date_default_timezone_set('Asia/Kathmandu');
-    $registerdate = date('d-m-y h:i:s');
+    $registerdate = date("Y-m-d");
 
     
     if(empty($fullname) || empty($email) || empty($phone_number) || empty($password) || empty($cpassword)) {
@@ -59,7 +59,7 @@ if(isset($_POST['submit'])) {
                                     exit();
                                 }
                                 else {
-                                    $usertype = 'user';
+                                    $usertype = 'customer';
                                     mysqli_stmt_bind_param($stmt, "ssssss", $fullname, $email, $phone_number, $password, $usertype , $registerdate);
                                     mysqli_stmt_execute($stmt);
                                     $_SESSION['icons']="./img/alerticons/success.png";  

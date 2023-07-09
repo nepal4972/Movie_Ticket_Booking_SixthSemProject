@@ -37,12 +37,6 @@ ion-icon {
   height: 47px;
 }
 
-.logo-img:hover {
-  content: url(../../../img/favicons/orangecinepal.jpg);
-  width: 88px;
-  height: 50px;
-}
-
 .profile-name {
   font-size: 19px;
 }
@@ -1168,3 +1162,7 @@ body {
   user-select: none;
 }
 
+.iziToast.iziToast-question {
+  top: 10px;
+  right: 10px;
+}

@@ -1,6 +1,17 @@
 
+<?php
+include '../../db/connect.php';
+include '../../includes/links.php';
+include './verifyadmin.php';
+$testpath = './img/favicons/whitecinepal.jpg'
+?>
 <div class="side-header">
+<?php if($sitelogo == './img/favicons/whitecinepal.jpg') { ?>
     <img src="<?php echo $imglogopath?>orangecinepal.jpg" class="sidebar-logo" alt="">
+    <?php }
+    else {?>
+        <img src="<?php echo $base ?><?php echo $sitelogo ?>" class="sidebar-logo" alt="">
+    <?php }?>
 </div>
 <br>
 <div class="side-content">
@@ -34,6 +45,12 @@
                 <a href="./slider.php" class="menu-item">
                     <ion-icon name="albums-outline"></ion-icon>
                     <small>&nbsp&nbspSliders</small>
+                </a>
+            </li>
+            <li>
+                <a href="./settings.php" class="menu-item">
+                <ion-icon name="settings-outline"></ion-icon>
+                    <small>&nbsp&nbspSettings</small>
                 </a>
             </li>
         </ul>

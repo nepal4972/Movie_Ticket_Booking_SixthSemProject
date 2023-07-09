@@ -1,12 +1,12 @@
 <?php
 include '../db/connect.php';
-include '../includes/links.php';
 include './config/verifyadmin.php';
+include '../includes/links.php';
 ?>
 <script src="../alerts/dist/js/iziToast.min.js"></script>
 
 <?php
-$sql1 = "SELECT * FROM movies WHERE movie_status = 'showing'";
+$sql1 = "SELECT * FROM movies WHERE CURRENT_DATE() BETWEEN release_date AND end_date";
 $stmt1 = mysqli_stmt_init($conn);
 mysqli_stmt_prepare($stmt1, $sql1);
 mysqli_stmt_execute($stmt1);
@@ -14,13 +14,17 @@ $result1 = mysqli_stmt_get_result($stmt1);
 ?>
 
 <?php
-$sql2 = "SELECT * FROM movies WHERE movie_status = 'upcoming'";
+$sql2 = "SELECT * FROM movies WHERE CURRENT_DATE() < release_date";
 $stmt2 = mysqli_stmt_init($conn);
 mysqli_stmt_prepare($stmt2, $sql2);
 mysqli_stmt_execute($stmt2);
 $result2 = mysqli_stmt_get_result($stmt2);
 ?>
 
+<?php
+$request = './config/deletemovie.php';
+include './includes/confirmation.php';
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +34,7 @@ $result2 = mysqli_stmt_get_result($stmt2);
     <link rel="shortcut icon" href="<?php echo $favicon ?>" type="image/x-icon">
     <link rel="stylesheet" href="../alerts/dist/css/iziToast.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Dashboard <?php echo $title ?></title>
+    <title>Movies <?php echo $title ?></title>
 </head>
 
 <body>
@@ -57,7 +61,7 @@ $result2 = mysqli_stmt_get_result($stmt2);
                             <select name="" id="">
                                 <option value="">Date Registered</option>
                             </select>
-                            <a href="">Add Movies</a>
+                            <a href="./config/addmovie.php">Add Movies</a>
                         </div>
                     </div>
                     <div id="section1">
@@ -116,7 +120,7 @@ $result2 = mysqli_stmt_get_result($stmt2);
                                                 <a href="./config/updatemovie.php?id=<?php echo $row1['movieID']?>">
                                                     <ion-icon name="create-outline"></ion-icon>&nbsp&nbsp&nbsp
                                                 </a>
-                                                <a href="./config/deletemovie.php?id=<?php echo $row1['movieID']?>">
+                                                <a href="./config/deletemovie.php?id=<?php echo $row1['movieID']?>" onclick="return showConfirmation(event)">
                                                     <ion-icon name="trash-outline"></ion-icon>
                                                 </a>
                                             </div>
@@ -163,7 +167,7 @@ $result2 = mysqli_stmt_get_result($stmt2);
                                             </div>
                                         </td>
                                         <td>
-                                            <img src="./lakhey-thumbnail.jpeg" class="client-img" alt="Image">
+                                            <img src="<?php echo $row2['movie_banner'] ?>" class="client-img" alt="Image">
                                         </td>
                                         <td>
                                         <?php
@@ -186,7 +190,7 @@ $result2 = mysqli_stmt_get_result($stmt2);
                                                 <a href="./config/updatemovie.php?id=<?php echo $row2['movieID']?>">
                                                     <ion-icon name="create-outline"></ion-icon>&nbsp&nbsp&nbsp
                                                 </a>
-                                                <a href="./config/updatemovie.php?id=<?php echo $row2['movieID']?>">
+                                                <a href="./config/updatemovie.php?id=<?php echo $row2['movieID']?>" onclick="return showConfirmation(event)">
                                                     <ion-icon name="trash-outline"></ion-icon>
                                                 </a>
                                             </div>
@@ -207,5 +211,7 @@ $result2 = mysqli_stmt_get_result($stmt2);
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
-
 </html>
+<?php
+include '../includes/alert.php';
+?>

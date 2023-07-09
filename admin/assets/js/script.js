@@ -45,3 +45,4 @@ openPopupButton.addEventListener('click', () => {
 closePopupButton.addEventListener('click', () => {
   popupOverlay.style.display = 'none';
 });
+

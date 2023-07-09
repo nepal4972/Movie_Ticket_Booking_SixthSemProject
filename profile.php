@@ -22,7 +22,7 @@ include './includes/links.php';
 
 <body>
 
-  <?php
+<?php
 $userID = $_SESSION['userID'];
 $sql = "SELECT * FROM users WHERE userID = ?";
 $stmt = mysqli_stmt_init($conn);
@@ -90,7 +90,7 @@ if($row = mysqli_fetch_assoc($result)) {
           </div>
           <div class="input-row">
             <div class="field">
-              <button name="cancel">Cancel</button>
+              <button name="cancel">Cancel/Close</button>
               <br><br>
             </div>
             <div class="field">

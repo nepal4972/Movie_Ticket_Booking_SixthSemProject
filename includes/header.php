@@ -19,8 +19,18 @@ $firstname = $namepart[0];
 <script src="./alerts/dist/js/iziToast.min.js"></script>
 <header class="header">
   <div class="container">
+    <?php
+    if($sitelogo == './img/favicons/whitecinepal.jpg') { ?>
+    <style>
+      .logo-img:hover {
+      content: url(./img/favicons/orangecinepal.jpg);
+      width: 88px;
+      height: 50px;
+      }
+      </style>
+    <?php }else {} ?>
     <a href="./" class="logo">
-      <img class="logo-img" src="<?php echo $imglogopath ?>whitecinepal.jpg" alt="">
+      <img style="logo" class="logo-img" src="<?php echo $sitelogo ?>" alt="">
     </a>
     <div class="header-actions">
       <div class="lang-wrapper">
@@ -45,8 +55,18 @@ $firstname = $namepart[0];
             <?php } ?>
           <div class="dropdown-content">
             <a href="./profile.php">My Profile</a>
+            <?php
+            if($row['user_type'] == 'admin') {
+            ?>
+            <style>
+              .dropdown-content {
+                bottom: -136px;
+              }
+            </style>
+            <a href="./admin.php">Admin Dashboard</a>
+            <?php } else { } ?>
             <a href="./ticket.php">My Tickets</a>
-            <a href="./logout.php">Logout</a>
+            <a href="./logout.php" onclick="return showConfirmation(event)">Logout</a>
           </div>
         </div>
       </div>
@@ -112,7 +132,7 @@ $firstname = $namepart[0];
           if(!isset($_SESSION['userID'])==null) {
           ?>
         <li>
-          <a href="./logout.php" class="navbar-link logout">Logout</a>
+          <a href="./logout.php" onclick="return showConfirmation(event)" class="navbar-link logout">Logout</a>
         </li>
         <?php
           } else {} ?>

@@ -84,7 +84,7 @@ try {
     
 
     //Content
-    $mail->isHTML(true);                                  //Set email format to HTML
+    $mail->isHTML(true);                                //Set email format to HTML
     $mail->Subject = 'Password Reset';
     $mail->Body    = 'To Reset your Password click: <a href="http://localhost/phpcode/test-projects/Movie_Ticket_Booking_SixthSemProject/changepassword.php?resetcode='.$code.'">here </a>. </br>Reset Your Password in One Hour.';
 

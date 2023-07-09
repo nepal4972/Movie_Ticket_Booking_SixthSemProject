@@ -798,3 +798,8 @@ table tbody tr {
 .field select option {
   padding: 4px;
 }
+
+.iziToast.iziToast-question {
+  top: 10px;
+  right: 10px;
+}

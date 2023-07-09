@@ -1,8 +1,11 @@
+<?php
+include './links.php';
+?>
 <link rel="stylesheet" href="./assets/css/style.css">
 
 <footer class="footer">
   <div class="footer-logo">
-      <img src="<?php echo $imglogopath ?>whitecinepal.jpg" class="footer-logo" alt="">
+      <img src="<?php echo $sitelogo ?>" class="footer-logo" alt="">
   </div>
   
   <ul class="footer-nav">
@@ -23,7 +26,7 @@
         </li>
             
         <li>
-          <a href="./signin.php">Signin</a>
+          <a href="./login.php">Signin</a>
         </li>
       </ul>
     </li>
@@ -61,6 +64,6 @@
   </ul>
   <span class="line"></span><br>
   <div class="copyright-info">
-    <p>&copy; 2023 Cinepal. All rights reserved.</p>
+    <p>&copy; 2023 <?php echo $title ?>. All rights reserved.</p>
   </div>
 </footer>

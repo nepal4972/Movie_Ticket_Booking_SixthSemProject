@@ -1,10 +1,39 @@
 <?php
 include './db/connect.php';
 include './includes/links.php';
-?>
 
-<?php
 $movieid = $_GET['id'];
+
+date_default_timezone_set('Asia/Kathmandu');
+$currentdate = date("Y-m-d");
+
+$sql1 = "SELECT * FROM movies WHERE movieID = '$movieid'";
+$stmt1 = mysqli_stmt_init($conn);
+mysqli_stmt_prepare($stmt1, $sql1);
+mysqli_stmt_execute($stmt1);
+$result1 = mysqli_stmt_get_result($stmt1);
+$row1 = mysqli_fetch_assoc($result1);
+
+$sql2 = "SELECT * FROM movies WHERE movieID = ? AND CURDATE() BETWEEN release_date AND end_date";
+$stmt2 = mysqli_stmt_init($conn);
+mysqli_stmt_prepare($stmt2, $sql2);
+mysqli_stmt_bind_param($stmt2, "i", $movieid);
+mysqli_stmt_execute($stmt2);
+$result2 = mysqli_stmt_get_result($stmt2);
+
+
+if (isset($_GET['date'])) {
+  $selectedDate = $_GET['date'];
+} else {
+  $selectedDate = date('Y-m-d');
+}
+
+$sql5 = "SELECT st.show_time FROM movietime AS mt JOIN showtime AS st ON mt.showID = st.showID WHERE mt.movieID = ? AND ? BETWEEN mt.start_date AND mt.end_date";
+$stmt5 = mysqli_stmt_init($conn);
+mysqli_stmt_prepare($stmt5, $sql5);
+mysqli_stmt_bind_param($stmt5, "is", $movieid, $selectedDate);
+mysqli_stmt_execute($stmt5);
+$result5 = mysqli_stmt_get_result($stmt5);
 ?>
 
 <!DOCTYPE html>
@@ -20,32 +49,16 @@ $movieid = $_GET['id'];
   <link rel="stylesheet" href="<?php echo $homecss ?>">
   <title>Movie Details <?php echo $title ?></title>
 </head>
+
 <body>
-  <?php
-include './includes/header.php';
-?>
-<?php
-$sql1 = "SELECT * FROM movies WHERE movieID = '$movieid'";
-$stmt1 = mysqli_stmt_init($conn);
-mysqli_stmt_prepare($stmt1, $sql1);
-mysqli_stmt_execute($stmt1);
-$result1 = mysqli_stmt_get_result($stmt1);
-$row1 = mysqli_fetch_assoc($result1);
-?>
-<?php
-$sql2 = "SELECT * FROM movies WHERE movieID = ? AND CURRENT_DATE() BETWEEN release_date AND end_date";
-$stmt2 = mysqli_stmt_init($conn);
-mysqli_stmt_prepare($stmt2, $sql2);
-mysqli_stmt_bind_param($stmt2, "i", $movieid);
-mysqli_stmt_execute($stmt2);
-$result2 = mysqli_stmt_get_result($stmt2);
-?>
+  <?php include './includes/header.php'; ?>
+
   <main>
     <article>
       <section class="movie-detail">
         <div class="container">
           <figure class="movie-detail-banner">
-            <img style="width" src="<?php echo $row1['movie_banner'] ?>" alt="">
+            <img src="<?php echo $row1['movie_banner'] ?>" alt="">
             <button class="watch-trailer play-btn">
               <ion-icon name="play-circle-outline" href="https://youtu.be/<?php echo $row1['videoID'] ?>"></ion-icon>
             </button>
@@ -60,22 +73,26 @@ $result2 = mysqli_stmt_get_result($stmt2);
             </p>
             <?php
             $dateString = $row1['release_date'];
-            $formattedDate = date('F d, Y', strtotime($dateString));            
+            $formattedDate = date('F d, Y', strtotime($dateString));
             ?>
             <div class="date-time">
-              <span>Release Date : &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<small><?php echo $formattedDate ?></small></span>
+              <span>Release Date : &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<small>
+                  <?php echo $formattedDate ?>
+                </small></span>
             </div>
             <br>
             <div class="date-time">
               <span>Duration :
-                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<small><?php echo $row1['movie_duration'] ?>
-                  min</small></span>
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<small>
+                  <?php echo $row1['movie_duration'] ?>
+                  min
+                </small></span>
             </div>
           </div>
         </div>
         <br> <br> <br>
         <?php
-        if($row2 = mysqli_fetch_assoc($result2) > 0) {
+        if (mysqli_num_rows($result2) > 0) {
         ?>
         <span class="line"></span>
         <div id="showTimings" class="view-time">
@@ -85,35 +102,62 @@ $result2 = mysqli_stmt_get_result($stmt2);
             </div>
             <div class="selectShowDays">
               <ul class="ulShowDays">
-                <a href="" class="tomm">Today</a>
-                <a href="" class="tomm">Tomm</a>
-                <a href="" class="tomm">14 Jun</a>
-                <a href="" class="tomm">15 Jun</a>
-                <a href="" class="tomm">16 Jun</a>
-                <a href="" class="tomm">16 Jun</a>
+                <a href="?id=<?php echo $movieid ?>&date=<?php echo $currentdate ?>" class="tomm">Today</a>
+                <a href="?id=<?php echo $movieid ?>&date=<?php echo date('Y-m-d', strtotime('+1 day', strtotime($currentdate))) ?>"
+                  class="tomm">Tomorrow</a>
+              </ul>
             </div>
           </div>
         </div>
 
         <div class="hall-info">
-          <span class="hall-info-text">Select Time</span>
+          <span class="hall-info-text">Select Time :
+          </span>
           <ul class="show-time-info">
-            <a href="" class="available">10:30 AM</a>
-            <a href="" class="available">01:15 PM</a>
-            <a href="" class="available">04:00 PM</a>
-            <a href="" class="available">06:45 PM</a>
+            <?php
+            $noShowAvailable = true;
+            while ($row5 = mysqli_fetch_assoc($result5)) {
+              $time = $row5['show_time'];
+              $changedTime = date("h:i A", strtotime($time));
+
+              $startTime = strtotime($row5['start_time']);
+              $endTime = strtotime($row5['end_time']);
+              $selectedTime = strtotime($selectedDate);
+
+              if ($selectedTime >= $startTime && $selectedTime <= $endTime) {
+                $noShowAvailable = false; // At least one show is available
+                ?>
+                <a href="?id=<?php echo $movieid ?>&date=<?php echo $selectedDate ?>&time=<?php echo $time ?>" class="available">
+                <?php echo $changedTime ?>
+                </a>
+                <?php
+              } else { ?>
+              <a href="./seatlayout/seats.php?id=<?php echo $movieid ?>&date=<?php echo $selectedDate ?>&time=<?php echo $time ?>"
+              class="unavailable">
+              <?php echo $changedTime ?>
+              </a>
+              <?php
+              $noShowAvailable = false; // At least one show is available
+              }
+            }
+
+            if ($noShowAvailable) {
+              echo "<p>No shows available.</p>";
+            }
+            ?>
           </ul>
         </div>
         <br>
+
+        <?php } else { ?>
+        <p>No shows available.</p>
+        <?php } ?>
       </section>
     </article>
   </main>
-  <?php } ?>
-  <span class="line"></span>
 
-  <?php
-  include './includes/footer.php';
-  ?>
+  <span class="line"></span>
+  <?php include './includes/footer.php'; ?>
 
   <script src="https://www.youtube.com/iframe_api"></script>
   <script>
@@ -218,11 +262,6 @@ $result2 = mysqli_stmt_get_result($stmt2);
     // Function to load the YouTube API
     loadYouTubeAPI();
   </script>
-
-
-  <script src="./assets/js/script.js"></script>
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
 </body>
 

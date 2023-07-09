@@ -70,13 +70,13 @@ if($row = mysqli_fetch_assoc($result)) {
               <input type="password" name="password" placeholder="New Password" >
             </div>
             <div class="field">
-              <input type="password" name="cpassword" placeholder="New Confirm Password">
+              <input type="password" name="cpassword" placeholder="Confirm New Password">
             </div>
           </div>
 
           <div class="input-row">
             <div class="field">
-              <button name="cancel">Cancel</button>
+              <button name="cancel">Cancel/Close</button>
               <br><br>
             </div>
             <div class="field">
