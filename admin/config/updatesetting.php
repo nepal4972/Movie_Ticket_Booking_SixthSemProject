@@ -14,7 +14,7 @@ if(isset($_POST['update_setting'])) {
     $fileSize = $file['size'];
     $fileError = $file['error'];
 
-    if (!empty($fileName)) {
+    if (!empty($fileName) && $fileError === 0) {
         // Get the file extension
         $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
 
@@ -67,7 +67,7 @@ if(isset($_POST['update_setting'])) {
         }
     } 
     else {
-        $sql = "UPDATE settings SET site_title = '$title' WHERE settingID = '1'";
+        $sql = "UPDATE settings SET site_title = '$title', seat_price = '$price' WHERE settingID = '1'";
         $stmt = mysqli_stmt_init($conn);
         mysqli_stmt_prepare($stmt, $sql);
         mysqli_stmt_execute($stmt);

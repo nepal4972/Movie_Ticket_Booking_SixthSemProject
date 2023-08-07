@@ -28,7 +28,7 @@ if ($_GET['test'] === 'hello') {
     $seatNumbers = explode(',', $seats);
     foreach ($seatNumbers as $seatNumber) {
         $seatNumber = trim($seatNumber);
-        $seatInsertSql = "INSERT INTO `seats` (`bookingID`, `seat_number`, `status`) 
+        $seatInsertSql = "INSERT INTO `seats` (`bookingID`, `seat_number`, `status`)
                           VALUES ('$bookingID', '$seatNumber', 'booked')";
         if ($conn->query($seatInsertSql) === false) {
             echo "Error inserting seat details: " . $conn->error;

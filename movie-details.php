@@ -24,6 +24,13 @@ $result2 = mysqli_stmt_get_result($stmt2);
 
 if (isset($_GET['date'])) {
   $selectedDate = $_GET['date'];
+  if ($selectedDate < $currentdate) {
+    $_SESSION['icons']="./img/alerticons/warning.png";
+    $_SESSION['status']="warning";
+    $_SESSION['status_code']="Invalid Date";
+    echo '<script>window.history.back();</script>';
+    exit();
+  }
 } else {
   $selectedDate = date('Y-m-d');
 }
@@ -125,24 +132,35 @@ $result5 = mysqli_stmt_get_result($stmt5);
               $selectedTime = strtotime($selectedDate);
 
               if ($selectedTime >= $startTime && $selectedTime <= $endTime) {
-                $noShowAvailable = false; // At least one show is available
+                $noShowAvailable = false;
                 ?>
-                <a href="?id=<?php echo $movieid ?>&date=<?php echo $selectedDate ?>&time=<?php echo $time ?>" class="available">
-                <?php echo $changedTime ?>
+                <?php
+              } else {
+                ?>
+                <?php
+                $currentDateTime = date("Y-m-d H:i:s");
+                $currentTimestamp = strtotime($currentDateTime);
+                $selectedHour = date("H", strtotime($time));
+                $selectedMinute = date("i", strtotime($time));
+                $selectedDateTime = $selectedDate . ' ' . $selectedHour . ':' . $selectedMinute . ':00';
+                $selectedTimestamp = strtotime($selectedDateTime);
+                $diffInMinutes = round(($selectedTimestamp - $currentTimestamp) / 60);
+
+                if ($diffInMinutes <= 15) {
+                  ?>
+                  <a href="./seatlayout/seats?id=<?php echo $movieid ?>&date=<?php echo $selectedDate ?>&time=<?php echo $time ?>" style="pointer-events: none; border: 2px solid #ff2a26; color:#ff2a26" class="unavailable">
+                <?php } else { ?>
+                  <a href="./seatlayout/seats?id=<?php echo $movieid ?>&date=<?php echo $selectedDate ?>&time=<?php echo $time ?>" style="border: 2px solid #4caf50; color:#4caf50" class="available">
+                <?php } ?>
+                  <?php echo $changedTime ?>
                 </a>
                 <?php
-              } else { ?>
-              <a href="./seatlayout/seats.php?id=<?php echo $movieid ?>&date=<?php echo $selectedDate ?>&time=<?php echo $time ?>"
-              class="unavailable">
-              <?php echo $changedTime ?>
-              </a>
-              <?php
-              $noShowAvailable = false; // At least one show is available
+                $noShowAvailable = false;
               }
             }
 
             if ($noShowAvailable) {
-              echo "<p>No shows available.</p>";
+              echo "<p style='color:#ff2a26'>No shows available.</p>";
             }
             ?>
           </ul>
@@ -150,7 +168,6 @@ $result5 = mysqli_stmt_get_result($stmt5);
         <br>
 
         <?php } else { ?>
-        <p>No shows available.</p>
         <?php } ?>
       </section>
     </article>
@@ -234,8 +251,6 @@ $result5 = mysqli_stmt_get_result($stmt5);
       });
     }
 
-
-
     // Event listeners for the click event on the links
     const watchTrailerLinks = document.querySelectorAll('.watch-trailer');
     watchTrailerLinks.forEach(function (link) {
@@ -262,7 +277,5 @@ $result5 = mysqli_stmt_get_result($stmt5);
     // Function to load the YouTube API
     loadYouTubeAPI();
   </script>
-
 </body>
-
 </html>

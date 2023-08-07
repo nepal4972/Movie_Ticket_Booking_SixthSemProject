@@ -2,31 +2,119 @@
 include '../../db/connect.php';
 include './verifyadmin.php';
 include '../../includes/links.php';
-?>
-<script src="../alerts/dist/js/iziToast.min.js"></script>
 
+?>
+
+<?php
+date_default_timezone_set('Asia/Kathmandu');
+$registerdate = date("Y-m-d");
+
+if (isset($_POST['add'])) {
+    $file = $_FILES['profile_img'];
+    $fileName = $file['name'];
+    $fileTmpName = $file['tmp_name'];
+    $fileSize = $file['size'];
+    $fileError = $file['error'];
+
+    $fullname = $_POST['fullname'];
+    $email = $_POST['email'];
+    $phone_number = $_POST['phone_number'];
+    $password = $_POST['password'];
+    $user_type = $_POST['user_type'];
+
+    if (!empty($fileName)) {
+        // Get the file extension
+        $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
+
+        // Define allowed file extensions
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'svg', 'ico'];
+
+        if (in_array($fileExt, $allowedExtensions)) {
+            if ($fileError === 0) {
+                $newFileName = $fileName;
+
+                $uploadPath = '../../img/profile-img/' . $newFileName;
+                $dbimgPath = './img/profile-img/' . $newFileName;
+
+                // Move the uploaded file to the specified folder
+                if (move_uploaded_file($fileTmpName, $uploadPath)) {
+                    $sql = "INSERT INTO users (fullname, email, phone_number, password, user_type, register_date, profile_img) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                    $stmt = mysqli_stmt_init($conn);
+                    mysqli_stmt_prepare($stmt, $sql);
+                    mysqli_stmt_bind_param($stmt, "sssssss", $fullname, $email, $phone_number, $password, $user_type, $registerdate, $dbimgPath);
+                    mysqli_stmt_execute($stmt);
+
+                    $_SESSION['icons'] = "../img/alerticons/success.png";
+                    $_SESSION['status'] = "success";
+                    $_SESSION['status_code'] = "User Added Successfully";
+                    header("Location: ../settings.php");
+                    exit();
+                } else {
+                    $_SESSION['icons'] = "../img/alerticons/error.png";
+                    $_SESSION['status'] = "error";
+                    $_SESSION['status_code'] = "Error Uploading Image";
+                    header("Location: ../settings.php");
+                    exit();
+                }
+            } else {
+                $_SESSION['icons'] = "../img/alerticons/error.png";
+                $_SESSION['status'] = "error";
+                $_SESSION['status_code'] = "File Upload Error";
+                header("Location: ../settings.php");
+                exit();
+            }
+        } else {
+            $_SESSION['icons'] = "../img/alerticons/error.png";
+            $_SESSION['status'] = "error";
+            $_SESSION['status_code'] = "Invalid file extension";
+            header("Location: ../settings.php");
+            exit();
+        }
+    } else {
+        $sql = "INSERT INTO users (fullname, email, phone_number, password, user_type, register_date) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = mysqli_stmt_init($conn);
+        mysqli_stmt_prepare($stmt, $sql);
+        mysqli_stmt_bind_param($stmt, "ssssss", $fullname, $email, $phone_number, $password, $user_type, $registerdate);
+        mysqli_stmt_execute($stmt);
+
+        $_SESSION['icons'] = "../img/alerticons/success.png";
+        $_SESSION['status'] = "success";
+        $_SESSION['status_code'] = "User Added Successfully";
+        header("Location: ../settings.php");
+        exit();
+    }
+}
+
+?>
+
+
+
+<script src="../alerts/dist/js/iziToast.min.js"></script>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="<?php echo $favicon ?>" type="image/x-icon">
-    <link rel="stylesheet" href="../../alerts/dist/css/iziToast.min.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <title>Add Users <?php echo $title ?></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="<?php echo $favicon ?>" type="image/x-icon">
+  <link rel="stylesheet" href="../../alerts/dist/css/iziToast.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <title>Add Users
+    <?php echo $title ?>
+  </title>  
 </head>
 
 <body>
   <input type="checkbox" id="menu-toggle">
   <div class="sidebar">
     <div class="side-header">
-    <?php if($sitelogo == './img/favicons/whitecinepal.jpg') { ?>
-    <img src="<?php echo $imglogopath?>orangecinepal.jpg" class="sidebar-logo" alt="">
-    <?php }
+      <?php if($sitelogo == './img/favicons/whitecinepal.jpg') { ?>
+      <img src="<?php echo $imglogopath?>orangecinepal.jpg" class="sidebar-logo" alt="">
+      <?php }
     else {?>
-        <img src="<?php echo $base ?><?php echo $sitelogo ?>" class="sidebar-logo" alt="">
-    <?php }?>
+      <img src="<?php echo $base ?><?php echo $sitelogo ?>" class="sidebar-logo" alt="">
+      <?php }?>
     </div>
     <br>
     <div class="side-content">
@@ -57,17 +145,17 @@ include '../../includes/links.php';
             </a>
           </li>
           <li>
-            <a href="./slider.php" class="menu-item">
+            <a href="../showtime.php" class="menu-item">
               <ion-icon name="albums-outline"></ion-icon>
-              <small>&nbsp&nbspSliders</small>
+              <small>&nbsp&nbspShowTimes</small>
             </a>
           </li>
           <li>
             <a href="../settings.php" class="menu-item">
-            <ion-icon name="settings-outline"></ion-icon>
-            <small>&nbsp&nbspSettings</small>
+              <ion-icon name="settings-outline"></ion-icon>
+              <small>&nbsp&nbspSettings</small>
             </a>
-            </li>
+          </li>
         </ul>
       </div>
     </div>
@@ -76,10 +164,10 @@ include '../../includes/links.php';
   <div class="main-content">
     <?php include '../includes/header.php'; ?>
     <main>
-      <div class="form-container">
+      <div style="padding: 105px 35px;" class="form-container">
         <h2>Add Users</h2>
         <br>
-        <form action="formprocess.php" method="GET">
+        <form action="" method="POST" enctype="multipart/form-data">
           <div class="form-row">
             <div class="form-group">
               <label for="name">Full Name:</label>
@@ -105,18 +193,17 @@ include '../../includes/links.php';
               <div class="field">
                 <span style="color: #232836;">User Role:</span> <br>
                 <select name="user_type" required>
-                  <option value="user">User</option>
+                  <option value="customer">User</option>
                   <option value="admin">Admin</option>
                 </select>
               </div>
             </div>
             <div class="form-group">
-              <label for="confirm-password">Image:</label><br>
-              <input style="color: #232836; height:35px; background-color:white" type="file" name="profile_img" required>
+              <label for="image">Image:</label><br>
+              <input style="color: #232836; height:35px; background-color:white" type="file" name="profile_img">
             </div>
           </div>
           <div class="form-row">
-            <button type="button" name="cancel" class="close-form-btn">Cancel</button>
             <button type="submit" name="add" class="update-button">Add User</button>
           </div>
         </form>

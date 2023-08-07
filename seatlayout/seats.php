@@ -9,10 +9,21 @@ $movieid = $_GET['id'];
 $date = $_GET['date'];
 $time = $_GET['time'];
 
-if(!empty($_GET['id'])) {
-// Fetch booked seats from the database for the specific date and time
+$datestamp = strtotime($date);
+$formatteddate = date('F j, Y', $datestamp);
+
+$timestamp = strtotime($time);
+$formattedtime = date('h:i A', $timestamp);
+
+date_default_timezone_set('Asia/Kathmandu');
+$currentdate = date('Y-m-d');
+
+$giventime = strtotime($date);
+$currenttime = strtotime($currentdate);
+
+if((!empty($_GET['id'])) && (!empty($_GET['date'])) && (!empty($_GET['time'])) && !($currenttime > $giventime)) {
 $bookedSeats = array();
-$sql = "SELECT s.seat_number 
+$sql = "SELECT s.seat_number
         FROM seats AS s
         INNER JOIN bookings AS b ON b.bookingID = s.bookingID
         WHERE b.movieID = $movieid AND b.show_date = '$date' AND b.show_time = '$time' AND s.status = 'booked'";
@@ -23,9 +34,8 @@ if ($result->num_rows > 0) {
     }
 }
 
-// Fetch sold seats from the database for the specific date and time
 $soldSeats = array();
-$sql = "SELECT s.seat_number 
+$sql = "SELECT s.seat_number
         FROM seats AS s
         INNER JOIN bookings AS b ON b.bookingID = s.bookingID
         WHERE b.movieID = $movieid AND b.show_date = '$date' AND b.show_time = '$time' AND s.status = 'sold'";
@@ -35,6 +45,16 @@ if ($result->num_rows > 0) {
         $soldSeats[] = $row['seat_number'];
     }
 }
+?>
+
+<?php
+
+$sql1 = "SELECT * FROM movies WHERE movieID = '$movieid'";
+$stmt1 = mysqli_stmt_init($conn);
+mysqli_stmt_prepare($stmt1, $sql1);
+mysqli_stmt_execute($stmt1);
+$result1 = mysqli_stmt_get_result($stmt1);
+$row1 = mysqli_fetch_assoc($result1);
 
 ?>
 
@@ -54,8 +74,8 @@ if ($result->num_rows > 0) {
     <option hidden id="movie" value="10"></option>
     <div class="main">
         <div class="booking-details">
-            <h3 class="moviename">Fulbari</h3>
-            <span class="booking-date">May 8, 2023&nbsp&nbsp</span><span class="booking-time">12:30 PM</span>
+            <h3 class="moviename"><?php echo $row1['movie_name'] ?></h3>
+            <span class="booking-date"><?php echo $formatteddate ?>&nbsp&nbsp</span><span class="booking-time"><?php echo $formattedtime ?></span>
         </div>
 
         <a onclick="history.back()" id="closeSeats" class="page-close-btn"></a>
@@ -129,7 +149,7 @@ if ($result->num_rows > 0) {
                 hiddenField.setAttribute("type", "hidden");
                 hiddenField.setAttribute("name", "seats");
                 hiddenField.setAttribute("value", divValue);
-                form.appendChild(hiddenField);
+                form.appendChild(hiddenField);                                                                                                                                                                                                                                                          
                 document.body.appendChild(form);
                 form.submit();
             }

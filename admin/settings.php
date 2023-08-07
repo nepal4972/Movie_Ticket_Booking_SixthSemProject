@@ -27,9 +27,7 @@ $row5 = mysqli_fetch_assoc($result5);
   <link rel="shortcut icon" href="<?php echo $favicon ?>" type="image/x-icon">
   <link rel="stylesheet" href="../alerts/dist/css/iziToast.min.css">
   <link rel="stylesheet" href="./assets/css/style.css">
-  <title>Settings
-    <?php echo $title ?>
-  </title>
+  <title>Settings <?php echo $title ?> </title>
 </head>
 
 <body>
@@ -40,35 +38,21 @@ $row5 = mysqli_fetch_assoc($result5);
   <div class="main-content">
     <?php include './includes/header.php'; ?>
     <main>
-      <div style="padding: 147px 35px;" class="form-container">
+      <div style="padding: 129px 35px;" class="form-container">
         <h2>Update Site Settings</h2>
         <br>
-        <form action="./config/updatesetting" method="POST"></form>
+        <form action="./config/updatesetting" method="POST">
           <div class="form-row">
             <div class="form-group">
               <label for="logo">Site Logo:</label><br>
               <input style="color: #232836; height:35px; background-color:white" type="file" name="site_logo">
             </div>
             <div class="form-group">
-              <br>
-              <button name="" style="font-size:10px; background-color:green; height:32px">update
-                logo&nbsp&nbsp&nbsp&nbsp&nbsp</button>
-            </div>
-          </div>
-          <div class="form-row">
-          <div class="form-group">
               <label for="logo">Site Favicon:</label><br>
               <input style="color: #232836; height:35px; background-color:white" type="file" name="site_favicon">
             </div>
-            <div class="form-group">
-              <br>
-              <button type="submit" name="update_setting"
-                style="font-size:10px; background-color:green; height:32px">Update Favicon</button>
-            </div>
           </div>
-        </form>
         <br><br>
-        <form action="./config/updatesetting" method="POST" enctype="multipart/form-data">
           <div class="form-row">
             <div class="form-group">
               <label for="text">Site Name:</label>

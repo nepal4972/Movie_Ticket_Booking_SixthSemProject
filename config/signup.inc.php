@@ -52,7 +52,7 @@ if(isset($_POST['submit'])) {
                                 $stmt = mysqli_stmt_init($conn);
                                 if(!mysqli_stmt_prepare($stmt, $sql)) {
                                     $query = mysqli_query($conn, $sql);
-                                    $_SESSION['icons']="./img/alerticons/error.png";  
+                                    $_SESSION['icons']="./img/alerticons/error.png";
                                     $_SESSION['status']="error";
                                     $_SESSION['status_code']="SQL Error";
                                     header("Location: ../signup");
@@ -82,7 +82,7 @@ if(isset($_POST['submit'])) {
                             $_SESSION['status']="error";
                             $_SESSION['status_code']="Invalid Phone Number Format";
                             header("Location: ../signup?fullname=".$fullname."&email=".$email);
-                            exit();        
+                            exit();      
                         }
                     }
                     else {

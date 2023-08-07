@@ -125,9 +125,6 @@ $firstname = $namepart[0];
         <li>
           <a href="./movies.php" class="navbar-link">Movies</a>
         </li>
-        <li>
-          <a href="#" class="navbar-link">Contact</a>
-        </li>
         <?php
           if(!isset($_SESSION['userID'])==null) {
           ?>

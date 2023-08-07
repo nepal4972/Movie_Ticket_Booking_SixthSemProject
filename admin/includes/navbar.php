@@ -42,9 +42,9 @@ $testpath = './img/favicons/whitecinepal.jpg'
                 </a>
             </li>
             <li>
-                <a href="./slider.php" class="menu-item">
+                <a href="./showtime.php" class="menu-item">
                     <ion-icon name="albums-outline"></ion-icon>
-                    <small>&nbsp&nbspSliders</small>
+                    <small>&nbsp&nbspShowTimes</small>
                 </a>
             </li>
             <li>

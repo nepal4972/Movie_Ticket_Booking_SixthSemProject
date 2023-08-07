@@ -19,7 +19,7 @@ $sitefavicon = $row3['site_favicon'];
 ?>
 
 <?php
-$paramfavicon = $base."img/favicon/favicon.svg";    // Favicon For Custom Page Like Home
+$paramfavicon = $base."img/favicon/favicon.svg";
 $favicon = $base.$sitefavicon;
 $csspath = $base."assets/loginsignup/css/style.css";
 $profilecss = $base."assets/loginsignup/css/profile.css";

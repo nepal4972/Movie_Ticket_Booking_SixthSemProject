@@ -99,4 +99,3 @@ if(isset($_FILES['image'])) {
 <?php
 include '../includes/alert.php';
 ?>
-``

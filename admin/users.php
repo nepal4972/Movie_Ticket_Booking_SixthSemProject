@@ -90,7 +90,7 @@ include './includes/confirmation.php';
                                         <td><?php echo $row1['userID'] ?></td>
                                         <td>
                                             <div class="client">
-                                                <img src="<?php echo $base ?><?php echo $row1['profile_img'] ?>" class="client-img bg-img" alt="">
+                                                <img src="<?php echo $row1['profile_img'] ?>" class="client-img bg-img" alt="">
                                                 <div class="client-info">
                                                     <h4><?php echo $row1['fullname'] ?></h4>
                                                     <small><?php echo $row1['email'] ?></small>
@@ -153,7 +153,7 @@ include './includes/confirmation.php';
                                         <td><?php echo $row2['userID'] ?></td>
                                         <td>
                                             <div class="client">
-                                                <img src="<?php echo $base ?><?php echo $row2['profile_img'] ?>" class="client-img bg-img" alt="">
+                                                <img src="<?php echo $row2['profile_img'] ?>" class="client-img bg-img" alt="">
                                                 <div class="client-info">
                                                     <h4><?php echo $row2['fullname'] ?></h4>
                                                     <small><?php echo $row2['email'] ?></small>

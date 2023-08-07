@@ -17,6 +17,87 @@ $result5 = mysqli_stmt_get_result($stmt5);
 $row5 = mysqli_fetch_assoc($result5);
 ?>
 
+<?php
+$id = $_GET['id'];
+if (isset($_POST['update'])) {
+    $file = $_FILES['profile_img'];
+    $fullname = $_POST['fullname'];
+    $email = $_POST['email'];
+    $phone_number = $_POST['phone_number'];
+    $password = $_POST['password'];
+    $user_type = $_POST['user_type'];
+
+    $fileName = $file['name'];
+    $fileTmpName = $file['tmp_name'];
+    $fileSize = $file['size'];
+    $fileError = $file['error'];
+
+    if (!empty($fileName)) {
+        $file = $_FILES['profile_img'];
+        $fileName = $file['name'];
+        $fileTmpName = $file['tmp_name'];
+        $fileSize = $file['size'];
+        $fileError = $file['error'];
+
+        $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'svg', 'ico'];
+
+        if (in_array($fileExt, $allowedExtensions)) {
+            if ($fileError === 0) {
+                $newFileName = uniqid('', true) . '.' . $fileExt;
+                $uploadPath = '../../img/profile-img/' . $newFileName;
+                $dbimgPath = $base . 'img/profile-img/' . $newFileName;
+
+                if (move_uploaded_file($fileTmpName, $uploadPath)) {
+                    $sql = "UPDATE users SET fullname = ?, email = ?, phone_number = ?, password = ?, user_type = ?, profile_img = ? WHERE userID = ?";
+                    $stmt = mysqli_stmt_init($conn);
+                    mysqli_stmt_prepare($stmt, $sql);
+                    mysqli_stmt_bind_param($stmt, "ssssssi", $fullname, $email, $phone_number, $password, $user_type, $dbimgPath, $userID);
+                    mysqli_stmt_execute($stmt);
+
+                    $_SESSION['icons'] = "./img/alerticons/success.png";
+                    $_SESSION['status'] = "success";
+                    $_SESSION['status_code'] = "User Updated Successfully";
+                    header("Location: ../users.php");
+                    exit();
+                } else {
+                    $_SESSION['icons'] = "./img/alerticons/error.png";
+                    $_SESSION['status'] = "error";
+                    $_SESSION['status_code'] = "Error Updating User Image";
+                    header("Location: ../users.php");
+                    exit();
+                }
+            } else {
+                $_SESSION['icons'] = "./img/alerticons/error.png";
+                $_SESSION['status'] = "error";
+                $_SESSION['status_code'] = "File Upload Error";
+                header("Location: ../users.php");
+                exit();
+            }
+        } else {
+            $_SESSION['icons'] = "./img/alerticons/error.png";
+            $_SESSION['status'] = "error";
+            $_SESSION['status_code'] = "Invalid file extension";
+            header("Location: ../users.php");
+            exit();
+        }
+    } else {
+        // If no image is uploaded, update other user details without changing the existing profile_img
+        $sql = "UPDATE users SET fullname = ?, email = ?, phone_number = ?, password = ?, user_type = ? WHERE userID = ?";
+        $stmt = mysqli_stmt_init($conn);
+        mysqli_stmt_prepare($stmt, $sql);
+        mysqli_stmt_bind_param($stmt, "sssssi", $fullname, $email, $phone_number, $password, $user_type, $userID);
+        mysqli_stmt_execute($stmt);
+
+        $_SESSION['icons'] = "./img/alerticons/success.png";
+        $_SESSION['status'] = "success";
+        $_SESSION['status_code'] = "User Updated Successfully";
+        header("Location: ../users.php");
+        exit();
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +106,7 @@ $row5 = mysqli_fetch_assoc($result5);
     <link rel="shortcut icon" href="<?php echo $favicon ?>" type="image/x-icon">
     <link rel="stylesheet" href="../../alerts/dist/css/iziToast.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
-    <title>Add Users <?php echo $title ?></title>
+    <title>Update User <?php echo $title ?></title>
 </head>
 
 <body>
@@ -68,9 +149,9 @@ $row5 = mysqli_fetch_assoc($result5);
             </a>
           </li>
           <li>
-            <a href="./slider.php" class="menu-item">
+            <a href="../showtime.php" class="menu-item">
               <ion-icon name="albums-outline"></ion-icon>
-              <small>&nbsp&nbspSliders</small>
+              <small>&nbsp&nbspShowTimes</small>
             </a>
           </li>
           <li>
@@ -87,10 +168,10 @@ $row5 = mysqli_fetch_assoc($result5);
   <div class="main-content">
     <?php include '../includes/header.php'; ?>
     <main>
-      <div class="form-container">
+      <div style="padding: 105px 35px;" class="form-container">
         <h2>Update User</h2>
         <br>
-        <form action="./formprocess.php" method="GET">
+        <form action="" method="POST" enctype="multipart/form-data">
           <div class="form-row">
             <div class="form-group">
               <label for="name">Full Name:</label>
@@ -117,19 +198,18 @@ $row5 = mysqli_fetch_assoc($result5);
                 <span style="color: #232836;">User Role:</span><br>
                 <select name="user_type">
                   <option value="<?php echo $row5['user_type']?>">Select User Type</option>
-                  <option value="user">User</option>
+                  <option value="customer">Customer</option>
                   <option value="admin">Admin</option>
                 </select>
               </div>
             </div>
             <div class="form-group">
-              <label for="confirm-password">Image:</label><br>
-              <input style="color: #232836; height:35px; background-color:white" type="file" name="profile_img">
+              <label for="image">Image:</label><br>
+              <input type="file" style="color: #232836; height:35px; background-color:white" name="profile_img">
             </div>
           </div>
           <div class="form-row">
-            <button type="button" name="cancel" class="close-form-btn">Cancel</button>
-            <button type="submit" name="add" class="update-button">Add User</button>
+            <button type="submit" name="update" class="update-button">Update User</button>
           </div>
         </form>
       </div>

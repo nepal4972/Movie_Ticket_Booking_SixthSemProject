@@ -5,7 +5,7 @@ require '../db/connect.php';
 
 <?php
 $userID = $_SESSION['userID'];
-
+    
 if(isset($_POST['submit'])) {
     $oldpassword = $_POST['oldpassword'];
     $password = $_POST['password'];

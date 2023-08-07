@@ -21,7 +21,7 @@ if(isset($_GET['id'])) {
         $_SESSION['icons']="../img/alerticons/success.png";  
         $_SESSION['status']="success";
         $_SESSION['status_code']="Movie Deleted";
-        header("Location: ../users.php");
+        header("Location: ../movies.php");
         exit();
     }
     else {
