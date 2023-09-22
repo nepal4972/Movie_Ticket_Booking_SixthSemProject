@@ -9,14 +9,14 @@ $movieid = $_GET['id'];
 $date = $_GET['date'];
 $time = $_GET['time'];
 
+date_default_timezone_set('Asia/Kathmandu');
+$currentdate = date('Y-m-d');
+
 $datestamp = strtotime($date);
 $formatteddate = date('F j, Y', $datestamp);
 
 $timestamp = strtotime($time);
 $formattedtime = date('h:i A', $timestamp);
-
-date_default_timezone_set('Asia/Kathmandu');
-$currentdate = date('Y-m-d');
 
 $giventime = strtotime($date);
 $currenttime = strtotime($currentdate);
@@ -45,8 +45,8 @@ if ($result->num_rows > 0) {
         $soldSeats[] = $row['seat_number'];
     }
 }
+$favicon = trim($favicon);
 ?>
-
 <?php
 
 $sql1 = "SELECT * FROM movies WHERE movieID = '$movieid'";
@@ -64,10 +64,10 @@ $row1 = mysqli_fetch_assoc($result1);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="<?php echo $favicon ?>" type="image/x-icon">
+    <link rel="shortcut icon" href="<?php echo $favicon ?>" type="image/x-icon"> 
     <link rel="stylesheet" href="../alerts/dist/css/iziToast.min.css">
     <link rel="stylesheet" href="../assets/seats/style.css">
-    <title>Seats <?php echo $title ?></title>
+    <title><?php echo $row1['movie_name'] ?> | Seats <?php echo $title ?></title>
 </head>
 
 <body>
@@ -95,7 +95,7 @@ $row1 = mysqli_fetch_assoc($result1);
                 <div class="screen">SCREEN</div>
                 <div class="row">
                     <?php
-                    // Array containing all the seat numbers in your layout
+                    
                     $allSeats = [
                         'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8',
                         'E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8',
@@ -135,24 +135,32 @@ $row1 = mysqli_fetch_assoc($result1);
                 <h5>
                     <div style="font-size:12px" hidden id="selected-values"></div>
                 </h5>
-                <button class="proceed-btn" onclick="submitForm()" id="reserver-ticket">Proceed</button>
+                <button class="proceed-btn" name="seat-proceed" onclick="submitForm()" id="reserver-ticket">Proceed</button>
             </div>
         </div>
         
         <script>
             function submitForm() {
-                var divValue = document.getElementById("selected-values").innerHTML;
-                var form = document.createElement("form");
-                form.setAttribute("method", "POST");
-                form.setAttribute("action", "../config/seatprocess.inc?id=<?php echo $movieid ?>&date=<?php echo $date ?>&time=<?php echo $time ?>");
-                var hiddenField = document.createElement("input");
-                hiddenField.setAttribute("type", "hidden");
-                hiddenField.setAttribute("name", "seats");
-                hiddenField.setAttribute("value", divValue);
-                form.appendChild(hiddenField);                                                                                                                                                                                                                                                          
-                document.body.appendChild(form);
-                form.submit();
+            var divValue = document.getElementById("selected-values").innerHTML;
+            if (divValue === "") {
+                iziToast.warning({
+                iconUrl: '../img/alerticons/warning.png',
+                message: 'Please select seats before proceeding',
+                position: 'topRight',
+            });
+        return;
             }
+            var form = document.createElement("form");
+            form.setAttribute("method", "POST");
+            form.setAttribute("action", "../proceed?id=<?php echo $movieid ?>&date=<?php echo $date ?>&time=<?php echo $time ?>");
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", "seats");
+            hiddenField.setAttribute("value", divValue);
+            form.appendChild(hiddenField);
+            document.body.appendChild(form);
+            form.submit();
+        }
         </script>
         <script src="../assets/seats/script.js"></script>
     </div>
@@ -162,7 +170,7 @@ $row1 = mysqli_fetch_assoc($result1);
 } else {
     $_SESSION['icons']="./img/alerticons/warning.png";
     $_SESSION['status']="warning";
-    $_SESSION['status_code']="Unauthorized Request";
+    $_SESSION['status_code']="Incomplete Request";
     header('Location: ../');
     exit;
 }

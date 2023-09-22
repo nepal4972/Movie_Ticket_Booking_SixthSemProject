@@ -1,0 +1,143 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #001233;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 50px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: #094f8a;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.left-section, .right-section {
+    flex: 1;
+    min-width: 300px;
+}
+
+.left-section {
+    margin-right: 20px;
+}
+
+.movie-summary h2, .ticket-details h2 {
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.ticket-details h2 span {
+    color: red;
+    font-size: 12px;
+    margin-bottom: -200px;
+}
+
+.movie-summary p, .ticket-details label {
+    font-weight: bold;
+    margin-bottom: 18px;
+    color: #CAC0B3;
+}
+
+.movie-summary, .ticket-details {
+    max-height: 300px;
+    background-color: #001242;
+    padding: 15px;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.ticket-price {
+    margin-bottom: 15px;
+}
+
+.ticket-price input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.total {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+button {
+    padding: 12px 30px;
+    background-color: #ff595a;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    display: block;
+    margin: 0 auto;
+}
+
+button:hover {
+    background-color: #016dcb;
+}
+
+.middle-container {
+    max-width: 1000px;
+    margin: -38px auto;
+    text-align: center;
+    border: 20px solid #094f8a;
+    border-radius: 8px;
+}
+
+.middle-section {
+    background-color: #001242;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+p{
+    color: #CAC0B3;
+}
+.payment-section h2 {
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.payment-options {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.payment-options .img {
+    width: 100px;
+    height: 100px;
+    border-radius: 4px;
+    border: 2px solid #ccc;
+    cursor: pointer;
+    margin: 5px;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 1000px) {
+    .container {
+        justify-content: center;
+    }
+    .left-section, .right-section {
+        flex: 100%;
+        margin: 20px 0;
+    }
+    .middle-container {
+        margin: -30px 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .left-section, .right-section {
+        min-width: 100%;
+    }
+}

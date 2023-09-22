@@ -1,6 +1,7 @@
 <?php
 include './db/connect.php';
 include './includes/links.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +57,7 @@ $result2 = mysqli_stmt_get_result($stmt2);
       <li>
         <div class="movie-card">
           <figure class="card-banner">
-            <img src="<?php echo $row1['movie_banner'] ?>" alt="">
+            <img src="<?php echo $base?><?php echo $row1['movie_banner'] ?>" alt="">
 
             <div class="hover-items">
               <a class="movie-a" href="./movie-details.php?id=<?php echo $row1['movieID'] ?>">
@@ -99,7 +100,7 @@ $result2 = mysqli_stmt_get_result($stmt2);
         <div class="movie-card">
           <figure class="card-banner">
 
-            <img src="<?php echo $row2['movie_banner'] ?>" alt="">
+            <img src="<?php echo $base?><?php echo $row2['movie_banner'] ?>" alt="">
 
             <div class="hover-items">
               <a class="movie-a" href="./movie-details.php?id=<?php echo $row2['movieID'] ?>">
@@ -229,7 +230,6 @@ include './includes/footer.php';
     });
   });
 
-  // Function to load the YouTube API
   loadYouTubeAPI();
 </script>
 

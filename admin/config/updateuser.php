@@ -46,7 +46,7 @@ if (isset($_POST['update'])) {
             if ($fileError === 0) {
                 $newFileName = uniqid('', true) . '.' . $fileExt;
                 $uploadPath = '../../img/profile-img/' . $newFileName;
-                $dbimgPath = $base . 'img/profile-img/' . $newFileName;
+                $dbimgPath = 'img/profile-img/' . $newFileName;
 
                 if (move_uploaded_file($fileTmpName, $uploadPath)) {
                     $sql = "UPDATE users SET fullname = ?, email = ?, phone_number = ?, password = ?, user_type = ?, profile_img = ? WHERE userID = ?";

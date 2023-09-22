@@ -54,7 +54,7 @@ $result5 = mysqli_stmt_get_result($stmt5);
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./alerts/dist/css/iziToast.min.css">
   <link rel="stylesheet" href="<?php echo $homecss ?>">
-  <title>Movie Details <?php echo $title ?></title>
+  <title><?php echo $row1['movie_name'] ?> | Movie Details <?php echo $title ?></title>
 </head>
 
 <body>

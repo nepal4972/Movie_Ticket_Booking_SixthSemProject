@@ -45,7 +45,6 @@ if ($showTimeResult) {
 
         echo "Seat data inserted successfully.";
     } else {
-        // Query for movie time failed
         echo "Error: " . mysqli_error($conn);
     }
 } else {

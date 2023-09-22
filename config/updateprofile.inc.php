@@ -23,7 +23,6 @@ if(isset($_FILES['image'])) {
     $fileTmpName = $file['tmp_name'];
     $fileSize = $file['size'];
     $fileError = $file['error'];
-    echo $filename;
 
     // Check if an image is selected
     if (!empty($fileName)) {
@@ -40,9 +39,8 @@ if(isset($_FILES['image'])) {
                 // Generate a unique file name
                 $newFileName = $fileName;
 
-                // Specify the folder to store uploaded files
                 $uploadPath = '../img/profile-img/' . $newFileName;
-                $dbimgPath = './img/profile-img/' . $newFileName;
+                $dbimgPath = 'img/profile-img/' . $newFileName;
 
                 // Move the uploaded file to the specified folder
                 if (move_uploaded_file($fileTmpName, $uploadPath)) {
@@ -85,6 +83,13 @@ if(isset($_FILES['image'])) {
         header("Location: ../profile.php");
         exit();
     }
+} elseif (isset($_POST['update'])) {
+
+    $sql = "UPDATE users SET fullname = '$dbimgPath' WHERE userID = '$userID'";
+    $stmt = mysqli_stmt_init($conn);
+    mysqli_stmt_prepare($stmt, $sql);
+    mysqli_stmt_execute($stmt);
+    exit();
 } elseif (isset($_POST['cancel'])) {
     header("Location: ../");
     exit();

@@ -97,7 +97,7 @@ include './includes/confirmation.php';
                                             </div>
                                         </td>
                                         <td>
-                                            <img src="<?php echo $row1['movie_banner'] ?>" class="client-img" alt="Image">
+                                            <img src="<?php echo $base?><?php echo $row1['movie_banner'] ?>" class="client-img" alt="Image">
                                         </td>
                                         <td>
                                             <?php
@@ -167,7 +167,7 @@ include './includes/confirmation.php';
                                             </div>
                                         </td>
                                         <td>
-                                            <img src="<?php echo $row2['movie_banner'] ?>" class="client-img" alt="Image">
+                                            <img src="<?php echo $base?><?php echo $row2['movie_banner'] ?>" class="client-img" alt="Image">
                                         </td>
                                         <td>
                                         <?php

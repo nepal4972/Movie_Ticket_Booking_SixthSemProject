@@ -1,4 +1,5 @@
-
+<script src="../../alerts/dist/js/iziToast.min.js"></script>
+<link rel="stylesheet" href="../../alerts/dist/css/iziToast.min.css">
 <header>
     <div class="header-content">
         <label for="menu-toggle">
@@ -11,8 +12,8 @@
                 <div class="dropdown">
                     <img class="profile-img" src="<?php echo $imglogopath?>../profile-img/profile.jpg" alt="">
                     <div class="dropdown-content">
-                        <a href="../">Home Page</a>
-                        <a onclick="return showConfirmation(event)" href="../logout.php">Logout</a>
+                        <a href="<?php echo $base ?>">Home Page</a>
+                        <a href="<?php echo $base?>logout.php" onclick="return confirm('Want To Logout');">Logout</a>
                     </div>
                 </div>
             </div>

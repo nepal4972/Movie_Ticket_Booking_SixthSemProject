@@ -1,9 +1,17 @@
 <?php
 error_reporting(0);
 include '../db/connect.php';
-$basetest = $_SERVER['PHP_SELF'];
-$base = '/phpcode/test-projects/Movie_Ticket_Booking_SixthSemProject/';
-$page = basename($base, ".php");
+
+
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+$host = $_SERVER['HTTP_HOST'];
+$folder = trim(dirname($_SERVER['PHP_SELF']), '/');
+$base_url = "{$protocol}://{$host}/{$folder}/";
+$trimmed_url = parse_url($base_url, PHP_URL_PATH);
+
+$base = '/phpcode/test-projects/testtesttesttste/admin-database-connect-users/';
+
+$favicon = str_replace('/seatlayout', '', $favicon);
 ?>
 
 <?php

@@ -30,7 +30,7 @@ if(isset($_POST['update_setting'])) {
 
                 // Specify the folder to store uploaded files
                 $uploadPath = '../../img/favicons/' . $newFileName;
-                $dbimgPath = './img/favicons/' . $newFileName;
+                $dbimgPath = 'img/favicons/' . $newFileName;
 
                 // Move the uploaded file to the specified folder
                 if (move_uploaded_file($fileTmpName, $uploadPath)) {

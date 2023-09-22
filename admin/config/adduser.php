@@ -34,7 +34,7 @@ if (isset($_POST['add'])) {
                 $newFileName = $fileName;
 
                 $uploadPath = '../../img/profile-img/' . $newFileName;
-                $dbimgPath = './img/profile-img/' . $newFileName;
+                $dbimgPath = 'img/profile-img/' . $newFileName;
 
                 // Move the uploaded file to the specified folder
                 if (move_uploaded_file($fileTmpName, $uploadPath)) {

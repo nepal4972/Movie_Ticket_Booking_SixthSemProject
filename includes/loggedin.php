@@ -17,7 +17,7 @@ if (!islogged()) {
     $_SESSION['icons']="./img/alerticons/warning.png";
     $_SESSION['status']="warning";
     $_SESSION['status_code']="Please Login First";
-    header('Location: ' . $_SERVER['HTTP_REFERER']);
+    header("Location: $base");
     exit;
 }
 ?>

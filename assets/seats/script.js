@@ -85,7 +85,6 @@ container.addEventListener("click", (e) => {
   ) {
     const selectedSeats = document.querySelectorAll(".row .seat.selected:not(.booked)");
 
-    // Check if the selectedSeats count exceeds the limit (5)
     if (selectedSeats.length >= 5 && !e.target.classList.contains("selected")) {
       // Show an alert
       iziToast.warning({
@@ -93,7 +92,7 @@ container.addEventListener("click", (e) => {
         message: 'You can only book up to 5 seats.',
         position: 'topRight',
       });
-      return; // Exit the function to prevent further actions
+      return;
     }
     
     e.target.classList.toggle("selected");

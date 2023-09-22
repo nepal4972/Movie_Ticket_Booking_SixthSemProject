@@ -47,7 +47,7 @@ if (isset($_POST['update'])) {
                 $newFileName = $fileName;
 
                 $uploadPath = '../../img/banners/' . $newFileName;
-                $dbimgPath = $base . 'img/banners/' . $newFileName;
+                $dbimgPath = 'img/banners/' . $newFileName;
 
                 // Move the uploaded file to the specified folder
                 if (move_uploaded_file($fileTmpName, $uploadPath)) {

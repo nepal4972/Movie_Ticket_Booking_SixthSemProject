@@ -12,6 +12,7 @@ if ($_GET['test'] === 'hello') {
     $date = '2023-07-04';
     $time = '16:00:00';
     $seats = 'E4,C6,D7';
+    $paymentAmount = 120.0; // Assuming you have the payment amount
 
     $bookingID = generateBookingID();
 
@@ -28,10 +29,25 @@ if ($_GET['test'] === 'hello') {
     foreach ($seatNumbers as $seatNumber) {
         $seatNumber = trim($seatNumber);
         $seatInsertSql = "INSERT INTO `seats` (`bookingID`, `seat_number`, `status`)
-                          VALUES ('$bookingID', '$seatNumber', 'booked')";
+                          VALUES ('$bookingID', '$seatNumber', 'sold')";
         if ($conn->query($seatInsertSql) === false) {
             echo "Error inserting seat details: " . $conn->error;
             exit();
         }
     }
+
+    // Insert payment details
+    $paymentID = uniqid('payment_', true);
+    date_default_timezone_set('Asia/Kathmandu');
+    $paymentDate = date('Y-m-d H:i:s');
+    $paymentMethod = 'Online Payment';
+    $paymentReference = '123456789';
+
+    $paymentInsertSql = "INSERT INTO `payments` (`bookingID`, `payment_amount`, `payment_date`, `payment_method`, `payment_referenceID`)
+                         VALUES ('$bookingID', 20, '$paymentDate', '$paymentMethod', '$paymentReference')";
+    if ($conn->query($paymentInsertSql) === false) {
+        echo "Error inserting payment details: " . $conn->error;
+        exit();
+    }
 }
+?>

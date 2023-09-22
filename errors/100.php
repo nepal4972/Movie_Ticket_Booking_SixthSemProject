@@ -89,7 +89,7 @@ include '../includes/links.php';
   <h2>COMPLETED REQUEST</h2>
   <p>Already Logged in. Logout First to Get Login Page.....!!!!</p>
   <a href="../logout.php"> logout</a> <br>
-  <a href="../index.php"> Go To Homepage</a>
+  <a href="../"> Go To Homepage</a>
  </div>
 </div>
 

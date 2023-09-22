@@ -56,6 +56,3 @@ $testpath = './img/favicons/whitecinepal.jpg'
         </ul>
     </div>
 </div>
-
-
-<script src="./script.js"></script>

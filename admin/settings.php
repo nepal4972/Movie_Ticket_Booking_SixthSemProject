@@ -59,7 +59,7 @@ $row5 = mysqli_fetch_assoc($result5);
               <input type="text" value="<?php echo $row5['site_title'] ?>" name="site_title">
             </div>
             <div class="form-group">
-              <label for="text">Seat Price(in Rs):</label>
+              <label for="text">Hall Seat Price(in Rs):</label>
               <input type="text" value="<?php echo $row5['seat_price'] ?>" name="seat_price">
             </div>
           </div>

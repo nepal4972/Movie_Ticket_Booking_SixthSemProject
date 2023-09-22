@@ -12,7 +12,6 @@ if(isset($_POST['submit'])) {
     $password = htmlspecialchars($_POST['password'], ENT_QUOTES);
     $cpassword = htmlspecialchars($_POST['cpassword'], ENT_QUOTES);
 
-
     $checkEmail = mysqli_query($conn, "SELECT * FROM users WHERE email = '$email'") or die ("Query Failed");
     $checkphone_number = mysqli_query($conn, "SELECT * FROM users WHERE phone_number = '$phone_number'") or die ("Query Failed");
 
