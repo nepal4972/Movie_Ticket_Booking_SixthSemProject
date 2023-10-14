@@ -9,7 +9,7 @@ $folder = trim(dirname($_SERVER['PHP_SELF']), '/');
 $base_url = "{$protocol}://{$host}/{$folder}/";
 $trimmed_url = parse_url($base_url, PHP_URL_PATH);
 
-$base = '/phpcode/test-projects/testtesttesttste/admin-database-connect-users/';
+$base = '/phpcode/test-projects/Movie_Ticket_Booking_SixthSemProject/';
 
 $favicon = str_replace('/seatlayout', '', $favicon);
 ?>

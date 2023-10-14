@@ -7,6 +7,48 @@ include './includes/confirmation.php';
 <script src="../alerts/dist/js/iziToast.min.js"></script>
 <script src="../assets/home/js/script.js"></script>
 
+<?php
+
+$sql1 = "SELECT * FROM movies WHERE CURRENT_DATE() BETWEEN release_date AND end_date";
+$stmt1 = mysqli_stmt_init($conn);
+mysqli_stmt_prepare($stmt1, $sql1);
+mysqli_stmt_execute($stmt1);
+$result1 = mysqli_stmt_get_result($stmt1);
+$row_count1 = mysqli_num_rows($result1);
+
+$sql2 = "SELECT * FROM movies WHERE CURRENT_DATE() < release_date";
+$stmt2 = mysqli_stmt_init($conn);
+mysqli_stmt_prepare($stmt2, $sql2);
+mysqli_stmt_execute($stmt2);
+$result2 = mysqli_stmt_get_result($stmt2);
+$row_count2 = mysqli_num_rows($result2);
+
+$sql3 = "SELECT * FROM bookings";
+$stmt3 = mysqli_stmt_init($conn);
+mysqli_stmt_prepare($stmt3, $sql3);
+mysqli_stmt_execute($stmt3);
+$result3 = mysqli_stmt_get_result($stmt3);
+$row_count3 = mysqli_num_rows($result3);
+
+$sql4 = "SELECT * FROM users";
+$stmt4 = mysqli_stmt_init($conn);
+mysqli_stmt_prepare($stmt4, $sql4);
+mysqli_stmt_execute($stmt4);
+$result4 = mysqli_stmt_get_result($stmt4);
+$row_count4 = mysqli_num_rows($result4);
+
+$sql5 = "SELECT b.*, u.fullname AS fullname, u.email AS email, u.profile_img AS profile_img, m.movie_name
+FROM bookings AS b
+JOIN users AS u ON b.userID = u.userID
+JOIN movies AS m ON b.movieID = m.movieID
+ORDER BY b.booked_date DESC LIMIT 5";
+
+$stmt5 = mysqli_stmt_init($conn);
+mysqli_stmt_prepare($stmt5, $sql5);
+mysqli_stmt_execute($stmt5);
+$result5 = mysqli_stmt_get_result($stmt5);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,7 +80,7 @@ include './includes/confirmation.php';
                 <div class="analytics">
                     <div class="card">
                         <div class="card-head">
-                            <h2>5</h2>
+                            <h2><?php echo $row_count4 ?></h2>
                             <ion-icon style="font-size:50px" name="people-outline"></ion-icon>
                         </div>
                         <div class="card-progress">
@@ -48,7 +90,7 @@ include './includes/confirmation.php';
 
                     <div class="card">
                         <div class="card-head">
-                            <h2>5</h2>
+                            <h2><?php echo $row_count1 ?></h2>
                             <ion-icon style="font-size:50px" name="videocam-outline"></ion-icon>
                         </div>
                         <div class="card-progress">
@@ -58,7 +100,7 @@ include './includes/confirmation.php';
 
                     <div class="card">
                         <div class="card-head">
-                            <h2>4</h2>
+                            <h2><?php echo $row_count2 ?></h2>
                             <ion-icon style="font-size:50px" name="videocam-off-outline"></ion-icon>
                         </div>
                         <div class="card-progress">
@@ -68,7 +110,7 @@ include './includes/confirmation.php';
 
                     <div class="card">
                         <div class="card-head">
-                            <h2>28</h2>
+                            <h2><?php echo $row_count3 ?></h2>
                             <ion-icon style="font-size:50px" name="bookmarks-outline"></ion-icon>
                         </div>
                         <div class="card-progress">
@@ -91,66 +133,68 @@ include './includes/confirmation.php';
                                             <th>Booked Movie</th>
                                             <th>Booked By</th>
                                             <th>Booked Seats</th>
+                                            <th>Show Time</th>
                                             <th>Booked Date</th>
-                                            <th>Booked Time</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <?php
+                                    $showingcount = 1;
+                                    while($row5 = mysqli_fetch_assoc($result5)) {
+                                    ?>
                                         <tr>
-                                            <td>#1</td>
+                                            <td>#<?php echo $showingcount ?></td>
                                             <td>
-                                                <h4>Lakhey</h4>
+                                                <h4><?php echo $row5['movie_name'] ?></h4>
                                             </td>
                                             <td>
                                             <div class="client">
-                                                <img src="<?php echo $imglogopath?>../profile-img/profile.jpg" class="client-img bg-img" alt="">
+                                                <img src="<?php echo $base?><?php echo $row5['profile_img'] ?>" class="client-img bg-img" alt="">
                                                 <div class="client-info">
-                                                    <h4>Saugat Nepal</h4>
-                                                    <small>nepal4972@gmail.com</small>
+                                                    <h4><?php echo $row5['fullname'] ?></h4>
+                                                    <small><?php echo $row5['email'] ?></small>
                                                 </div>
                                             </div>
                                             </td>
                                             <td>
-                                                F1, F2, C4
+                                                <?php echo $row5['seats'] ?>
                                             </td>
+                                            <?php
+                                            $dateObj = new DateTime($row5['show_date']);
+                                            $currentDate = new DateTime();
+                                            $interval = $currentDate->diff($dateObj);
+                                            $daysDifference = $interval->days;
+                                            if ($daysDifference == 0) {
+                                                $formattedDate = "Today";
+                                            } elseif ($daysDifference == 1) {
+                                                $formattedDate = "Tomorrow";
+                                            } else {
+                                                $formattedDate = $dateObj->format("Y-m-d");
+                                            }
+                                            $time = date("h:i A", strtotime($row5['show_time']));
+                                            ?>
                                             <td>
-                                                11 June, 2023
-                                            </td>
-                                            <td>
-                                                12:45 PM
-                                            </td>
-                                            <td>
-                                                Booked
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>#2</td>
-                                            <td>
-                                                <h4>Fulbari</h4>
-                                            </td>
-                                            <td>    
-                                            <div class="client">
-                                                <img src="<?php echo $imglogopath?>../profile-img/profile.jpg" class="client-img bg-img" alt="">
-                                                <div class="client-info">
-                                                    <h4>Saugat Nepal</h4>
-                                                    <small>nepal4972@gmail.com</small>
+                                                <div class="date-time">
+                                                    <h4><?php echo $formattedDate ?></h4>
+                                                    <small><?php echo $time ?></small>
                                                 </div>
-                                            </div>
                                             </td>
+                                            <?php
+                                            $time5 = $row5['booked_date'];
+                                            $formattedtime5 = date("F d, Y", strtotime($time5));
+                                            ?>
                                             <td>
-                                                C2, C5, C6
-                                            </td>
-                                            <td>
-                                                11 June, 2023
-                                            </td>
-                                            <td>
-                                                9:45 AM
+                                                <?php echo $formattedtime5 ?>
                                             </td>
                                             <td>
                                                 Sold
                                             </td>
                                         </tr>
+                                        <?php
+                                    $showingcount++;
+                                    }
+                                    ?>
                                     </tbody>
                                 </table>
                             </div>

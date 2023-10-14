@@ -78,7 +78,7 @@ include './includes/confirmation.php';
                                         <th>Movie Name</th>
                                         <th>Movie Thumbnail</th>
                                         <th>Movie Price</th>
-                                        <th>Date</th>
+                                        <th>Ending Date</th>
                                         <th>Video ID</th>
                                         <th> ACTIONS</th>
                                     </tr>
@@ -109,8 +109,12 @@ include './includes/confirmation.php';
                                             }
                                             ?>
                                         </td>
+                                        <?php
+                                        $time1 = $row1['end_date'];
+                                        $formattedtime1 = date("F d, Y", strtotime($time1));
+                                        ?>
                                         <td>
-                                        <?php echo $row1['release_date'] ?>
+                                        <?php echo $formattedtime1 ?>
                                         </td>
                                         <td>
                                         <?php echo $row1['videoID'] ?>
@@ -148,7 +152,7 @@ include './includes/confirmation.php';
                                         <th>Movie Name</th>
                                         <th>Movie Thumbnail</th>
                                         <th>Movie Price</th>
-                                        <th>Date</th>
+                                        <th>Releasing Date</th>
                                         <th>Video ID</th>
                                         <th> ACTIONS</th>
                                     </tr>
@@ -179,8 +183,12 @@ include './includes/confirmation.php';
                                             }
                                             ?>
                                         </td>
+                                        <?php
+                                        $time2 = $row1['release_date'];
+                                        $formattedtime2 = date("F d, Y", strtotime($time1));
+                                        ?>
                                         <td>
-                                            <?php echo $row2['release_date'] ?>
+                                            <?php echo $formattedtime2 ?>
                                         </td>
                                         <td>
                                             <?php echo $row2['videoID'] ?>
