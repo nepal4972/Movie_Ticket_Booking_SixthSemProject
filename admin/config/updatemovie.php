@@ -37,19 +37,17 @@ if (isset($_POST['update'])) {
     $end_date = $_POST['end_date'];
 
     if (!empty($fileName)) {
-        $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
+        $fileExt = pathinfo($file['name'], PATHINFO_EXTENSION);
 
-        // Define allowed file extensions
         $allowedExtensions = ['jpg', 'jpeg', 'png', 'svg', 'ico'];
 
         if (in_array($fileExt, $allowedExtensions)) {
             if ($fileError === 0) {
-                $newFileName = $fileName;
+                $newFileName = uniqid('', true) . '.' . $fileExt;
 
                 $uploadPath = '../../img/banners/' . $newFileName;
                 $dbimgPath = 'img/banners/' . $newFileName;
 
-                // Move the uploaded file to the specified folder
                 if (move_uploaded_file($fileTmpName, $uploadPath)) {
                     $sql = "UPDATE movies SET movie_name = ?, movie_description = ?, movie_price = ?, videoID = ?, movie_duration = ?, release_date = ?, end_date = ?, movie_banner = ? WHERE movieID = ?";
                     $stmt = mysqli_stmt_init($conn);

@@ -21,7 +21,10 @@ $formattedtime = date('h:i A', $timestamp);
 $giventime = strtotime($date);
 $currenttime = strtotime($currentdate);
 
-if((!empty($_GET['id'])) && (!empty($_GET['date'])) && (!empty($_GET['time'])) && !($currenttime > $giventime)) {
+$timeDifferenceInDays = floor(($datestamp - strtotime($currentdate)) / (60 * 60 * 24));
+
+
+if((!empty($_GET['id'])) && (!empty($_GET['date'])) && (!empty($_GET['time'])) && !($currenttime > $giventime) && !($timeDifferenceInDays >= 2)) {
 $bookedSeats = array();
 $sql = "SELECT s.seat_number
         FROM seats AS s
@@ -95,7 +98,6 @@ $row1 = mysqli_fetch_assoc($result1);
                 <div class="screen">SCREEN</div>
                 <div class="row">
                     <?php
-                    
                     $allSeats = [
                         'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8',
                         'E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8',

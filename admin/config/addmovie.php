@@ -5,7 +5,7 @@ include '../../includes/links.php';
 ?>
 
 <?php
-date_default_timezone_set('Asia/Kath  mandu');
+date_default_timezone_set('Asia/Kathmandu');
 $registerdate = date("Y-m-d");
 
 if (isset($_POST['add'])) {
@@ -24,24 +24,18 @@ if (isset($_POST['add'])) {
     $movie_description = $_POST['movie_description'];
 
     if (!empty($fileName)) {
-        // Get the file extension
-        $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
+        $fileExt = pathinfo($file['name'], PATHINFO_EXTENSION);
 
-        // Define allowed file extensions
         $allowedExtensions = ['jpg', 'jpeg', 'png', 'svg', 'ico'];
 
-        // Check if the file extension is allowed
         if (in_array($fileExt, $allowedExtensions)) {
-            // Check for file upload errors
-            if ($fileError === 0) {
-                // Generate a unique file name
-                $newFileName = $fileName;
 
-                // Specify the folder to store uploaded files
+            if ($fileError === 0) {
+                $newFileName = uniqid('', true) . '.' . $fileExt;
+
                 $uploadPath = '../../img/banners/' . $newFileName;
                 $dbimgPath = 'img/banners/' . $newFileName;
 
-                // Move the uploaded file to the specified folder
                 if (move_uploaded_file($fileTmpName, $uploadPath)) {
                     $sql = "INSERT INTO movies (movie_name, videoID, movie_duration, release_date, end_date, movie_description, movie_banner, movie_price) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                     $stmt = mysqli_stmt_init($conn);

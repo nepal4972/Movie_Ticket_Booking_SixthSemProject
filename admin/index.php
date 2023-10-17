@@ -188,7 +188,7 @@ $result5 = mysqli_stmt_get_result($stmt5);
                                                 <?php echo $formattedtime5 ?>
                                             </td>
                                             <td>
-                                                Sold
+                                                <?php echo $row5['pay_status']; ?>
                                             </td>
                                         </tr>
                                         <?php

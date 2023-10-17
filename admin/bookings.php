@@ -6,7 +6,7 @@ include './config/verifyadmin.php';
 <script src="./alerts/dist/js/iziToast.min.js"></script>
 
 <?php
-$sql1 = "SELECT * FROM users WHERE user_type = 'admin'";
+$sql1 = "SELECT * FROM bookings";
 $stmt1 = mysqli_stmt_init($conn);
 mysqli_stmt_prepare($stmt1, $sql1);
 mysqli_stmt_execute($stmt1);
@@ -14,11 +14,17 @@ $result1 = mysqli_stmt_get_result($stmt1);
 ?>
 
 <?php
-$sql2 = "SELECT * FROM users WHERE user_type = 'customer'";
-$stmt2 = mysqli_stmt_init($conn);
-mysqli_stmt_prepare($stmt2, $sql2);
-mysqli_stmt_execute($stmt2);
-$result2 = mysqli_stmt_get_result($stmt2);
+
+$sql5 = "SELECT b.*, u.fullname AS fullname, u.email AS email, u.profile_img AS profile_img, m.movie_name
+FROM bookings AS b
+JOIN users AS u ON b.userID = u.userID
+JOIN movies AS m ON b.movieID = m.movieID
+ORDER BY b.booked_date DESC";
+
+$stmt5 = mysqli_stmt_init($conn);
+mysqli_stmt_prepare($stmt5, $sql5);
+mysqli_stmt_execute($stmt5);
+$result5 = mysqli_stmt_get_result($stmt5);
 ?>
 
 
@@ -47,76 +53,12 @@ $result2 = mysqli_stmt_get_result($stmt2);
             <div class="page-content">
                 <div class="records table-responsive">
                     <div class="record-header">
-                        <div class="add">
+                    <div class="add">
                             <input type="search" placeholder="Search">
                             <button name="search">Search</button>&nbsp&nbsp&nbsp&nbsp
-                            <button onclick="toggleSections()">Booked/Sold</button>
                         </div>
 
                         <div class="browse">
-                            <select name="" id="">
-                                <option value="">Date Registered</option>
-                            </select>
-                            <a href="./adduser.php">Add Users</a>
-                        </div>
-                    </div>
-                    <div id="section1" class="hidden">
-                        <div class="page-header-small">
-                            <h1>Sold</h1>
-                        </div>
-                        <br>
-                        <div>
-                            <table width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>User ID</th>
-                                        <th>Admins</th>
-                                        <th>Contact Number</th>
-                                        <th>Register Date</th>
-                                        <th>ACTIONS</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $soldcount = 1;
-                                    while($row1 = mysqli_fetch_assoc($result1)) {
-                                    ?>
-                                    <tr>
-                                        <td>#<?php echo $soldcount ?></td>
-                                        <td><?php echo $row1['userID'] ?></td>
-                                        <td>
-                                            <div class="client">
-                                                <img src="<?php echo $base ?><?php echo $row1['profile_img'] ?>" class="client-img bg-img" alt="">
-                                                <div class="client-info">
-                                                    <h4><?php echo $row1['fullname'] ?></h4>
-                                                    <small><?php echo $row1['email'] ?></small>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <?php echo $row1['phone_number'] ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $row1['register_date'] ?>
-                                        </td>
-                                        <td>
-                                            <div class="actions">
-                                                <a href="./config/updateuser.php?id=<?php echo $row1['userID']?>">
-                                                    <ion-icon id="open-popup" name="create-outline"></ion-icon>&nbsp&nbsp&nbsp
-                                                </a>
-                                                <a href="./config/deleteuser.php?id=<?php echo $row1['userID']?>">
-                                                    <ion-icon name="trash-outline"></ion-icon>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <?php
-                                    $soldcount++;
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                     <div id="section2">
@@ -129,45 +71,54 @@ $result2 = mysqli_stmt_get_result($stmt2);
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>User ID</th>
-                                        <th>Users</th>
-                                        <th>Contact Number</th>
-                                        <th>Register Date</th>
-                                        <th>ACTIONS</th>
+                                        <th>Booked Movie</th>
+                                        <th>Booked By</th>
+                                        <th>Show Date Time</th>
+                                        <th>Booked Seats</th>
+                                        <th>Booked Date</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     $bookedcount = 1;
-                                    while($row2 = mysqli_fetch_assoc($result2)) {
+                                    while($row5 = mysqli_fetch_assoc($result5)) {
                                     ?>
                                     <tr>
                                         <td>#<?php echo $bookedcount ?></td>
-                                        <td><?php echo $row2['userID'] ?></td>
+                                        <td><?php echo $row5['movie_name'] ?></td>
                                         <td>
                                             <div class="client">
-                                                <img src="<?php echo $base ?><?php echo $row2['profile_img'] ?>" class="client-img bg-img" alt="">
+                                                <img src="<?php echo $base ?><?php echo $row5['profile_img'] ?>" class="client-img bg-img" alt="">
                                                 <div class="client-info">
-                                                    <h4><?php echo $row2['fullname'] ?></h4>
-                                                    <small><?php echo $row2['email'] ?></small>
+                                                    <h4><?php echo $row5['fullname'] ?></h4>
+                                                    <small><?php echo $row5['email'] ?></small>
                                                 </div>
                                             </div>
                                         </td>
+                                        <?php
+                                            $date = $row5['show_date'];
+                                            $formattedDate = date("F d, Y", strtotime($date));
+                                            $time = date("h:i A", strtotime($row5['show_time']));
+                                            ?>
                                         <td>
-                                            <?php echo $row2['phone_number'] ?>
+                                                <div class="date-time">
+                                                    <small><?php echo $time ?></small>
+                                                    <h4><?php echo $formattedDate ?></h4>
+                                                </div>
+                                            </td>
+                                        <td>
+                                            <?php echo $row5['seats'] ?>
+                                        </td>
+                                        <?php
+                                        $time5 = $row5['booked_date'];
+                                        $formattedtime5 = date("F d, Y", strtotime($time5));
+                                        ?>
+                                        <td>
+                                            <?php echo $formattedtime5 ?>
                                         </td>
                                         <td>
-                                            <?php echo $row2['register_date'] ?>
-                                        </td>
-                                        <td>
-                                            <div class="actions">
-                                                <a href="./config/updateuser.php?id=<?php echo $row2['userID']?>">
-                                                    <ion-icon  name="create-outline"></ion-icon>&nbsp&nbsp&nbsp
-                                                </a>
-                                                <a href="./config/deleteuser.php?id=<?php echo $row2['userID']?>">
-                                                    <ion-icon name="trash-outline"></ion-icon>
-                                                </a>
-                                            </div>
+                                            unpaid
                                         </td>
                                     </tr>
                                     <?php

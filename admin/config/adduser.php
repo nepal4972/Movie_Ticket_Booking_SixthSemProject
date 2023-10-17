@@ -23,20 +23,17 @@ if (isset($_POST['add'])) {
     $user_type = $_POST['user_type'];
 
     if (!empty($fileName)) {
-        // Get the file extension
-        $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
+        $fileExt = pathinfo($file['name'], PATHINFO_EXTENSION);
 
-        // Define allowed file extensions
         $allowedExtensions = ['jpg', 'jpeg', 'png', 'svg', 'ico'];
 
         if (in_array($fileExt, $allowedExtensions)) {
             if ($fileError === 0) {
-                $newFileName = $fileName;
+                $newFileName = uniqid('', true) . '.' . $fileExt;
 
                 $uploadPath = '../../img/profile-img/' . $newFileName;
                 $dbimgPath = 'img/profile-img/' . $newFileName;
 
-                // Move the uploaded file to the specified folder
                 if (move_uploaded_file($fileTmpName, $uploadPath)) {
                     $sql = "INSERT INTO users (fullname, email, phone_number, password, user_type, register_date, profile_img) VALUES (?, ?, ?, ?, ?, ?, ?)";
                     $stmt = mysqli_stmt_init($conn);

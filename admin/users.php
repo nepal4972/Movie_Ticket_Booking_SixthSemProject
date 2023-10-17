@@ -57,9 +57,6 @@ include './includes/confirmation.php';
                         </div>
 
                         <div class="browse">
-                            <select name="" id="">
-                                <option value="">Date Registered</option>
-                            </select>
                             <a href="./config/adduser.php">Add Users</a>
                         </div>
                     </div>

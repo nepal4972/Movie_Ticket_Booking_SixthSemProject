@@ -2,6 +2,7 @@
 error_reporting(0);
 include './db/connect.php';
 include './includes/links.php';
+include './includes/loggedin.php';
 ?>
 <script src="./alerts/dist/js/iziToast.min.js"></script>
 <!DOCTYPE html>
@@ -15,9 +16,7 @@ include './includes/links.php';
   <link rel="stylesheet" href="./alerts/dist/css/iziToast.min.css">
   <link rel="stylesheet" href="<?php echo $profilecss ?>">
   <link rel="shortcut icon" href="<?php echo $favicon ?>" type="image/x-icon">
-  <title>My Profile
-    <?php echo $title ?>
-  </title>
+  <title>My Profile <?php echo $title ?></title>
 </head>
 
 <body>

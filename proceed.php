@@ -26,7 +26,10 @@ $formattedtime = date('h:i A', $timestamp);
 $giventime = strtotime($date);
 $currenttime = strtotime($currentdate);
 
-if((!empty($_GET['id'])) && (!empty($_GET['date'])) && (!empty($_GET['time'])) && !($currenttime > $giventime)) {
+$timeDifferenceInDays = floor(($datestamp - strtotime($currentdate)) / (60 * 60 * 24));
+
+
+if((!empty($_GET['id'])) && (!empty($_GET['date'])) && (!empty($_GET['time'])) && !($currenttime > $giventime) && !($timeDifferenceInDays >= 2)) {
 
 $sql1 = "SELECT * FROM movies WHERE movieID = '$movieid'";
 $stmt1 = mysqli_stmt_init($conn);

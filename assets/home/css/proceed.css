@@ -122,7 +122,6 @@ p{
     margin: 5px;
 }
 
-/* Mobile Responsive Styles */
 @media (max-width: 1000px) {
     .container {
         justify-content: center;
