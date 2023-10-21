@@ -100,6 +100,16 @@ $result2 = mysqli_stmt_get_result($stmt2);
         <div class="movie-card">
           <figure class="card-banner">
 
+            <form action="config/notify.inc" method="POST">
+              <button name="notify">
+                <div class="wishlist-icon">
+                  <ion-icon name="notifications-outline"></ion-icon>
+                  <span class="notify-text">Notify on release</span>
+                  <input type="hidden" name="id" value="<?php echo $row2['movieID'] ?>">
+                </div>
+              </button>
+            </form>
+
             <img src="<?php echo $base?><?php echo $row2['movie_banner'] ?>" alt="">
 
             <div class="hover-items">
@@ -135,9 +145,8 @@ include './includes/footer.php';
 
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
-  let player; // Global variable to store the YouTube player instance
+  let player;
 
-  // Load the YouTube IFrame Player API asynchronously
   function loadYouTubeAPI() {
     const tag = document.createElement('script');
     tag.src = 'https://www.youtube.com/iframe_api';
@@ -145,27 +154,23 @@ include './includes/footer.php';
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
   }
 
-  // Function to load the YouTube video when the link is clicked
   function loadYouTubeVideo(event) {
     event.preventDefault();
 
     const link = event.target;
     const videoUrl = link.getAttribute('href');
 
-    // Extract the video ID from the YouTube URL
     const videoId = videoUrl.split('/').pop();
 
-    // Create the YouTube player
     player = new YT.Player('player', {
       height: '100%',
       width: '100%',
       videoId: videoId,
       playerVars: {
-        autoplay: 1, // Autoplay the video
+        autoplay: 1,
       },
       events: {
         onReady: function () {
-          // Show the video container once the video is ready
           const videoContainer = document.querySelector('.video-container');
           videoContainer.style.display = 'flex';
         },
@@ -177,41 +182,35 @@ include './includes/footer.php';
       },
     });
 
-    // Hide the clicked link
     link.style.display = 'none';
   }
-  // Function to close the video container and stop the video
+
   function closeVideoContainer() {
     if (player) {
-      player.stopVideo(); // Stop the YouTube video playback
-      player.destroy(); // Destroy the player instance
-      player = null; // Reset the player variable
+      player.stopVideo();
+      player.destroy();
+      player = null;
     }
 
     const videoContainer = document.querySelector('.video-container');
-    videoContainer.style.display = 'none'; // Hide the video container
+    videoContainer.style.display = 'none';
 
-    // Show the clicked links and icons
     const watchTrailerLinks = document.querySelectorAll('.watch-trailer');
     watchTrailerLinks.forEach(function (link) {
       link.style.display = 'flex';
 
-      // Show the ion-icon within the link
       const icon = link.querySelector('ion-icon');
       icon.style.display = 'inline';
 
-      // Show the span within the link
       const span = link.querySelector('span');
       span.style.display = 'inline';
     });
   }
 
 
-  // Event listeners for the click event on the links
   const watchTrailerLinks = document.querySelectorAll('.watch-trailer');
   watchTrailerLinks.forEach(function (link) {
     link.addEventListener('click', function (event) {
-      // Create the video container dynamically if it doesn't exist
       if (!document.querySelector('.video-container')) {
         const videoContainer = document.createElement('div');
         videoContainer.classList.add('video-container');

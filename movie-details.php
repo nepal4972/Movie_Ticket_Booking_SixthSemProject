@@ -35,7 +35,7 @@ if (isset($_GET['date'])) {
   $selectedDate = date('Y-m-d');
 }
 
-$sql5 = "SELECT st.show_time FROM movietime AS mt JOIN showtime AS st ON mt.showID = st.showID WHERE mt.movieID = ? AND ? BETWEEN mt.start_date AND mt.end_date";
+$sql5 = "SELECT st.show_time FROM movietime AS mt JOIN showtime AS st ON mt.showID = st.showID WHERE mt.movieID = ? AND ? BETWEEN mt.start_date AND mt.end_date ORDER BY st.show_time ASC";
 $stmt5 = mysqli_stmt_init($conn);
 mysqli_stmt_prepare($stmt5, $sql5);
 mysqli_stmt_bind_param($stmt5, "is", $movieid, $selectedDate);

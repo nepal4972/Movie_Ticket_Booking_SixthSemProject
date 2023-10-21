@@ -14,7 +14,7 @@ include './links.php';
 
       <ul class="nav-ul">
         <li>
-          <a href="./index.php">Home</a>
+          <a href="./">Home</a>
         </li>
 
         <li>

@@ -57,6 +57,7 @@ $result2 = mysqli_stmt_get_result($stmt2);
       ?>
         <li>
           <div class="movie-card">
+
             <figure class="card-banner">
               <img src="<?php echo $base?><?php echo $row1['movie_banner'] ?>" alt="">
 
@@ -88,47 +89,57 @@ $result2 = mysqli_stmt_get_result($stmt2);
   <br><br>
   <span class="line"></span>
 
-  <section class="top-rated">
-    <div class="container">
-      <div class="title-wrapper">
-      <br><br>
-        <h2 class="h2 section-title">Coming Soon</h2>
-      </div>
-      <br><br>
-      <ul class="movies-list">
-      <?php
-      while($row2 = mysqli_fetch_assoc($result2)) {
-      ?>  
-        <li>
-          <div class="movie-card">
-            <figure class="card-banner">
+    <section class="top-rated">
+      <div class="container">
+        <div class="title-wrapper">
+        <br><br>
+          <h2 class="h2 section-title">Coming Soon</h2>
+        </div>
+        <br><br>
+        <ul class="movies-list">
+        <?php
+        while($row2 = mysqli_fetch_assoc($result2)) {
+        ?>  
+          <li>
+            <div class="movie-card">
+              <figure class="card-banner">
 
-              <img src="<?php echo $base?><?php echo $row2['movie_banner'] ?>" alt="">
+              <form action="config/notify.inc" method="POST">
+                <button name="notify">
+                  <div class="wishlist-icon">
+                    <ion-icon name="notifications-outline"></ion-icon>
+                    <span class="notify-text">Notify on release</span>
+                    <input type="hidden" name="id" value="<?php echo $row2['movieID'] ?>">
+                  </div>
+                </button>
+              </form>
 
-              <div class="hover-items">
-                <a class="movie-a" href="./movie-details.php?id=<?php echo $row2['movieID'] ?>">
-                  <ion-icon name="eye-outline"></ion-icon>
-                  <span>View Details</span>
-                </a>
-                <a class="watch-trailer movie-a" href="https://youtu.be/<?php echo $row2['videoID'] ?>">
-                  <ion-icon href="https://youtu.be/<?php echo $row2['videoID'] ?>" name="play-circle-outline"></ion-icon>
-                  <span href="https://youtu.be/<?php echo $row2['videoID'] ?>">Play Trailer</span>
+                <img src="<?php echo $base?><?php echo $row2['movie_banner'] ?>" alt="">
+
+                <div class="hover-items">
+                  <a class="movie-a" href="./movie-details.php?id=<?php echo $row2['movieID'] ?>">
+                    <ion-icon name="eye-outline"></ion-icon>
+                    <span>View Details</span>
+                  </a>
+                  <a class="watch-trailer movie-a" href="https://youtu.be/<?php echo $row2['videoID'] ?>">
+                    <ion-icon href="https://youtu.be/<?php echo $row2['videoID'] ?>" name="play-circle-outline"></ion-icon>
+                    <span href="https://youtu.be/<?php echo $row2['videoID'] ?>">Play Trailer</span>
+                  </a>
+                </div>
+              </figure>
+              <div class="title-wrapper">
+                <a href="./movie-details.php?id=<?php echo $row2['movieID'] ?>">
+                  <h3 class="movie-title"><?php echo $row2['movie_name'] ?></h3>
                 </a>
               </div>
-            </figure>
-            <div class="title-wrapper">
-              <a href="./movie-details.php?id=<?php echo $row2['movieID'] ?>">
-                <h3 class="movie-title"><?php echo $row2['movie_name'] ?></h3>
-              </a>
             </div>
-          </div>
-        </li>
-        <?php
-        }
-        ?>
-      </ul>
-    </div>
-  </section>
+          </li>
+          <?php
+          }
+          ?>
+        </ul>
+      </div>
+    </section>
   <br><br>
   </article>
   </main>

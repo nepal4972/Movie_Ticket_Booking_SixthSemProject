@@ -6,7 +6,7 @@ include '../includes/links.php';
 <script src="../alerts/dist/js/iziToast.min.js"></script>
 
 <?php
-$sql1 = "SELECT * FROM movies WHERE CURRENT_DATE() BETWEEN release_date AND end_date";
+$sql1 = "SELECT * FROM movies WHERE CURRENT_DATE() BETWEEN release_date AND end_date ORDER BY inserted_date DESC";
 $stmt1 = mysqli_stmt_init($conn);
 mysqli_stmt_prepare($stmt1, $sql1);
 mysqli_stmt_execute($stmt1);
@@ -14,7 +14,7 @@ $result1 = mysqli_stmt_get_result($stmt1);
 ?>
 
 <?php
-$sql2 = "SELECT * FROM movies WHERE CURRENT_DATE() < release_date";
+$sql2 = "SELECT * FROM movies WHERE CURRENT_DATE() < release_date ORDER BY inserted_date DESC";
 $stmt2 = mysqli_stmt_init($conn);
 mysqli_stmt_prepare($stmt2, $sql2);
 mysqli_stmt_execute($stmt2);
@@ -71,7 +71,6 @@ include './includes/confirmation.php';
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>Movie ID</th>
                                         <th>Movie Name</th>
                                         <th>Movie Thumbnail</th>
                                         <th>Movie Price</th>
@@ -87,7 +86,6 @@ include './includes/confirmation.php';
                                     ?>
                                     <tr>
                                         <td>#<?php echo $showingcount ?></td>
-                                        <td><?php echo $row1['movieID'] ?></td>
                                         <td>
                                             <div class="client-info">
                                                 <h4><?php echo $row1['movie_name'] ?></h4>
@@ -122,7 +120,10 @@ include './includes/confirmation.php';
                                                     <ion-icon name="create-outline"></ion-icon>&nbsp&nbsp&nbsp
                                                 </a>
                                                 <a href="./config/deletemovie.php?id=<?php echo $row1['movieID']?>" onclick="return showConfirmation(event)">
-                                                    <ion-icon name="trash-outline"></ion-icon>
+                                                    <ion-icon name="trash-outline"></ion-icon>&nbsp&nbsp&nbsp
+                                                </a>
+                                                <a href="./config/notify_trigger.inc.php?trigid=<?php echo $row1['movieID']?>">
+                                                    <ion-icon name="notifications-outline"></ion-icon>
                                                 </a>
                                             </div>
                                         </td>
@@ -145,7 +146,6 @@ include './includes/confirmation.php';
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>Movie ID</th>
                                         <th>Movie Name</th>
                                         <th>Movie Thumbnail</th>
                                         <th>Movie Price</th>
@@ -161,7 +161,6 @@ include './includes/confirmation.php';
                                     ?>
                                     <tr>
                                         <td>#<?php echo $upcount ?></td>
-                                        <td><?php echo $row2['movieID'] ?></td>
                                         <td>
                                             <div class="client-info">
                                                 <h4><?php echo $row2['movie_name'] ?></h4>
@@ -195,8 +194,8 @@ include './includes/confirmation.php';
                                                 <a href="./config/updatemovie.php?id=<?php echo $row2['movieID']?>">
                                                     <ion-icon name="create-outline"></ion-icon>&nbsp&nbsp&nbsp
                                                 </a>
-                                                <a href="./config/updatemovie.php?id=<?php echo $row2['movieID']?>" onclick="return showConfirmation(event)">
-                                                    <ion-icon name="trash-outline"></ion-icon>
+                                                <a href="./config/deletemovie.php?id=<?php echo $row2['movieID']?>" onclick="return showConfirmation(event)">
+                                                    <ion-icon name="trash-outline"></ion-icon>&nbsp&nbsp&nbsp
                                                 </a>
                                             </div>
                                         </td>

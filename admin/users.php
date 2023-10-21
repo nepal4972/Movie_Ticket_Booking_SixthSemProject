@@ -70,7 +70,6 @@ include './includes/confirmation.php';
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>User ID</th>
                                         <th>Admins</th>
                                         <th>Contact Number</th>
                                         <th>Register Date</th>
@@ -84,7 +83,6 @@ include './includes/confirmation.php';
                                     ?>
                                     <tr>
                                         <td>#<?php echo $admincount ?></td>
-                                        <td><?php echo $row1['userID'] ?></td>
                                         <td>
                                             <div class="client">
                                                 <img src="<?php echo $base?><?php echo $row1['profile_img'] ?>" class="client-img bg-img" alt="">
@@ -133,7 +131,6 @@ include './includes/confirmation.php';
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>User ID</th>
                                         <th>Customers</th>
                                         <th>Contact Number</th>
                                         <th>Register Date</th>
@@ -147,7 +144,6 @@ include './includes/confirmation.php';
                                     ?>
                                     <tr>
                                         <td>#<?php echo $usercount ?></td>
-                                        <td><?php echo $row2['userID'] ?></td>
                                         <td>
                                             <div class="client">
                                                 <img src="<?php echo $base?><?php echo $row2['profile_img'] ?>" class="client-img bg-img" alt="">

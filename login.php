@@ -63,7 +63,7 @@ if(isset($_SESSION['fullname'])==null) {
                             <input type="checkbox" name="remember-me">
                             <span>Remember Me</span>
                         </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="<?php echo $base." resetpassword.php"?>" class="forgot-pass">Forgot password?</a>
+                        <a href="<?php echo $base."resetpassword.php"?>" class="forgot-pass">Forgot password?</a>
                     </div>
 
                     <div class="field">

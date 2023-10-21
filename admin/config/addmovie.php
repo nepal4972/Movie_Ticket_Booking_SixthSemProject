@@ -189,11 +189,11 @@ if (isset($_POST['add'])) {
           <div class="form-row">
             <div class="form-group">
               <label for="text">Release Date:</label>
-              <input type="date" name="release_date">
+              <input type="date" name="release_date" min="<?php echo date('Y-m-d'); ?>">
             </div>
             <div class="form-group">
             <label for="text">End Date:</label>
-              <input type="date" name="end_date">
+              <input type="date" name="end_date" min="<?php echo date('Y-m-d'); ?>">
             </div>
           </div>
           <div class="form-row">
