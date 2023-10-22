@@ -30,7 +30,7 @@ $firstname = $namepart[0];
       </style>
     <?php }else {} ?>
     <a href="./" class="logo">
-      <img style="logo" class="logo-img" src="<?php echo $sitelogo ?>" alt="">
+      <img style="logo" class="logo-img" src="img/favicons/<?php echo $sitelogo ?>" alt="">
     </a>
     <div class="header-actions">
       <div class="lang-wrapper">

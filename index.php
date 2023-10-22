@@ -1,7 +1,6 @@
 <?php
 include './db/connect.php';
 include './includes/links.php';
-
 ?>
 
 <!DOCTYPE html>

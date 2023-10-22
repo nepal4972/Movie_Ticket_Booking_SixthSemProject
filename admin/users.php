@@ -60,7 +60,7 @@ include './includes/confirmation.php';
                             <a href="./config/adduser.php">Add Users</a>
                         </div>
                     </div>
-                    <div id="section1" class="hidden">
+                    <div id="section1">
                         <div class="page-header-small">
                             <h1>Admins</h1>
                         </div>
@@ -121,7 +121,7 @@ include './includes/confirmation.php';
                             </table>
                         </div>
                     </div>
-                    <div id="section2">
+                    <div id="section2" class="hidden">
                         <div class="page-header-small">
                             <h1>Customers</h1>
                         </div>

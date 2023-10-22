@@ -1,23 +1,19 @@
 const menuLinks = document.querySelectorAll('.side-menu a');
 
-// Add event listener to each menu link
 menuLinks.forEach(link => {
   link.addEventListener('click', function() {
-    // Remove 'active' class from all menu links
     menuLinks.forEach(link => {
       link.classList.remove('active');
     });
 
-    // Add 'active' class to the clicked menu link
     this.classList.add('active');
   });
 });
 
-// Check current URL and set active menu link accordingly
 const currentURL = window.location.href;
-const currentURLWithoutExtension = currentURL.replace('.php', ''); // Remove the '.php' extension from the current URL
+const currentURLWithoutExtension = currentURL.replace('.php', '');
 menuLinks.forEach(link => {
-  const linkURLWithoutExtension = link.href.replace('.php', ''); // Remove the '.php' extension from each menu link URL
+  const linkURLWithoutExtension = link.href.replace('.php', '');
   if (linkURLWithoutExtension === currentURLWithoutExtension) {
     link.classList.add('active');
   }
@@ -28,21 +24,22 @@ menuLinks.forEach(link => {
 function toggleSections() {
   var section1 = document.getElementById("section1");
   var section2 = document.getElementById("section2");
-
+  
   section1.classList.toggle("hidden");
   section2.classList.toggle("hidden");
+
+  localStorage.setItem("sectionState", section2.classList.contains("hidden") ? "section1" : "section2");
+}
+
+const sectionState = localStorage.getItem("sectionState");
+
+if (sectionState === "section2") {
+  // If section2 was toggled, show it
+  document.getElementById("section1").classList.add("hidden");
+  document.getElementById("section2").classList.remove("hidden");
 }
 
 
-const openPopupButton = document.getElementById('open-popup');
-const closePopupButton = document.getElementById('close-popup');
-const popupOverlay = document.getElementById('popup-overlay');
 
-openPopupButton.addEventListener('click', () => {
-  popupOverlay.style.display = 'block';
-});
 
-closePopupButton.addEventListener('click', () => {
-  popupOverlay.style.display = 'none';
-});
 

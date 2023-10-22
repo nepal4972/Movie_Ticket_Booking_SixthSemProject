@@ -82,7 +82,6 @@ if (isset($_POST['update'])) {
             exit();
         }
     } else {
-        // If no image is uploaded, update other user details without changing the existing profile_img
         $sql = "UPDATE users SET fullname = ?, email = ?, phone_number = ?, password = ?, user_type = ? WHERE userID = ?";
         $stmt = mysqli_stmt_init($conn);
         mysqli_stmt_prepare($stmt, $sql);
@@ -113,12 +112,7 @@ if (isset($_POST['update'])) {
   <input type="checkbox" id="menu-toggle">
   <div class="sidebar">
     <div class="side-header">
-    <?php if($sitelogo == './img/favicons/whitecinepal.jpg') { ?>
-    <img src="<?php echo $imglogopath?>orangecinepal.jpg" class="sidebar-logo" alt="">
-    <?php }
-    else {?>
-        <img src="<?php echo $base ?><?php echo $sitelogo ?>" class="sidebar-logo" alt="">
-    <?php }?>
+      <img src="<?php echo $base ?>img/favicons/<?php echo $sitelogo ?>" class="sidebar-logo" alt="">
     </div>
     <br>
     <div class="side-content">

@@ -17,7 +17,6 @@ if(isset($_GET['id'])) {
 
 
     if(mysqli_stmt_affected_rows($stmt5) > 0) {
-        header("Location: ../movies.php");
         $_SESSION['icons']="../img/alerticons/success.png";  
         $_SESSION['status']="success";
         $_SESSION['status_code']="Movie Deleted";

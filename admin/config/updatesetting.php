@@ -3,86 +3,74 @@ include '../../db/connect.php';
 include './verifyadmin.php';
 include '../../includes/links.php';
 
-if(isset($_POST['update_setting'])) {
-    $file = $_FILES['site_logo'];
-    $price = $_POST['seat_price'];
-    $title = $_POST['site_title'];
+if (isset($_POST['update'])) {
+    $setting_id = 1;
+    $newSiteTitle = $_POST['site_title'];
+    $newSeatPrice = $_POST['seat_price'];
 
-    // File details
-    $fileName = $file['name'];
-    $fileTmpName = $file['tmp_name'];
-    $fileSize = $file['size'];
-    $fileError = $file['error'];
+    $newSiteLogo = $_POST['hidden_logo'];
+    $newSiteFavicon = $_POST['hidden_favicon'];
 
-    if (!empty($fileName) && $fileError === 0) {
-        // Get the file extension
+    // Handle site logo upload
+    if (!empty($_FILES['site_logo']['name'])) {
+        $file = $_FILES['site_logo'];
+        $fileName = $file['name'];
+        $fileTmpName = $file['tmp_name'];
+        $fileSize = $file['size'];
+        $fileError = $file['error'];
+
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'svg', 'ico'];
         $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
 
-        // Define allowed file extensions
-        $allowedExtensions = ['jpg', 'jpeg', 'png', 'svg', 'ico'];
-
-        // Check if the file extension is allowed
         if (in_array($fileExt, $allowedExtensions)) {
-            // Check for file upload errors
             if ($fileError === 0) {
-                // Generate a unique file name
-                $newFileName = $fileName;
-
-                // Specify the folder to store uploaded files
+                $newFileName = uniqid('', true) . '.' . $fileExt;
                 $uploadPath = '../../img/favicons/' . $newFileName;
-                $dbimgPath = 'img/favicons/' . $newFileName;
+                $newSiteLogo = $newFileName;
 
-                // Move the uploaded file to the specified folder
-                if (move_uploaded_file($fileTmpName, $uploadPath)) {
-                    $sql = "UPDATE settings SET site_logo = '$dbimgPath', seat_price = '$price', site_title = '$title' WHERE settingID = '1'";
-                    $stmt = mysqli_stmt_init($conn);
-                    mysqli_stmt_prepare($stmt, $sql);
-                    mysqli_stmt_execute($stmt);
-
-                    $_SESSION['icons'] = "../img/alerticons/success.png";
-                    $_SESSION['status'] = "success";
-                    $_SESSION['status_code'] = "Details Updated Successfully";
-                    header("Location: ../settings.php");
-                    exit();
-                } else {
-                    $_SESSION['icons'] = "../img/alerticons/error.png";
-                    $_SESSION['status'] = "error";
-                    $_SESSION['status_code'] = "Error Updating Image";
-                    header("Location: ../settings.php");
-                    exit();
-                }
-            } else {
-                $_SESSION['icons'] = "../img/alerticons/error.png";
-                $_SESSION['status'] = "error";
-                $_SESSION['status_code'] = "File Upload Error";
-                header("Location: ../settings.php");
-                exit();
+                move_uploaded_file($fileTmpName, $uploadPath);
             }
-        } else {
-            $_SESSION['icons'] = "../img/alerticons/error.png";
-            $_SESSION['status'] = "error";
-            $_SESSION['status_code'] = "Invalid file extension";
-            header("Location: ../settings.php");
-            exit();
         }
-    } 
-    else {
-        $sql = "UPDATE settings SET site_title = '$title', seat_price = '$price' WHERE settingID = '1'";
-        $stmt = mysqli_stmt_init($conn);
-        mysqli_stmt_prepare($stmt, $sql);
-        mysqli_stmt_execute($stmt);
-    
-        $_SESSION['icons'] = "../img/alerticons/success.png";
-        $_SESSION['status'] = "success";
-        $_SESSION['status_code'] = "Details Updated Successfully";
-        header("Location: ../settings.php");
-        exit();
     }
-} elseif (isset($_POST['cancel'])) {
-    header("Location: ../settings");
+
+    // Handle site favicon upload
+    if (!empty($_FILES['site_favicon']['name'])) {
+        $file = $_FILES['site_favicon'];
+        $fileName = $file['name'];
+        $fileTmpName = $file['tmp_name'];
+        $fileSize = $file['size'];
+        $fileError = $file['error'];
+
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'svg', 'ico'];
+        $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
+
+        if (in_array($fileExt, $allowedExtensions)) {
+            if ($fileError === 0) {
+                $newFileName = uniqid('', true) . '.' . $fileExt;
+                $uploadPath = '../../img/favicons/' . $newFileName;
+                $newSiteFavicon = $newFileName;
+
+                move_uploaded_file($fileTmpName, $uploadPath);
+            }
+        }
+    }
+
+    $sql = "UPDATE settings SET site_title = ?, seat_price = ?, site_logo = ?, site_favicon = ? WHERE settingID = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "ssssi", $newSiteTitle, $newSeatPrice, $newSiteLogo, $newSiteFavicon, $setting_id);
+    mysqli_stmt_execute($stmt);
+
+    $_SESSION['icons'] = "../img/alerticons/success.png";
+    $_SESSION['status'] = "success";
+    $_SESSION['status_code'] = "Updated Successfully";
+    header("Location: ../settings.php");
     exit();
+
 } else {
-    header("Location: ../settings");
+    $_SESSION['icons'] = "../img/alerticons/error.png";
+    $_SESSION['status'] = "error";
+    $_SESSION['status_code'] = "SQL Error";
+    header("Location: ../settings.php");
     exit();
 }
 ?>

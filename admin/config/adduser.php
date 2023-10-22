@@ -19,7 +19,8 @@ if (isset($_POST['add'])) {
     $fullname = $_POST['fullname'];
     $email = $_POST['email'];
     $phone_number = $_POST['phone_number'];
-    $password = $_POST['password'];
+    $postpassword = $_POST['password'];
+    $password = md5($postpassword);
     $user_type = $_POST['user_type'];
 
     if (!empty($fileName)) {
@@ -106,12 +107,7 @@ if (isset($_POST['add'])) {
   <input type="checkbox" id="menu-toggle">
   <div class="sidebar">
     <div class="side-header">
-      <?php if($sitelogo == './img/favicons/whitecinepal.jpg') { ?>
-      <img src="<?php echo $imglogopath?>orangecinepal.jpg" class="sidebar-logo" alt="">
-      <?php }
-    else {?>
-      <img src="<?php echo $base ?><?php echo $sitelogo ?>" class="sidebar-logo" alt="">
-      <?php }?>
+      <img src="<?php echo $base ?>img/favicons/<?php echo $sitelogo ?>" class="sidebar-logo" alt="">
     </div>
     <br>
     <div class="side-content">

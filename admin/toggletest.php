@@ -18,26 +18,6 @@ mysqli_stmt_prepare($stmt2, $sql2);
 mysqli_stmt_execute($stmt2);
 $result2 = mysqli_stmt_get_result($stmt2);
 
-function getAssignedShowtimes($conn, $movieID) {
-    $assignedShowtimes = [];
-    $sql = "SELECT st.show_time, mt.start_date, mt.end_date FROM movietime AS mt
-            JOIN showtime AS st ON mt.showID = st.showID
-            WHERE mt.movieID = ? ORDER BY st.show_time ASC";
-
-    $stmt = mysqli_stmt_init($conn);
-    if (mysqli_stmt_prepare($stmt, $sql)) {
-        mysqli_stmt_bind_param($stmt, "i", $movieID);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-
-        while ($row = mysqli_fetch_assoc($result)) {
-            $assignedShowtimes[] = $row;
-        }
-    }
-    
-    return $assignedShowtimes;
-}
-
 $request = './config/deleteshowtime.php';
 include './includes/confirmation.php';
 ?>
@@ -76,7 +56,7 @@ include './includes/confirmation.php';
                             <button onclick="toggleSections()">Assign Showtime/Default Showtime</button>
                         </div>
                         <div class="browse">
-                            <a href="./config/addshowtime.php">Add Show Time</a>
+                            <a href="./config/addmovie.php">Add Movies</a>
                         </div>
                     </div>
                     <div id="section1">
@@ -89,10 +69,10 @@ include './includes/confirmation.php';
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>&nbsp&nbsp&nbsp&nbspMovie Title With Show Times</th>
-                                        <th>Assign Showtime</th>
-                                        <th>Assign Start Date</th>
-                                        <th>Assign End Date</th>
+                                        <th>Movie Title</th>
+                                        <th>Showtime</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -100,48 +80,34 @@ include './includes/confirmation.php';
                                     <?php
                                     $showingcount = 1;
                                     while ($row2 = mysqli_fetch_assoc($result2)) {
-                                        $movieID = $row2['movieID'];
-                                        $assignedShowtimes = getAssignedShowtimes($conn, $movieID);
                                     ?>
                                     <tr>
                                         <td>#<?php echo $showingcount ?></td>
+                                        <td><?php echo $row2['movie_name'] ?> <?php echo $row2['movieID'] ?></td>
                                         <td>
-                                        <div class="client">
-                                                <div class="client-info">
-                                                    <h4 style="text-align:center; font-size:16px;"><?php echo $row2['movie_name'] ?></h4>
-                                                    <span style="font-weight: normal;"><?php
-                                                        foreach ($assignedShowtimes as $showtime) {
-                                                            echo date('h:i A', strtotime($showtime['show_time'])) . ' &rarr; ' . date('Y-m-d', strtotime($showtime['start_date'])) . ' - ' . date('Y-m-d', strtotime($showtime['end_date'])) . '<br>';
-                                                        }
-                                                        ?>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                        <form action="config/assignshowtime" method="POST">
+                                        <form method="POST" action="config/assignshowtime">
                                             <input type="hidden" name="movieID" value="<?php echo $row2['movieID'] ?>">
                                             <div class="select-container">
                                                 <select name="showtime">
                                                     <?php
                                                     mysqli_data_seek($result1, 0);
                                                     while ($row1 = mysqli_fetch_assoc($result1)) {
-                                                        echo "<option value='{$row1['showID']}'>" . date('h:i A', strtotime($row1['show_time'])) . "</option>";
+                                                    echo "<option value='{$row1['showID']}'>{$row1['show_time']}</option>";
                                                     }
                                                     ?>
                                                 </select>
                                             </div>
                                         </td>
                                         <td>
-                                            <input class="input-custom" type="date" name="start_date" min="<?php echo date('Y-m-d'); ?>" required>
+                                            <input class="input-custom" type="date" name="start_date" required>
                                         </td>
+                                        
                                         <td>
-                                            <input class="input-custom" type="date" name="end_date" min="<?php echo date('Y-m-d'); ?>" required>
+                                            <input class="input-custom" type="date" name="end_date" required>
                                         </td>
+                                        
                                         <td>
-                                            <div class="add">
-                                                <button style="background:#ff595a;" type="submit">Assign Showtime</button>
-                                            </div>
+                                            <button type="submit">Assign Showtime</button>
                                         </td>
                                         </form>
                                         </td>
@@ -178,7 +144,7 @@ include './includes/confirmation.php';
                                         <td>#<?php echo $showingcount1 ?></td>
                                         <td>
                                             <div class="client-info">
-                                                <h4><?php echo date('h:i A', strtotime($row1['show_time'])) ?></h4>
+                                                <h4><?php echo $row1['show_time'] ?></h4>
                                             </div>
                                         </td>
                                         <td>

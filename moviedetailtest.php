@@ -7,9 +7,10 @@ $movieid = $_GET['id'];
 date_default_timezone_set('Asia/Kathmandu');
 $currentdate = date("Y-m-d");
 
-$sql1 = "SELECT * FROM movies WHERE movieID = '$movieid'";
+$sql1 = "SELECT * FROM movies WHERE movieID = ?";
 $stmt1 = mysqli_stmt_init($conn);
 mysqli_stmt_prepare($stmt1, $sql1);
+mysqli_stmt_bind_param($stmt1, "i", $movieid);
 mysqli_stmt_execute($stmt1);
 $result1 = mysqli_stmt_get_result($stmt1);
 $row1 = mysqli_fetch_assoc($result1);
@@ -21,13 +22,12 @@ mysqli_stmt_bind_param($stmt2, "i", $movieid);
 mysqli_stmt_execute($stmt2);
 $result2 = mysqli_stmt_get_result($stmt2);
 
-
 if (isset($_GET['date'])) {
   $selectedDate = $_GET['date'];
   if ($selectedDate < $currentdate) {
-    $_SESSION['icons']="./img/alerticons/warning.png";
-    $_SESSION['status']="warning";
-    $_SESSION['status_code']="Invalid Date";
+    $_SESSION['icons'] = "./img/alerticons/warning.png";
+    $_SESSION['status'] = "warning";
+    $_SESSION['status_code'] = "Invalid Date";
     echo '<script>window.history.back();</script>';
     exit();
   }
@@ -35,15 +35,28 @@ if (isset($_GET['date'])) {
   $selectedDate = date('Y-m-d');
 }
 
-$sql5 = "SELECT DISTINCT st.show_time FROM movietime AS mt JOIN showtime AS st ON mt.showID = st.showID WHERE mt.movieID = ? AND ? BETWEEN mt.start_date AND mt.end_date ORDER BY st.show_time ASC";
+$sql5 = "SELECT DISTINCT st.show_time
+FROM movietime AS mt
+JOIN showtime AS st ON mt.showID = st.showID
+WHERE mt.movieID = ?
+AND ? BETWEEN mt.start_date AND mt.end_date
+AND mt.showID = (
+    SELECT mt2.showID
+    FROM movietime AS mt2
+    WHERE mt2.showID = mt.showID
+    AND mt2.movieID = ?
+    ORDER BY mt2.start_date DESC
+    LIMIT 1
+)
+ORDER BY st.show_time ASC
+";
+
 $stmt5 = mysqli_stmt_init($conn);
 mysqli_stmt_prepare($stmt5, $sql5);
-mysqli_stmt_bind_param($stmt5, "is", $movieid, $selectedDate);
+mysqli_stmt_bind_param($stmt5, "iis", $movieid, $selectedDate, $movieid);
 mysqli_stmt_execute($stmt5);
 $result5 = mysqli_stmt_get_result($stmt5);
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">

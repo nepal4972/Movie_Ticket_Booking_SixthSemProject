@@ -28,7 +28,7 @@ $sitefavicon = $row3['site_favicon'];
 
 <?php
 $paramfavicon = $base."img/favicon/favicon.svg";
-$favicon = $base.$sitefavicon;
+$favicon = $base. 'img/favicons/' .$sitefavicon;
 $csspath = $base."assets/loginsignup/css/style.css";
 $profilecss = $base."assets/loginsignup/css/profile.css";
 $carouselcss = $base."assets/carousel/css/style.css";
@@ -43,5 +43,5 @@ $alertjs = $base."alerts/dist/js/alert.min.js";
 $title = "| $sitetitle";
 $includespath = $base."includes";
 $errorsicon = "http://localhost/phpcode/test-projects/Movie_Ticket_Booking_SixthSemProject/img/favicons/error.png";
-$errorsindex = "http://localhost/phpcode/test-projects/Movie_Ticket_Booking_SixthSemProject/index";
+$errorsindex = "http://localhost/phpcode/test-projects/Movie_Ticket_Booking_SixthSemProject/";
 ?>

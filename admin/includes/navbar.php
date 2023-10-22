@@ -1,4 +1,3 @@
-
 <?php
 include '../../db/connect.php';
 include '../../includes/links.php';
@@ -6,12 +5,7 @@ include './verifyadmin.php';
 $testpath = './img/favicons/whitecinepal.jpg'
 ?>
 <div class="side-header">
-<?php if($sitelogo == './img/favicons/whitecinepal.jpg') { ?>
-    <img src="<?php echo $imglogopath?>orangecinepal.jpg" class="sidebar-logo" alt="">
-    <?php }
-    else {?>
-        <img src="<?php echo $base ?><?php echo $sitelogo ?>" class="sidebar-logo" alt="">
-    <?php }?>
+        <img src="<?php echo $base ?>img/favicons/<?php echo $sitelogo ?>" class="sidebar-logo" alt="">
 </div>
 <br>
 <div class="side-content">
