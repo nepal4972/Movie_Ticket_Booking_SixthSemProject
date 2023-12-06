@@ -8,6 +8,7 @@ include './includes/confirmation.php';
 <script src="../assets/home/js/script.js"></script>
 
 <?php
+$userID = $_SESSION['userID'];
 
 $sql1 = "SELECT * FROM movies WHERE CURRENT_DATE() BETWEEN release_date AND end_date";
 $stmt1 = mysqli_stmt_init($conn);
@@ -23,7 +24,7 @@ mysqli_stmt_execute($stmt2);
 $result2 = mysqli_stmt_get_result($stmt2);
 $row_count2 = mysqli_num_rows($result2);
 
-$sql3 = "SELECT * FROM bookings";
+$sql3 = "SELECT * FROM bookings WHERE ticket IS NOT NULL";
 $stmt3 = mysqli_stmt_init($conn);
 mysqli_stmt_prepare($stmt3, $sql3);
 mysqli_stmt_execute($stmt3);
@@ -37,11 +38,13 @@ mysqli_stmt_execute($stmt4);
 $result4 = mysqli_stmt_get_result($stmt4);
 $row_count4 = mysqli_num_rows($result4);
 
-$sql5 = "SELECT b.*, u.fullname AS fullname, u.email AS email, u.profile_img AS profile_img, m.movie_name
+$sql5 = "SELECT b.*, u.*, m.*, p.*
 FROM bookings AS b
-JOIN users AS u ON b.userID = u.userID
-JOIN movies AS m ON b.movieID = m.movieID
-ORDER BY b.booked_date DESC LIMIT 5";
+INNER JOIN users AS u ON b.userID = u.userID
+INNER JOIN movies AS m ON b.movieID = m.movieID
+LEFT JOIN payments AS p ON b.bookingID = p.bookingID
+WHERE (b.show_date < CURDATE() OR (b.show_date = CURDATE() AND b.show_time < CURTIME()))
+AND u.userID = $userID AND b.ticket IS NOT NULL ORDER BY booked_date DESC LIMIT 5";
 
 $stmt5 = mysqli_stmt_init($conn);
 mysqli_stmt_prepare($stmt5, $sql5);
@@ -202,7 +205,7 @@ function fetchSeatNumbers($conn, $bookingID) {
                                                 <?php echo $formattedtime5 ?>
                                             </td>
                                             <td>
-                                                <?php echo $row5['pay_status']; ?>
+                                                <?php echo $row5['payment_status']; ?>
                                             </td>
                                         </tr>
                                         <?php

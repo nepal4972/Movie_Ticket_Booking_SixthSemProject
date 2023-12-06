@@ -37,7 +37,7 @@ if(isset($_REQUEST['oid']) && isset($_REQUEST['amt']) && isset($_REQUEST['refId'
     
     $get_amt = $_GET['amt'];
     $amt = intval($get_amt);
-    $refID = $_GET['refID'];
+    $refID = $_GET['refId'];
     $oid = $_GET['oid'];
 
     $download = 'Ticket_'.$oid.'.pdf';

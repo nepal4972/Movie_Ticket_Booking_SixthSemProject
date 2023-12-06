@@ -6,6 +6,8 @@ include './config/verifyadmin.php';
 <script src="./alerts/dist/js/iziToast.min.js"></script>
 
 <?php
+$userID = $_SESSION['userID'];
+
 $sql1 = "SELECT * FROM bookings";
 $stmt1 = mysqli_stmt_init($conn);
 mysqli_stmt_prepare($stmt1, $sql1);
@@ -15,12 +17,13 @@ $result1 = mysqli_stmt_get_result($stmt1);
 
 <?php
 
-$sql5 = "SELECT b.*, u.fullname AS fullname, u.email AS email, u.profile_img AS profile_img, m.movie_name
+$sql5 = "SELECT b.*, u.*, m.*, p.*
 FROM bookings AS b
-JOIN users AS u ON b.userID = u.userID
-JOIN movies AS m ON b.movieID = m.movieID
-WHERE b.ticket IS NOT NULL
-ORDER BY b.booked_date DESC";
+INNER JOIN users AS u ON b.userID = u.userID
+INNER JOIN movies AS m ON b.movieID = m.movieID
+LEFT JOIN payments AS p ON b.bookingID = p.bookingID
+WHERE (b.show_date < CURDATE() OR (b.show_date = CURDATE() AND b.show_time < CURTIME()))
+AND u.userID = $userID AND b.ticket IS NOT NULL ORDER BY booked_date DESC";
 
 $stmt5 = mysqli_stmt_init($conn);
 mysqli_stmt_prepare($stmt5, $sql5);
@@ -88,6 +91,7 @@ function fetchSeatNumbers($conn, $bookingID) {
                                         <th>Show Date Time</th>
                                         <th>Booked Seats</th>
                                         <th>Booked Date</th>
+                                        <th>Total Amount</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -133,8 +137,9 @@ function fetchSeatNumbers($conn, $bookingID) {
                                         <td>
                                             <?php echo $formattedtime5 ?>
                                         </td>
+                                        <td>Rs. <?php echo number_format($row5['payment_amount'], 0) ?></td>
                                         <td>
-                                            unpaid
+                                        <?php echo $row5['payment_status'] ?>
                                         </td>
                                     </tr>
                                     <?php

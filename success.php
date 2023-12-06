@@ -53,9 +53,9 @@
 
 <?php
 error_reporting(0);
-include '../db/connect.php';
-include '../includes/links.php';
-include '../includes/loggedin.php';
+include './db/connect.php';
+include './includes/links.php';
+include './includes/loggedin.php';
 
 ?>
 
@@ -80,7 +80,7 @@ include '../includes/loggedin.php';
                 <p>or Download Your ticket from my tickets page.</p>
             </div>
             <div class="return-home">
-                <a href="../" class="btn">Go to homepage</a>
+                <a href="./" class="btn">Go to homepage</a>
             </div>
         </div>
     </div>
