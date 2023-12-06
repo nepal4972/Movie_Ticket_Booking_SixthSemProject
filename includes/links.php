@@ -24,6 +24,7 @@ $row3 = mysqli_fetch_assoc($result3);
 $sitetitle = $row3['site_title'];
 $sitelogo = $row3['site_logo'];
 $sitefavicon = $row3['site_favicon'];
+$seat_price = $row3['seat_price'];
 ?>
 
 <?php
@@ -43,5 +44,5 @@ $alertjs = $base."alerts/dist/js/alert.min.js";
 $title = "| $sitetitle";
 $includespath = $base."includes";
 $errorsicon = "http://localhost/phpcode/test-projects/Movie_Ticket_Booking_SixthSemProject/img/favicons/error.png";
-$errorsindex = "http://localhost/phpcode/test-projects/Movie_Ticket_Booking_SixthSemProject/";
+$errorsindex = "http://localhost/phpcode/test-projects/Movie_Ticket_Booking_SixthSemProject/index";
 ?>

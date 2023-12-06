@@ -49,6 +49,18 @@ mysqli_stmt_execute($stmt5);
 $result5 = mysqli_stmt_get_result($stmt5);
 ?>
 
+<?php
+function fetchSeatNumbers($conn, $bookingID) {
+    $seatNumbers = array();
+    $sql8 = "SELECT seat_number FROM seats WHERE bookingID = $bookingID";
+    $result8 = mysqli_query($conn, $sql8);
+    while ($row8 = mysqli_fetch_assoc($result8)) {
+        $seatNumbers[] = $row8['seat_number'];
+    }
+    return implode(', ', $seatNumbers);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -158,7 +170,9 @@ $result5 = mysqli_stmt_get_result($stmt5);
                                             </div>
                                             </td>
                                             <td>
-                                                <?php echo $row5['seats'] ?>
+                                                <?php $bookingID = $row5['bookingID']?>
+                                                <?php $seatNumbers = fetchSeatNumbers($conn, $bookingID);?>
+                                                <?php echo $seatNumbers ?>
                                             </td>
                                             <?php
                                             $dateObj = new DateTime($row5['show_date']);

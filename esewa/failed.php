@@ -25,7 +25,7 @@
 }
 
 .tick-icon {
-    color: #00c853;
+    color: #f02828;
     font-size: 5rem;
     margin-bottom: 20px;
 }
@@ -36,7 +36,7 @@
 
 .return-home .btn {
     display: inline-block;
-    background-color: #00c853;
+    background-color: #f02828;
     color: #fff;
     padding: 10px 20px;
     border-radius: 5px;
@@ -55,8 +55,6 @@
 error_reporting(0);
 include '../db/connect.php';
 include '../includes/links.php';
-include '../includes/loggedin.php';
-
 ?>
 
 <!DOCTYPE html>
@@ -66,21 +64,21 @@ include '../includes/loggedin.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="<?php echo $favicon ?>" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/5.5.3/css/ionicons.min.css">
-    <title>Payment Success <?php echo $title ?></title>
+    <title>Payment Failed <?php echo $title ?></title>
 </head>
 <body>
     <div class="container">
         <div class="payment-container">
             <div class="tick-icon">
-                <ion-icon name="checkmark-done-circle-outline"></ion-icon>
+              <ion-icon name="close-circle-outline"></ion-icon>
             </div>
             <div class="payment-success">
-                <h1>Booking Successfull</h1>
-                <p>Check Your Email</p>
-                <p>or Download Your ticket from my tickets page.</p>
+                <h1>&nbsp&nbsp&nbsp&nbsp&nbspPayment Cancelled&nbsp&nbsp&nbsp&nbsp&nbsp</h1>
+                <p>You Cancelled Your Payment!</p>
+                <p>Your transaction was Failed.</p>
             </div>
             <div class="return-home">
-                <a href="../" class="btn">Go to homepage</a>
+                <a href="../" class="btn">Return to Home</a>
             </div>
         </div>
     </div>

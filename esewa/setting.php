@@ -11,9 +11,4 @@ $del_charge = 0;
 $total_amount = $totalprice;
 $mer_code = 'EPAYTEST';
 
-
-$timestamp = time();
-$randomPart = rand(1000, 9999);
-$inv_no = "$movieid$timestamp$randomPart$userid";
-
 ?>

@@ -21,10 +21,10 @@ $formattedtime = date('h:i A', $timestamp);
 $giventime = strtotime($date);
 $currenttime = strtotime($currentdate);
 
-$timeDifferenceInDays = floor(($datestamp - strtotime($currentdate)) / (60 * 60 * 24));
+$timedifference = floor(($datestamp - strtotime($currentdate)) / (60 * 60 * 24));
 
 
-if((!empty($_GET['id'])) && (!empty($_GET['date'])) && (!empty($_GET['time'])) && !($currenttime > $giventime) && !($timeDifferenceInDays >= 2)) {
+if((!empty($_GET['id'])) && (!empty($_GET['date'])) && (!empty($_GET['time'])) && !($currenttime > $giventime) && !($timedifference >= 2)) {
 $bookedSeats = array();
 $sql = "SELECT s.seat_number
         FROM seats AS s
@@ -59,6 +59,13 @@ mysqli_stmt_execute($stmt1);
 $result1 = mysqli_stmt_get_result($stmt1);
 $row1 = mysqli_fetch_assoc($result1);
 
+$movieprice = $row1['movie_price'];
+
+if (empty($movieprice)) {
+    $price = $seat_price;
+} else {
+    $price = $movieprice;
+}
 ?>
 
 <!DOCTYPE html>
@@ -74,7 +81,7 @@ $row1 = mysqli_fetch_assoc($result1);
 </head>
 
 <body>
-    <option hidden id="movie" value="10"></option>
+    <option hidden id="movie" value=<?php echo $price ?> ></option>
     <div class="main">
         <div class="booking-details">
             <h3 class="moviename"><?php echo $row1['movie_name'] ?></h3>
@@ -133,7 +140,7 @@ $row1 = mysqli_fetch_assoc($result1);
                 <span class="hidden" hidden id="count"></span>
                 <div class="total-amount">
                     <h2>Total Rs. <span id="total">0</span></h2>
-                </div>
+                </div>  
                 <h5>
                     <div style="font-size:12px" hidden id="selected-values"></div>
                 </h5>
@@ -147,7 +154,7 @@ $row1 = mysqli_fetch_assoc($result1);
             if (divValue === "") {
                 iziToast.warning({
                 iconUrl: '../img/alerticons/warning.png',
-                message: 'Please select seats before proceeding',
+                message: 'Please select seats before proceeding.',
                 position: 'topRight',
             });
         return;

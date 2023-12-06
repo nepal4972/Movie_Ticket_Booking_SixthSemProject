@@ -5,64 +5,62 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-if (isset($_GET['trigid'])) {
-    $trigid = $_GET['trigid'];
+$trigid = $_GET['trigid'];
 
-    $sql = "SELECT userID FROM notify WHERE movieID = '$trigid'";
+function ExecuteSQLQuery($sql)
+{
+      global $conn;
     $result = $conn->query($sql);
 
     if ($result === false) {
         die("SQL Error: " . $conn->error);
     }
 
-    $recipients = array();
+    return $result;
+}
 
-    while ($row = $result->fetch_assoc()) {
-        $userID = $row['userID'];
-
-        $emailQuery = "SELECT email FROM users WHERE userID = $userID";
-        $emailResult = $conn->query($emailQuery);
-
-        if ($emailResult === false) {
-            die("SQL Error: " . $conn->error);
-        }
-
-        $row = $emailResult->fetch_assoc();
-        $email = $row['email'];
-
-        $recipients[] = $email;
-    }
-
+// Function to initialize the email library
+function InitializeEmailLibrary()
+{
     require '../mail/Exception.php';
     require '../mail/PHPMailer.php';
     require '../mail/SMTP.php';
+}
 
-    $mail = new PHPMailer(true);
+// Function to configure SMTP settings
+function ConfigureSMTPSettings()
+{
+    global $mail;
 
-    try {
-        // Server settings
-        $mail->SMTPDebug = SMTP::DEBUG_SERVER;  // Enable verbose debug output
-        $mail->isSMTP();                        // Send using SMTP
-        $mail->Host = 'smtp.gmail.com';          // Set the SMTP server to send through
-        $mail->SMTPAuth = true;                 // Enable SMTP authentication
-        $mail->Username = 'nepal4972@gmail.com'; // SMTP username
-        $mail->Password = 'bpmdlcwlkcsqvqve';   // SMTP password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Enable implicit TLS encryption
-        $mail->Port = 465;
+    $mail = new PHPMailer(true);  // Create a new PHPMailer instance
 
-        $mail->SMTPDebug = 0;
+    $mail->SMTPDebug = 0;  // Disable verbose debug output
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->SMTPAuth = true;
+    $mail->Username = 'nepal4972@gmail.com';
+    $mail->Password = 'rcobdwyowrcrhxwe';
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+    $mail->Port = 465;
+}
 
-        // Set email content and settings
-        $mail->setFrom('nepal4972@gmail.com', 'mail@cinepal');
-        $mail->isHTML(true);
-        $mail->Subject = 'Movie Notification';
+function SetEmailContent()
+{
+    global $mail;
 
-        foreach ($recipients as $email) {
-            $mail->addAddress($email);
-            $mail->Body = '<head>
-            <title>Reset your password</title>
-           
-          </head>  
+    $mail->setFrom('nepal4972@gmail.com', 'mail@cinepal');
+    $mail->isHTML(true);
+    $mail->Subject = 'Movie Notification';
+}
+
+function SendEmailToRecipient($recipient, $trigid)
+{
+    global $mail;
+
+    $mail->addAddress($recipient);
+    $mail->Body = '<head>
+    <title>Reset your password</title>
+    </head>  
           <body style="font-family: Helvetica, Arial, sans-serif; margin: 0px; padding: 0px; background-color: #ffffff;">
             <table role="presentation"
               style="width: 100%; border-collapse: collapse; border: 0px; border-spacing: 0px; font-family: Arial, Helvetica, sans-serif; background-color: rgb(239, 239, 239);">
@@ -98,27 +96,52 @@ if (isset($_GET['trigid'])) {
               </tbody>
             </table>
           </body></html>';
-            
-            $mail->send();
-            $mail->clearAddresses();
+
+    try {
+        $mail->send();
+    } catch (Exception $e) {
+        die("Error sending notification email: " . $e->getMessage());
+    }
+
+    $mail->clearAddresses();
+}
+
+if (isset($_GET['trigid'])) {
+    $trigid = $_GET['trigid'];
+
+    $sql = "SELECT userID FROM notify WHERE movieID = '$trigid'";
+    $result = ExecuteSQLQuery($sql);
+
+    if ($result !== false) {
+        $recipients = [];
+
+        while ($row = $result->fetch_assoc()) {
+            $userID = $row['userID'];
+            $emailQuery = "SELECT email FROM users WHERE userID = $userID";
+            $emailResult = ExecuteSQLQuery($emailQuery);
+
+            if ($emailResult !== false) {
+                $row = $emailResult->fetch_assoc();
+                $email = $row['email'];
+
+                $recipients[] = $email;
+            }
         }
+
+        InitializeEmailLibrary();
+
+        ConfigureSMTPSettings();
+
+        SetEmailContent();
+
+        foreach ($recipients as $recipient) {
+          SendEmailToRecipient($recipient, $trigid);
+        }
+
         $_SESSION['icons'] = "../img/alerticons/success.png";
         $_SESSION['status'] = "success";
         $_SESSION['status_code'] = "Notification Email Send To all Users.";
         header("Location: ../movies.php");
-
-    } catch (Exception $e) {
-        $_SESSION['icons'] = "../img/alerticons/error.png";
-        $_SESSION['status'] = "error";
-        $_SESSION['status_code'] = "Error Sending";
-        header("Location: ../movies.php");
     }
-
-
-} else {
-    $_SESSION['icons'] = "../img/alerticons/error.png";
-    $_SESSION['status'] = "error";
-    $_SESSION['status_code'] = "Invalid Method";
-    header("Location: ../movies.php");
 }
 ?>

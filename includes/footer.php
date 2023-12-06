@@ -5,7 +5,7 @@ include './links.php';
 
 <footer class="footer">
   <div class="footer-logo">
-    <img src="<?php echo $sitelogo ?>" class="footer-logo" alt="">
+    <img src="img/favicons/<?php echo $sitelogo ?>" class="footer-logo" alt="">
   </div>
 
   <ul class="footer-nav">
@@ -36,15 +36,15 @@ include './links.php';
 
       <ul class="nav-ul">
         <li>
-          <a href="#">Instagram</a>
+          <a href="">Instagram</a>
         </li>
 
         <li>
-          <a href="#">facebook</a>
+          <a href="">facebook</a>
         </li>
 
         <li>
-          <a href="#">Twitter</a>
+          <a href="">Twitter</a>
         </li>
       </ul>
     </li>

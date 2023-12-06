@@ -8,12 +8,13 @@ include './includes/loggedin.php';
 $userID = $_SESSION['userID'];
 ?>
 <?php
-$sql1 = "SELECT b.*, u.*, m.*
+$sql1 = "SELECT b.*, u.*, m.*, p.*
 FROM bookings AS b
 INNER JOIN users AS u ON b.userID = u.userID
 INNER JOIN movies AS m ON b.movieID = m.movieID
+LEFT JOIN payments AS p ON b.bookingID = p.bookingID
 WHERE (b.show_date > CURDATE() OR (b.show_date = CURDATE() AND b.show_time > CURTIME()))
-AND u.userID = $userID ";
+AND u.userID = $userID AND b.ticket IS NOT NULL ORDER BY booked_date DESC";
 $stmt1 = mysqli_stmt_init($conn);
 mysqli_stmt_prepare($stmt1, $sql1);
 mysqli_stmt_execute($stmt1);
@@ -21,19 +22,33 @@ $result1 = mysqli_stmt_get_result($stmt1);
 $row_count = $result1->num_rows;
 ?>
 <?php
-$sql2 = "SELECT b.*, u.*, m.*
+$sql2 = "SELECT b.*, u.*, m.*, p.*
 FROM bookings AS b
 INNER JOIN users AS u ON b.userID = u.userID
 INNER JOIN movies AS m ON b.movieID = m.movieID
+LEFT JOIN payments AS p ON b.bookingID = p.bookingID
 WHERE (b.show_date < CURDATE() OR (b.show_date = CURDATE() AND b.show_time < CURTIME()))
-AND u.userID = $userID ";
+AND u.userID = $userID AND b.ticket IS NOT NULL ORDER BY booked_date DESC";
+
 
 $stmt2 = mysqli_stmt_init($conn);
 mysqli_stmt_prepare($stmt2, $sql2);
 mysqli_stmt_execute($stmt2);
 $result2 = mysqli_stmt_get_result($stmt2);
+$row_count1 = $result2->num_rows;
 ?>
 
+<?php
+function fetchSeatNumbers($conn, $bookingID) {
+    $seatNumbers = array();
+    $sql8 = "SELECT seat_number FROM seats WHERE bookingID = $bookingID";
+    $result8 = mysqli_query($conn, $sql8);
+    while ($row8 = mysqli_fetch_assoc($result8)) {
+        $seatNumbers[] = $row8['seat_number'];
+    }
+    return implode(', ', $seatNumbers);
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -138,7 +153,7 @@ $result2 = mysqli_stmt_get_result($stmt2);
         <div class="page-content">
             <button id="toggle-section" class="toggle-button">Active / Expired</button>
             <div class="section" id="active-section">
-    <h2 class="section-title">Active Tickets</h2>
+    <h2 class="section-title">Active Tickets <span style="font-size:12px; color:#ff595a;">(Recent Booked Tickets are at Top)</span></h2>
     <?php
     if ($row_count >= 1) {
     ?>
@@ -147,10 +162,11 @@ $result2 = mysqli_stmt_get_result($stmt2);
             <tr>
                 <th>No.</th>
                 <th>Movie Name</th>
-                <th>Show Date</th>
-                <th>Show Time</th>
+                <th>Show Date/time</th>
                 <th>Seats</th>
-                <th>Total Price</th>
+                <th>Booked Date</th>
+                <th>Total Amount</th>
+                <th>Payment Status</th>
                 <th>Download Ticket</th>
             </tr>
         </thead>
@@ -163,10 +179,22 @@ $result2 = mysqli_stmt_get_result($stmt2);
             <tr>
                 <td>#<?php echo $showingcount ?></td>
                 <td><?php echo $row1['movie_name'] ?></td>
-                <td><?php echo date("F d, Y", strtotime($row1['show_date'])) ?></td>
-                <td><?php echo date("h:i A", strtotime($row1['show_time'])) ?></td>
-                <td><?php echo $row1['seats'] ?></td>
-                <td>Status</td>
+                <td>
+                    <div class="client">
+                        <div class="client-info">
+                            <h4 style="margin-bottom: 6px;"><?php echo date("F d, Y", strtotime($row1['show_date'])) ?></h4>    
+                            <small style="font-size:16px;"><?php echo date("h:i A", strtotime($row1['show_time'])) ?></small>
+                        </div>
+                    </div>
+                    </td>
+                <td>
+                    <?php $bookingID = $row1['bookingID']?>
+                    <?php $seatNumbers = fetchSeatNumbers($conn, $bookingID);?>
+                    <?php echo $seatNumbers ?>
+                </td>
+                <td><?php echo date("F d, Y", strtotime($row1['booked_date'])) ?></td>
+                <td>Rs. <?php echo number_format($row1['payment_amount'], 0) ?></td>
+                <td><?php echo $row1['payment_status'] ?></td>
                 <td>
                 <a href="./tickets/pdfs/<?php echo $row1['ticket']?>" class="button-link">
                     Download Ticket
@@ -187,47 +215,68 @@ $result2 = mysqli_stmt_get_result($stmt2);
     ?>
 </div>
 
-            <div class="section" id="expired-section" style="display: none;">
-                <h2 class="section-title">Expired Tickets</h2>
-                <table class="records-table">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Movie Name</th>
-                            <th>Show Date</th>
-                            <th>Show Time</th>
-                            <th>Seats</th>
-                            <th>Total Price</th>
-                            <th>Download Ticket</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $upcount = 1;
-                        while($row2 = mysqli_fetch_assoc($result2)) {
-                        ?>
-                        <tr>
-                            <td>#<?php echo $upcount ?></td>
-                            <td><?php echo $row2['movie_name'] ?></td>
-                            <td><?php echo date("F d, Y", strtotime($row2['show_date'])) ?></td>
-                            <td><?php echo date("h:i A", strtotime($row2['show_time'])) ?></td>
-                            <td><?php echo $row2['seats'] ?></td>
-                            <td>test</td>
-                            <td>
-                            <a href="./tickets/pdfs/<?php echo $row2['ticket']?>" class="button-link">
-                                Download Ticket
-                                <ion-icon name="cloud-download-outline"></ion-icon>
-                            </a>
-                            </td>
-                        </tr>
-                        <?php
-                        $upcount++;
-                        }
-                        ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    <div class="section" id="expired-section" style="display: none;">
+        <h2 class="section-title">Expired Tickets</h2>
+        <?php
+            if ($row_count1 >= 1) {
+        ?>
+        <table class="records-table">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Movie Name</th>
+                    <th>Show Date/time</th>
+                    <th>Seats</th>
+                    <th>Booked Date</th>
+                    <th>Total Amount</th>
+                    <th>Payment Status</th>
+                    <th>Download Ticket</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $upcount = 1;
+                while($row2 = mysqli_fetch_assoc($result2)) {
+                ?>
+                <tr>
+                    <td>#<?php echo $upcount ?></td>
+                    <td><?php echo $row2['movie_name'] ?></td>
+                    <td>
+                    <div class="client">
+                        <div class="client-info">
+                            <h4 style="margin-bottom: 6px;"><?php echo date("F d, Y", strtotime($row2['show_date'])) ?></h4>    
+                            <small style="font-size:16px;"><?php echo date("h:i A", strtotime($row2['show_time'])) ?></small>
+                        </div>
+                    </div>
+                    </td>
+                    <td>
+                        <?php $bookingID = $row2['bookingID']?>
+                        <?php $seatNumbers = fetchSeatNumbers($conn, $bookingID);?>
+                        <?php echo $seatNumbers ?>
+                    </td>
+                    <td><?php echo date("F d, Y", strtotime($row2['booked_date'])) ?></td>
+                    <td>Rs. <?php echo number_format($row2['payment_amount'], 0) ?></td>
+                    <td><?php echo $row2['payment_status'] ?></td>
+                    <td>
+                    <a href="./tickets/pdfs/<?php echo $row2['ticket']?>" class="button-link">
+                        Download Ticket
+                        <ion-icon name="cloud-download-outline"></ion-icon>
+                    </a>
+                    </td>
+                </tr>
+                <?php
+                $upcount++;
+                }
+                ?>
+            </tbody>
+        </table>
+        <?php
+        } else {
+            echo "No Expired tickets found.";
+        }
+        ?>
+    </div>
+    </div>
     </div>
     <script>
         document.getElementById("toggle-section").addEventListener("click", function() {

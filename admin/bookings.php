@@ -19,6 +19,7 @@ $sql5 = "SELECT b.*, u.fullname AS fullname, u.email AS email, u.profile_img AS 
 FROM bookings AS b
 JOIN users AS u ON b.userID = u.userID
 JOIN movies AS m ON b.movieID = m.movieID
+WHERE b.ticket IS NOT NULL
 ORDER BY b.booked_date DESC";
 
 $stmt5 = mysqli_stmt_init($conn);
@@ -27,6 +28,17 @@ mysqli_stmt_execute($stmt5);
 $result5 = mysqli_stmt_get_result($stmt5);
 ?>
 
+<?php
+function fetchSeatNumbers($conn, $bookingID) {
+    $seatNumbers = array();
+    $sql8 = "SELECT seat_number FROM seats WHERE bookingID = $bookingID";
+    $result8 = mysqli_query($conn, $sql8);
+    while ($row8 = mysqli_fetch_assoc($result8)) {
+        $seatNumbers[] = $row8['seat_number'];
+    }
+    return implode(', ', $seatNumbers);
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -102,13 +114,17 @@ $result5 = mysqli_stmt_get_result($stmt5);
                                             $time = date("h:i A", strtotime($row5['show_time']));
                                             ?>
                                         <td>
-                                                <div class="date-time">
-                                                    <small><?php echo $time ?></small>
-                                                    <h4><?php echo $formattedDate ?></h4>
-                                                </div>
-                                            </td>
+                                            <div class="date-time">
+                                                <small><?php echo $time ?></small>
+                                                <h4><?php echo $formattedDate ?></h4>
+                                            </div>
+                                        </td>
+                                        <?php
+                                        ?>
                                         <td>
-                                            <?php echo $row5['seats'] ?>
+                                            <?php $bookingID = $row5['bookingID']?>
+                                            <?php $seatNumbers = fetchSeatNumbers($conn, $bookingID);?>
+                                            <?php echo $seatNumbers ?>
                                         </td>
                                         <?php
                                         $time5 = $row5['booked_date'];
@@ -132,6 +148,7 @@ $result5 = mysqli_stmt_get_result($stmt5);
                 </div>
             </div>
         </main>
+
         <script src="./assets/js/script.js"></script>
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
