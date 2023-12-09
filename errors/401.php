@@ -90,7 +90,7 @@ include '../includes/links.php';
   <h1>401</h1>
   <h2>UNAUTHORIZED USER</h2>
   <p>You Don't Have Permission To Access This Page.....!!!!</p>
-  <a href="<?php echo $errorsindex ?>"> go to homepage</a>
+  <a href="<?php echo $base ?>"> go to homepage</a>
  </div>
 </div>
 

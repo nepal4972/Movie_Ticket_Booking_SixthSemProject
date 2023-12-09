@@ -34,7 +34,7 @@ if(isset($_GET['id'])) {
 else {
     $_SESSION['icons']="../img/alerticons/error.png";  
     $_SESSION['status']="error";
-    $_SESSION['status_code']="User Id not Assigned";
+    $_SESSION['status_code']="Id not Assigned";
     header("Location: ../movies.php");
     exit();
 }

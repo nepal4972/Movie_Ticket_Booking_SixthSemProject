@@ -69,8 +69,6 @@ function fetchSeatNumbers($conn, $bookingID) {
                 <div class="records table-responsive">
                     <div class="record-header">
                     <div class="add">
-                            <input type="search" placeholder="Search">
-                            <button name="search">Search</button>&nbsp&nbsp&nbsp&nbsp
                         </div>
 
                         <div class="browse">

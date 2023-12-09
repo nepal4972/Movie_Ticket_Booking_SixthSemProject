@@ -44,5 +44,4 @@ $alertjs = $base."alerts/dist/js/alert.min.js";
 $title = "| $sitetitle";
 $includespath = $base."includes";
 $errorsicon = "http://localhost/phpcode/test-projects/Movie_Ticket_Booking_SixthSemProject/img/favicons/error.png";
-$errorsindex = "http://localhost/phpcode/test-projects/Movie_Ticket_Booking_SixthSemProject/index";
 ?>

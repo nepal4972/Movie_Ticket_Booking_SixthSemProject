@@ -3,6 +3,26 @@ include './db/connect.php';
 include './includes/links.php';
 ?>
 
+<?php
+  $sql1 = "SELECT * FROM movies WHERE CURRENT_DATE() BETWEEN release_date AND end_date";
+  $stmt1 = mysqli_stmt_init($conn);
+  mysqli_stmt_prepare($stmt1, $sql1);
+  mysqli_stmt_execute($stmt1);
+  $result1 = mysqli_stmt_get_result($stmt1);
+
+  $nowShowingMovies = fetchAndSortMovies($result1);
+?>
+
+<?php
+  $sql2 = "SELECT * FROM movies WHERE CURRENT_DATE() < release_date";
+  $stmt2 = mysqli_stmt_init($conn);
+  mysqli_stmt_prepare($stmt2, $sql2);
+  mysqli_stmt_execute($stmt2);
+  $result2 = mysqli_stmt_get_result($stmt2);
+
+  $comingSoonMovies = fetchAndSortMovies($result2);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,47 +55,32 @@ include './includes/header.php';
       </div>
       <br><br>
 
-<?php
-$sql1 = "SELECT * FROM movies WHERE CURRENT_DATE() BETWEEN release_date AND end_date";
-$stmt1 = mysqli_stmt_init($conn);
-mysqli_stmt_prepare($stmt1, $sql1);
-mysqli_stmt_execute($stmt1);
-$result1 = mysqli_stmt_get_result($stmt1);
-?>
-
-<?php
-$sql2 = "SELECT * FROM movies WHERE CURRENT_DATE() < release_date";
-$stmt2 = mysqli_stmt_init($conn);
-mysqli_stmt_prepare($stmt2, $sql2);
-mysqli_stmt_execute($stmt2);
-$result2 = mysqli_stmt_get_result($stmt2);
-?>
 
       <ul class="movies-list">
       <?php
-      while($row1 = mysqli_fetch_assoc($result1)) {
+        foreach ($nowShowingMovies as $movie) {
       ?>
         <li>
           <div class="movie-card">
 
             <figure class="card-banner">
-              <img src="<?php echo $base?><?php echo $row1['movie_banner'] ?>" alt="">
+              <img src="<?php echo $base?><?php echo $movie['movie_banner'] ?>" alt="">
 
               <div class="hover-items">
-                <a class="movie-a" href="./movie-details.php?id=<?php echo $row1['movieID'] ?>">
+                <a class="movie-a" href="./movie-details.php?id=<?php echo $movie['movieID'] ?>">
                   <ion-icon name="ticket-outline"></ion-icon>
                   <span>Buy Tickets</span>
                 </a>
 
-                <a class="watch-trailer movie-a" href="https://youtu.be/<?php echo $row1['videoID'] ?>">
-                  <ion-icon href="https://youtu.be/<?php echo $row1['videoID'] ?>" name="play-circle-outline"></ion-icon>
-                  <span href="https://youtu.be/<?php echo $row1['videoID'] ?>">Play Trailer</span>
+                <a class="watch-trailer movie-a" href="https://youtu.be/<?php echo $movie['videoID'] ?>">
+                  <ion-icon href="https://youtu.be/<?php echo $movie['videoID'] ?>" name="play-circle-outline"></ion-icon>
+                  <span href="https://youtu.be/<?php echo $movie['videoID'] ?>">Play Trailer</span>
                 </a>
               </div>
             </figure>
             <div class="title-wrapper">
-              <a href="./movie-details.php?id=<?php echo $row1['movieID'] ?>">
-                <h3 class="movie-title"><?php echo $row1['movie_name'] ?></h3>
+              <a href="./movie-details.php?id=<?php echo $movie['movieID'] ?>">
+                <h3 class="movie-title"><?php echo $movie['movie_name'] ?></h3>
               </a>
             </div>
           </div>
@@ -87,6 +92,7 @@ $result2 = mysqli_stmt_get_result($stmt2);
     </div>
   </section>
   <br><br>
+
   <span class="line"></span>
 
     <section class="top-rated">
@@ -98,8 +104,8 @@ $result2 = mysqli_stmt_get_result($stmt2);
         <br><br>
         <ul class="movies-list">
         <?php
-        while($row2 = mysqli_fetch_assoc($result2)) {
-        ?>  
+          foreach ($comingSoonMovies as $movie) {
+        ?>
           <li>
             <div class="movie-card">
               <figure class="card-banner">
@@ -109,27 +115,27 @@ $result2 = mysqli_stmt_get_result($stmt2);
                   <div class="wishlist-icon">
                     <ion-icon name="notifications-outline"></ion-icon>
                     <span class="notify-text">Notify on release</span>
-                    <input type="hidden" name="id" value="<?php echo $row2['movieID'] ?>">
+                    <input type="hidden" name="id" value="<?php echo $movie['movieID'] ?>">
                   </div>
                 </button>
               </form>
 
-                <img src="<?php echo $base?><?php echo $row2['movie_banner'] ?>" alt="">
+                <img src="<?php echo $base?><?php echo $movie['movie_banner'] ?>" alt="">
 
                 <div class="hover-items">
-                  <a class="movie-a" href="./movie-details.php?id=<?php echo $row2['movieID'] ?>">
+                  <a class="movie-a" href="./movie-details.php?id=<?php echo $movie['movieID'] ?>">
                     <ion-icon name="eye-outline"></ion-icon>
                     <span>View Details</span>
                   </a>
-                  <a class="watch-trailer movie-a" href="https://youtu.be/<?php echo $row2['videoID'] ?>">
-                    <ion-icon href="https://youtu.be/<?php echo $row2['videoID'] ?>" name="play-circle-outline"></ion-icon>
-                    <span href="https://youtu.be/<?php echo $row2['videoID'] ?>">Play Trailer</span>
+                  <a class="watch-trailer movie-a" href="https://youtu.be/<?php echo $movie['videoID'] ?>">
+                    <ion-icon href="https://youtu.be/<?php echo $movie['videoID'] ?>" name="play-circle-outline"></ion-icon>
+                    <span href="https://youtu.be/<?php echo $movie['videoID'] ?>">Play Trailer</span>
                   </a>
                 </div>
               </figure>
               <div class="title-wrapper">
-                <a href="./movie-details.php?id=<?php echo $row2['movieID'] ?>">
-                  <h3 class="movie-title"><?php echo $row2['movie_name'] ?></h3>
+                <a href="./movie-details.php?id=<?php echo $movie['movieID'] ?>">
+                  <h3 class="movie-title"><?php echo $movie['movie_name'] ?></h3>
                 </a>
               </div>
             </div>
@@ -241,6 +247,30 @@ $result2 = mysqli_stmt_get_result($stmt2);
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
+
+<?php
+function fetchAndSortMovies($result)
+{
+    $movies = [];
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        $movies[] = $row;
+    }
+
+    for ($i = 1; $i < count($movies); $i++) {
+        $key = $movies[$i];
+        $j = $i - 1;
+        while ($j >= 0 && strtotime($movies[$j]['release_date']) < strtotime($key['release_date'])) {
+            $movies[$j + 1] = $movies[$j];
+            $j = $j - 1;
+        }
+        $movies[$j + 1] = $key;
+    }
+
+    return $movies;
+}
+?>
+
 <script src="./alerts/dist/js/iziToast.min.js"></script>
 <?php
 include './includes/alert.php';

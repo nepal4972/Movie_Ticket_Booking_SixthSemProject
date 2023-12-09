@@ -89,7 +89,7 @@ include '../includes/links.php';
   <h1>503</h1>
   <h2>SERVICE UNAVAILABLE</h2>
   <p>This Site is Under Maintainance. Please Try Again Later.....!!!!</p>
-  <a href="<?php echo $errorsindex ?>"> go to homepage</a>
+  <a href="<?php echo $base ?>"> go to homepage</a>
  </div>
 </div>
 

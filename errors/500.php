@@ -91,7 +91,7 @@ include '../includes/links.php';
   <h1>500</h1>
   <h2>INTERNAL SERVER ERROR</h2>
   <p>The Server Encounter an Internal Error or Misconfiguration and Unable to Complete Your request...!!!!</p>
-  <a href="<?php echo $errorsindex ?>"> go to homepage</a>
+  <a href="<?php echo $base ?>"> go to homepage</a>
  </div>
 </div>
 

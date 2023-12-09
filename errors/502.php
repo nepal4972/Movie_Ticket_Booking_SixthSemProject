@@ -91,7 +91,7 @@ include '../includes/links.php';
   <h1>502</h1>
   <h2>SERVICE TEMPORARY OVERLOADED</h2>
   <p>Service is Overloaded Try Again Later.....!!!!</p>
-  <a href="<?php echo $errorsindex ?>"> go to homepage</a>
+  <a href="<?php echo $base ?>"> go to homepage</a>
  </div>
 </div>
 

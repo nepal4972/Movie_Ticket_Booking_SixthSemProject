@@ -3,6 +3,7 @@ include '../db/connect.php';
 include './config/verifyadmin.php';
 include '../includes/links.php';
 include './includes/confirmation.php';
+
 ?>
 <script src="../alerts/dist/js/iziToast.min.js"></script>
 <script src="../assets/home/js/script.js"></script>

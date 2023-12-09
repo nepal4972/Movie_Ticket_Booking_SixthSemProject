@@ -49,7 +49,7 @@ if(isset($_POST['submit'])) {
                                     header("Location: ../signup");
                                     exit();
                                 } else {
-                                    mysqli_stmt_bind_param($stmt, "ssssss", $fullname, $email, $phone_number, $password, $registerdate);
+                                    mysqli_stmt_bind_param($stmt, "ssss", $fullname, $email, $phone_number, $password);
                                     mysqli_stmt_execute($stmt);
                                     $_SESSION['icons'] = "./img/alerticons/success.png";  
                                     $_SESSION['status'] = "success";

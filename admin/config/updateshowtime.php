@@ -6,21 +6,31 @@ include '../../includes/links.php';
 
 <?php
 
-if(isset($_POST['add-showtime'])) {
-  $posttime = $_POST['show_time'];
-  $show_time = date("H:i:s", strtotime($posttime));
+$showtimeID = $_GET['id'];
 
-  $sql = "INSERT INTO showtime (show_time) VALUES (?)";
+$query = "SELECT * FROM showtime WHERE showID = $showtimeID";
+$result = mysqli_query($conn, $query);
+$row = mysqli_fetch_assoc($result);
+
+$show_time = $row['show_time'];
+
+
+if(isset($_POST['update-showtime'])) {
+  $posttime = $_POST['show_time'];
+  $show_time1 = date("H:i:s", strtotime($posttime));
+
+  $sql = "UPDATE showtime SET show_time = ? WHERE showID = ?";
   $stmt = mysqli_stmt_init($conn);
   mysqli_stmt_prepare($stmt, $sql);
-  mysqli_stmt_bind_param($stmt, "s", $show_time);
+  mysqli_stmt_bind_param($stmt, "si",$show_time1, $showtimeID);
   mysqli_stmt_execute($stmt);
 
   $_SESSION['icons'] = "../img/alerticons/success.png";
   $_SESSION['status'] = "success";
-  $_SESSION['status_code'] = "New Show Time Added.";
+  $_SESSION['status_code'] = "showTime Updated Successfully";
   header("Location: ../showtime.php");
   exit();
+
 }
 
 ?>
@@ -100,18 +110,19 @@ if(isset($_POST['add-showtime'])) {
     <?php include '../includes/header.php'; ?>
     <main>
       <div style="padding: 153px 35px;" class="form-container">
-        <h2>Add a New Show Time</h2>
+        <h2>Update Show Time</h2>
         <br><br><br><br>
-        <form action="addshowtime" method="POST">
+        <form action="" method="POST">
           <div class="form-row">
             <div style="text-align:center;" class="form-group">
               <label for="name">Show Time:</label>
               <br>
-              <input style="width:60%" type="time" name="show_time" required>
+              <input style="width:60%" type="time" name="show_time" value="<?php echo $show_time ?>" required>
+              <input type="hidden" name="id" value="<?php echo $showtimeID ?>">
             </div>
             </div>
           <div class="form-row">
-            <button type="submit" name="add-showtime" class="update-button">Add ShowTime</button>
+            <button type="submit" name="update-showtime" class="update-button">Update ShowTime</button>
           </div>
         </form>
       </div>

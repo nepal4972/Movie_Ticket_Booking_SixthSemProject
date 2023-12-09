@@ -90,7 +90,7 @@ include '../includes/links.php';
   <h1>403</h1>
   <h2>FORBIDDEN REQUEST</h2>
   <p>You Don't Have Permission To Access This Resources in The Server.....!!!!</p>
-  <a href="<?php echo $errorsindex ?>"> go to homepage</a>
+  <a href="<?php echo $base ?>"> go to homepage</a>
  </div>
 </div>
 

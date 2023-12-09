@@ -71,8 +71,6 @@ include './includes/confirmation.php';
                 <div class="records table-responsive">
                     <div class="record-header">
                         <div class="add">
-                            <input type="search" placeholder="Search">
-                            <button name="search">Search</button>&nbsp&nbsp&nbsp&nbsp
                             <button onclick="toggleSections()">Assign Showtime/Default Showtime</button>
                         </div>
                         <div class="browse">

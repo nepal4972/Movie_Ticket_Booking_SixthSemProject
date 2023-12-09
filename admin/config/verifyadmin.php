@@ -1,15 +1,20 @@
-
 <?php
 
-function verifyAdmin() {
-    if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin') {
-        return true;
-    }
-    return false;
+function isLoggedIn() {
+    return isset($_SESSION['user_type']);
 }
 
-if (!verifyAdmin()) {
-    header('Location: ../errors/401.php');
-    exit;
+function isAdmin() {
+    return isLoggedIn() && $_SESSION['user_type'] === 'admin';
+}
+
+if (!isAdmin()) {
+    if (isLoggedIn()) {
+        header('Location: ../errors/401.php');
+        exit;
+    } else {
+        header('Location: ../login.php');
+        exit;
+    }
 }
 ?>

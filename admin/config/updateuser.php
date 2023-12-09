@@ -149,6 +149,12 @@ if (isset($_POST['update'])) {
             </a>
           </li>
           <li>
+            <a href="../carousel.php" class="menu-item">
+              <ion-icon name="albums-outline"></ion-icon>
+              <small>&nbsp&nbspCarousel</small>
+            </a>
+          </li>
+          <li>
             <a href="../settings.php" class="menu-item">
             <ion-icon name="settings-outline"></ion-icon>
             <small>&nbsp&nbspSettings</small>

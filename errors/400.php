@@ -90,7 +90,7 @@ include '../includes/links.php';
   <h1>400</h1>
   <h2>BAD REQUEST</h2>
   <p>Client Error: The Server Cannot Process This Request.....!!!!</p>
-  <a href="<?php echo $errorsindex ?>"> go to homepage</a>
+  <a href="<?php echo $base ?>"> go to homepage</a>
  </div>
 </div>
 

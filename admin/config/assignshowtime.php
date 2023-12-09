@@ -19,8 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // Now, insert the new row into movietime
-    $insertSql = "INSERT INTO movietime (movieID, showID, start_date, end_date, movietime_status)
-                 VALUES (?, ?, ?, ?, 'verified')";
+    $insertSql = "INSERT INTO movietime (movieID, showID, start_date, end_date)
+                 VALUES (?, ?, ?, ?)";
 
     $insertStmt = mysqli_stmt_init($conn);
     if (mysqli_stmt_prepare($insertStmt, $insertSql)) {
