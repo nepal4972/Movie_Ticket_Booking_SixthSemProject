@@ -160,7 +160,7 @@ if (isset($_POST['add'])) {
                 }
                 ?>
             </select>
-                </div>
+            </div>
             </div>
           </div>
 

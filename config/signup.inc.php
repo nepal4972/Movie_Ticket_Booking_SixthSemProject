@@ -39,7 +39,7 @@ if(isset($_POST['submit'])) {
                     if(strlen($password) >= 8 ) {
                         if ((!filter_var($phone_number, FILTER_VALIDATE_INT) === false ) && strlen($phone_number) == 10) {
                             if($password === $cpassword) {
-                                $sql = "INSERT INTO users (fullname, email, phone_number, password, register_date) VALUES (?, ?, ?, ?, ?)";
+                                $sql = "INSERT INTO users (fullname, email, phone_number, password) VALUES (?, ?, ?, ?)";
                                 $stmt = mysqli_stmt_init($conn);
                                 if(!mysqli_stmt_prepare($stmt, $sql)) {
                                     $query = mysqli_query($conn, $sql);

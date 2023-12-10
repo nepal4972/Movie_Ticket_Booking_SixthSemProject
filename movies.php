@@ -249,8 +249,7 @@ include './includes/header.php';
 </html>
 
 <?php
-function fetchAndSortMovies($result)
-{
+function fetchAndSortMovies($result) {
     $movies = [];
 
     while ($row = mysqli_fetch_assoc($result)) {
