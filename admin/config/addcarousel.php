@@ -29,12 +29,13 @@ if (isset($_POST['add'])) {
                 $dbimgPath = $newFileName;
 
                 if (move_uploaded_file($fileTmpName, $uploadPath)) {
-                    $sql = "INSERT INTO carousel (movieID, carousel_image) VALUES (?, ?)";
-                    $stmt = mysqli_stmt_init($conn);
-                    mysqli_stmt_prepare($stmt, $sql);
-                    mysqli_stmt_bind_param($stmt, "is", $movieID, $dbimgPath);
-                    mysqli_stmt_execute($stmt);
-
+                if ($movieID !== null && $movieID !== '') {
+                    $sql = "INSERT INTO carousel (carousel_image, movieID) VALUES ('$dbimgPath', '$movieID')";
+                } else {
+                    $sql = "INSERT INTO carousel (carousel_image) VALUES ('$dbimgPath')";
+                }
+                mysqli_query($conn, $sql);
+                
                     $_SESSION['icons'] = "../img/alerticons/success.png";
                     $_SESSION['status'] = "success";
                     $_SESSION['status_code'] = "Carousel Added Successfully";

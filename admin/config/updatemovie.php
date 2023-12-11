@@ -200,7 +200,7 @@ if (isset($_POST['update'])) {
           <div class="form-row">
             <div class="form-group">
               <label for="text">Release Date:</label>
-              <input type="date" value="<?php echo $row5['release_date']?>" name="release_date" min="<?php echo date('Y-m-d'); ?>">
+              <input type="date" value="<?php echo $row5['release_date']?>" name="release_date">
             </div>
             <div class="form-group">
             <label for="text">End Date:</label>

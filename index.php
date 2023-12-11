@@ -239,9 +239,10 @@ include './includes/footer.php';
 </body>
 </html>
 
+
+<!-- Insertion Search Algorithm -->
 <?php
-function fetchAndSortMovies($result)
-{
+function fetchAndSortMovies($result) {
     $movies = [];
 
     while ($row = mysqli_fetch_assoc($result)) {

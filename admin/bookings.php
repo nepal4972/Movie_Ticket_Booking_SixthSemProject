@@ -19,11 +19,10 @@ $result1 = mysqli_stmt_get_result($stmt1);
 
 $sql5 = "SELECT b.*, u.*, m.*, p.*
 FROM bookings AS b
-INNER JOIN users AS u ON b.userID = u.userID
-INNER JOIN movies AS m ON b.movieID = m.movieID
-LEFT JOIN payments AS p ON b.bookingID = p.bookingID
-WHERE (b.show_date < CURDATE() OR (b.show_date = CURDATE() AND b.show_time < CURTIME()))
-AND u.userID = $userID AND b.ticket IS NOT NULL ORDER BY booked_date DESC";
+JOIN users AS u ON b.userID = u.userID
+JOIN movies AS m ON b.movieID = m.movieID
+JOIN payments AS p ON b.bookingID = p.bookingID
+WHERE b.ticket IS NOT NULL ORDER BY booked_date DESC";
 
 $stmt5 = mysqli_stmt_init($conn);
 mysqli_stmt_prepare($stmt5, $sql5);

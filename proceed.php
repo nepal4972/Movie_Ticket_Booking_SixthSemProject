@@ -230,7 +230,7 @@ if (empty($movieprice)) {
                     <p><strong>Sub Total:</strong> Rs. <?php echo $totalprice ?></p>
                     <p><strong>Total Amount:</strong> Rs. <?php echo $totalprice ?></p>
                 </div>
-                <button type="submit" name="reserve">Reserve Now</button>
+                <button type="submit" name="reserve">Buy Now</button>
             </div>
         </div>
     </div>

@@ -170,21 +170,21 @@ if (isset($_POST['add'])) {
           <div class="form-row">
             <div class="form-group">
               <label for="name">Full Name:</label>
-              <input type="text" name="fullname" required>
+              <input type="text" name="fullname">
             </div>
             <div class="form-group">
               <label for="email">Email:</label>
-              <input type="email" name="email" required>
+              <input type="email" name="email">
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
               <label for="password">Phone Number:</label>
-              <input type="phone" name="phone_number" required>
+              <input type="phone" name="phone_number">
             </div>
             <div class="form-group">
               <label for="password">Password:</label>
-              <input type="password" name="password" required>
+              <input type="password" name="password">
             </div>
           </div>
           <div class="form-row">

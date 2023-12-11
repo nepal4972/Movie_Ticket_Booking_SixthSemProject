@@ -31,11 +31,12 @@ if (isset($_POST['update'])) {
                 $dbimgPath = $newFileName;
 
                 if (move_uploaded_file($fileTmpName, $uploadPath)) {
-                    $sql = "UPDATE carousel SET carousel_image = ?, movieID = ? WHERE carouselID = ?";
-                    $stmt = mysqli_stmt_init($conn);
-                    mysqli_stmt_prepare($stmt, $sql);
-                    mysqli_stmt_bind_param($stmt, "sii", $dbimgPath, $movieID, $id);
-                    mysqli_stmt_execute($stmt);
+                  if ($movieID !== null && $movieID !== '') {
+                    $sql = "UPDATE carousel SET carousel_image = '$dbimgPath', movieID = '$movieID' WHERE carouselID = '$id'";
+                } else {
+                    $sql = "UPDATE carousel SET carousel_image = '$dbimgPath' WHERE carouselID = '$id'";
+                }
+                mysqli_query($conn, $sql);
 
                     $_SESSION['icons'] = "../img/alerticons/success.png";
                     $_SESSION['status'] = "success";
